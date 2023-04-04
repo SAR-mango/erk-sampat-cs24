@@ -1,5 +1,5 @@
 caprot : caprot.cpp
-	g++ -Wall caprot.cpp -o caprot
+	g++ -Wall -Wextra -Werror -std=c++17 caprot.cpp -o caprot
 
 clean :
 	rm -f *.o caprot
