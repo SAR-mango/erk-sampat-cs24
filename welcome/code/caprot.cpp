@@ -39,13 +39,21 @@ int main(int argc, char *argv[]) {
         }
     }
     else {
-        for (i = 0; i < vectorSize; i++) {
-            if (capitalIndexes.at(i) + shiftNum < 0) {
-                inputString[stringLength + (capitalIndexes.at(i) + shiftNum) % stringLength] 
-                = toupper(inputString[stringLength + (capitalIndexes.at(i) + shiftNum) % stringLength]);
+        if (fabs(shiftNum) <= stringLength) {
+            for (i = 0; i < vectorSize; i++) {
+                if (capitalIndexes.at(i) + shiftNum < 0) {
+                    inputString[stringLength + (capitalIndexes.at(i) + shiftNum) % stringLength] 
+                    = toupper(inputString[stringLength + (capitalIndexes.at(i) + shiftNum) % stringLength]);
+                }
+                else {
+                    inputString[capitalIndexes.at(i) + shiftNum] = toupper(inputString[capitalIndexes.at(i) + shiftNum]);
+                }
             }
-            else {
-                inputString[capitalIndexes.at(i) + shiftNum] = toupper(inputString[capitalIndexes.at(i) + shiftNum]);
+        }
+        else {
+            for (i = 0; i < vectorSize; i++) {
+                inputString[capitalIndexes.at(i) + stringLength + (shiftNum % stringLength) - 2] 
+                = toupper(inputString[capitalIndexes.at(i) + stringLength + (shiftNum % stringLength) - 2]);
             }
         }
     }
