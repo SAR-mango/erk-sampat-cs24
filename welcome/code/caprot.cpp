@@ -18,12 +18,12 @@ int main(int argc, char *argv[]) {
     for (i = 0; i < inputString.length(); i++) {
         if (isupper(inputString[i])) {
             capitalIndexes.push_back(i);
+            inputString[i] = tolower(inputString[i]);
         }
     }
     for (i = 0; i < capitalIndexes.size(); i++) {
-        inputString[capitalIndexes.at(i)] = tolower(inputString[capitalIndexes.at(i)]);
         if (capitalIndexes.at(i) + shiftNum >= inputString.length()) {
-            inputString[((inputString.length() - 1) % capitalIndexes.at(i) + shiftNum)] = toupper(inputString[(capitalIndexes.at(i) + shiftNum) % (inputString.length() - 1)]);
+            inputString[(capitalIndexes.at(i) + shiftNum) % (inputString.length())] = toupper(inputString[(capitalIndexes.at(i) + shiftNum) % (inputString.length())]);
         }
         else {
             inputString[capitalIndexes.at(i) + shiftNum] = toupper(inputString[capitalIndexes.at(i) + shiftNum]);
