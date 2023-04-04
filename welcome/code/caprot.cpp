@@ -52,10 +52,10 @@ int main(int argc, char *argv[]) {
             }
         }
         else {
-            for (i = 0; i < vectorSize; i++) {
+            /*for (i = 0; i < vectorSize; i++) {
                 inputString[capitalIndexes.at(i) + stringLength + (shiftNum % stringLength) - 2] 
                 = toupper(inputString[capitalIndexes.at(i) + stringLength + (shiftNum % stringLength) - 2]);
-            }
+            }*/
         }
     }
 
