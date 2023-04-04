@@ -12,23 +12,26 @@ int main(int argc, char *argv[]) {
     }
 
     string inputString = "";
-    long shiftNum = stoi(argv[1]);
-    unsigned long i = 0;
+    const long shiftNum = long(stoi(argv[1]));
+    long i = 0;
     vector<long> capitalIndexes;
     getline(cin, inputString);
+    const long stringLength = long(inputString.length());
+    long vectorSize = 0;
 
-    for (i = 0; i < inputString.length(); i++) {
+    for (i = 0; i < stringLength; i++) {
         if (isupper(inputString[i])) {
             capitalIndexes.push_back(i);
             inputString[i] = tolower(inputString[i]);
+            vectorSize++;
         }
     }
 
     if (shiftNum >= 0) {
-        for (i = 0; i < capitalIndexes.size(); i++) {
-            if (capitalIndexes.at(i) + shiftNum >= long(inputString.length())) {
-                inputString[(capitalIndexes.at(i) + shiftNum) % (inputString.length())] 
-                = toupper(inputString[(capitalIndexes.at(i) + shiftNum) % (inputString.length())]);
+        for (i = 0; i < vectorSize; i++) {
+            if (capitalIndexes.at(i) + shiftNum >= stringLength) {
+                inputString[(capitalIndexes.at(i) + shiftNum) % stringLength] 
+                = toupper(inputString[(capitalIndexes.at(i) + shiftNum) % stringLength]);
             }
             else {
                 inputString[capitalIndexes.at(i) + shiftNum] = toupper(inputString[capitalIndexes.at(i) + shiftNum]);
@@ -36,10 +39,10 @@ int main(int argc, char *argv[]) {
         }
     }
     else {
-        for (i = 0; i < capitalIndexes.size(); i++) {
+        for (i = 0; i < vectorSize; i++) {
             if (capitalIndexes.at(i) + shiftNum < 0) {
-                inputString[inputString.length() - ((capitalIndexes.at(i) + shiftNum) % (inputString.length())) - 1] 
-                = toupper(inputString[inputString.length() - ((capitalIndexes.at(i) + shiftNum) % (inputString.length())) - 1]);
+                inputString[stringLength + (capitalIndexes.at(i) + shiftNum) % stringLength] 
+                = toupper(inputString[stringLength + (capitalIndexes.at(i) + shiftNum) % stringLength]);
             }
             else {
                 inputString[capitalIndexes.at(i) + shiftNum] = toupper(inputString[capitalIndexes.at(i) + shiftNum]);
