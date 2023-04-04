@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
     string inputString = "";
     int shiftNum = stoi(argv[1]);
     vector<int> capitalIndexes;
-    cin >> inputString;
+    getline(cin, inputString);
     if (shiftNum < 0) {
         cout << inputString << endl;
         return 0;
