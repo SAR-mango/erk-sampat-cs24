@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
         }
     }
     else {
-        if (abs(shiftNum) <= stringLength) {
+        if (abs(shiftNum) <= stringLength || true) {
             for (i = 0; i < vectorSize; i++) {
                 if (capitalIndexes.at(i) + shiftNum < 0) {
                     inputString[stringLength + (capitalIndexes.at(i) + shiftNum) % stringLength] 
