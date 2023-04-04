@@ -27,7 +27,8 @@ int main(int argc, char *argv[]) {
     if (shiftNum >= 0) {
         for (i = 0; i < capitalIndexes.size(); i++) {
             if (capitalIndexes.at(i) + shiftNum >= long(inputString.length())) {
-                inputString[(capitalIndexes.at(i) + shiftNum) % (inputString.length())] = toupper(inputString[(capitalIndexes.at(i) + shiftNum) % (inputString.length())]);
+                inputString[(capitalIndexes.at(i) + shiftNum) % (inputString.length())] 
+                = toupper(inputString[(capitalIndexes.at(i) + shiftNum) % (inputString.length())]);
             }
             else {
                 inputString[capitalIndexes.at(i) + shiftNum] = toupper(inputString[capitalIndexes.at(i) + shiftNum]);
@@ -37,8 +38,8 @@ int main(int argc, char *argv[]) {
     else {
         for (i = 0; i < capitalIndexes.size(); i++) {
             if (capitalIndexes.at(i) + shiftNum < 0) {
-                inputString[inputString.length() - ((capitalIndexes.at(i) + shiftNum) % (inputString.length()))] 
-                = toupper(inputString[inputString.length() - ((capitalIndexes.at(i) + shiftNum) % (inputString.length()))]);
+                inputString[inputString.length() - ((capitalIndexes.at(i) + shiftNum) % (inputString.length())) - 1] 
+                = toupper(inputString[inputString.length() - ((capitalIndexes.at(i) + shiftNum) % (inputString.length())) - 1]);
             }
             else {
                 inputString[capitalIndexes.at(i) + shiftNum] = toupper(inputString[capitalIndexes.at(i) + shiftNum]);
