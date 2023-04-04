@@ -2,6 +2,7 @@
 #include <string>
 #include <cctype>
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
@@ -39,7 +40,7 @@ int main(int argc, char *argv[]) {
         }
     }
     else {
-        if (fabs(shiftNum) <= stringLength) {
+        if (abs(shiftNum) <= stringLength) {
             for (i = 0; i < vectorSize; i++) {
                 if (capitalIndexes.at(i) + shiftNum < 0) {
                     inputString[stringLength + (capitalIndexes.at(i) + shiftNum) % stringLength] 
