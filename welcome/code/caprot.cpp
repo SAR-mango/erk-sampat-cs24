@@ -40,42 +40,6 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    /*if (shiftNum >= 0) {
-        for (i = 0; i < vectorSize; i++) {
-            if (capitalIndexes.at(i) + shiftNum >= stringLength) {
-                inputString[(capitalIndexes.at(i) + shiftNum) % stringLength] 
-                = toupper(inputString[(capitalIndexes.at(i) + shiftNum) % stringLength]);
-            }
-            else {
-                inputString[capitalIndexes.at(i) + shiftNum] = toupper(inputString[capitalIndexes.at(i) + shiftNum]);
-            }
-        }
-    }
-    else {
-        if (abs(shiftNum) <= stringLength) {
-            for (i = 0; i < vectorSize; i++) {
-                if (capitalIndexes.at(i) + shiftNum < 0) {
-                    inputString[stringLength + (capitalIndexes.at(i) + shiftNum) % stringLength] 
-                    = toupper(inputString[stringLength + (capitalIndexes.at(i) + shiftNum) % stringLength]);
-                }
-                else {
-                    inputString[capitalIndexes.at(i) + shiftNum] = toupper(inputString[capitalIndexes.at(i) + shiftNum]);
-                }
-            }
-        }
-        else {
-            for (i = 0; i < vectorSize; i++) {
-                if (capitalIndexes.at(i) + shiftNum < 0) {
-                    inputString[capitalIndexes.at(i) + stringLength + (shiftNum % stringLength) - 2] 
-                    = toupper(inputString[capitalIndexes.at(i) + stringLength + (shiftNum % stringLength) - 2]);
-                }
-                else {
-                    inputString[capitalIndexes.at(i) + shiftNum] = toupper(inputString[capitalIndexes.at(i) + shiftNum]);
-                }
-            }
-        }
-    }*/
-
     cout << inputString << endl;
     return 0;
 }
