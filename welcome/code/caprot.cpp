@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
         }
     }
     else {
-        if (abs(shiftNum) <= stringLength || true) {
+        if (abs(shiftNum) <= stringLength) {
             for (i = 0; i < vectorSize; i++) {
                 if (capitalIndexes.at(i) + shiftNum < 0) {
                     inputString[stringLength + (capitalIndexes.at(i) + shiftNum) % stringLength] 
@@ -52,10 +52,15 @@ int main(int argc, char *argv[]) {
             }
         }
         else {
-            /*for (i = 0; i < vectorSize; i++) {
-                inputString[capitalIndexes.at(i) + stringLength + (shiftNum % stringLength) - 2] 
-                = toupper(inputString[capitalIndexes.at(i) + stringLength + (shiftNum % stringLength) - 2]);
-            }*/
+            for (i = 0; i < vectorSize; i++) {
+                if (capitalIndexes.at(i) + shiftNum < 0) {
+                    inputString[capitalIndexes.at(i) + stringLength + (shiftNum % stringLength) - 2] 
+                    = toupper(inputString[capitalIndexes.at(i) + stringLength + (shiftNum % stringLength) - 2]);
+                }
+                else {
+                    inputString[capitalIndexes.at(i) + shiftNum] = toupper(inputString[capitalIndexes.at(i) + shiftNum]);
+                }
+            }
         }
     }
 
