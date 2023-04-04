@@ -22,13 +22,12 @@ int main(int argc, char *argv[]) {
     }
     for (i = 0; i < capitalIndexes.size(); i++) {
         inputString[capitalIndexes.at(i)] = tolower(inputString[capitalIndexes.at(i)]);
-        /*if (capitalIndexes.at(i) + shiftNum >= inputString.length()) {
-            inputString[capitalIndexes.at(i) + shiftNum - inputString.length() + 1] = toupper(inputString[capitalIndexes.at(i) + shiftNum - inputString.length() + 1]);
+        if (capitalIndexes.at(i) + shiftNum >= inputString.length()) {
+            inputString[((inputString.length() - 1) % capitalIndexes.at(i) + shiftNum)] = toupper(inputString[(capitalIndexes.at(i) + shiftNum) % (inputString.length() - 1)]);
         }
         else {
             inputString[capitalIndexes.at(i) + shiftNum] = toupper(inputString[capitalIndexes.at(i) + shiftNum]);
-        }*/
-        inputString[(capitalIndexes.at(i) + shiftNum) % (inputString.length() - 1)] = toupper(inputString[(capitalIndexes.at(i) + shiftNum) % (inputString.length() - 1)]);
+        }
     }
     cout << inputString << endl;
     return 0;
