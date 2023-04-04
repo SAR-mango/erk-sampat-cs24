@@ -30,13 +30,13 @@ int main(int argc, char *argv[]) {
 
     for (i = 0; i < vectorSize; i++) {
         if (capitalIndexes.at(i) + shiftNum < 0) {
-            inputString[stringLength - (capitalIndexes.at(i) + shiftNum)] = toupper(inputString[stringLength - (capitalIndexes.at(i) + shiftNum)]);
+            inputString[stringLength + capitalIndexes.at(i) + shiftNum] = toupper(inputString[stringLength + capitalIndexes.at(i) + shiftNum]);
         }
         else if (capitalIndexes.at(i) + shiftNum >= stringLength) {
-            inputString[stringLength - (capitalIndexes.at(i) + shiftNum)] = toupper(inputString[stringLength - (capitalIndexes.at(i) + shiftNum)]);
+            inputString[capitalIndexes.at(i) + shiftNum - stringLength] = toupper(inputString[capitalIndexes.at(i) + shiftNum - stringLength]);
         }
         else {
-            inputString[(capitalIndexes.at(i) + shiftNum) % stringLength] = toupper(inputString[(capitalIndexes.at(i) + shiftNum) % stringLength]);
+            inputString[capitalIndexes.at(i) + shiftNum] = toupper(inputString[capitalIndexes.at(i) + shiftNum]);
         }
     }
 
