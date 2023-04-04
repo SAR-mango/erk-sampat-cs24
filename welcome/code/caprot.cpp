@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
     string inputString = "";
     long shiftNum = stoi(argv[1]);
     unsigned long i = 0;
-    vector<unsigned long> capitalIndexes;
+    vector<long> capitalIndexes;
     getline(cin, inputString);
 
     for (i = 0; i < inputString.length(); i++) {
@@ -23,9 +23,10 @@ int main(int argc, char *argv[]) {
             inputString[i] = tolower(inputString[i]);
         }
     }
+
     if (shiftNum >= 0) {
         for (i = 0; i < capitalIndexes.size(); i++) {
-            if (capitalIndexes.at(i) + shiftNum >= inputString.length()) {
+            if (capitalIndexes.at(i) + shiftNum >= long(inputString.length())) {
                 inputString[(capitalIndexes.at(i) + shiftNum) % (inputString.length())] = toupper(inputString[(capitalIndexes.at(i) + shiftNum) % (inputString.length())]);
             }
             else {
@@ -35,7 +36,7 @@ int main(int argc, char *argv[]) {
     }
     else {
         for (i = 0; i < capitalIndexes.size(); i++) {
-            if (long(capitalIndexes.at(i)) + shiftNum < 0) {
+            if (capitalIndexes.at(i) + shiftNum < 0) {
                 inputString[inputString.length() - ((capitalIndexes.at(i) + shiftNum) % (inputString.length())) - 1] 
                 = toupper(inputString[inputString.length() - ((capitalIndexes.at(i) + shiftNum) % (inputString.length())) - 1]);
             }
