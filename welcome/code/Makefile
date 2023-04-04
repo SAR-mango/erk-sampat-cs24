@@ -1,5 +1,5 @@
 caprot : caprot.cpp
-	clang++ caprot.cpp -o caprot
+	g++ -Wall caprot.cpp -o caprot
 
 clean :
 	rm -f *.o caprot
