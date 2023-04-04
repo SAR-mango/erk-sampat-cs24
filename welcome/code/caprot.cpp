@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
     }
     else {
         for (i = 0; i < capitalIndexes.size(); i++) {
-            if (capitalIndexes.at(i) + shiftNum < 0) {
+            if (long(capitalIndexes.at(i)) + shiftNum < 0) {
                 inputString[inputString.length() - ((capitalIndexes.at(i) + shiftNum) % (inputString.length()))] = toupper(inputString[inputString.length() - ((capitalIndexes.at(i) + shiftNum) % (inputString.length()))]);
             }
             else {
