@@ -13,11 +13,11 @@ int main(int argc, char *argv[]) {
     }
 
     string inputString = "";
-    const long shiftNum = long(stoi(argv[1]));
+    getline(cin, inputString);
+    const long stringLength = inputString.length();
+    long shiftNum = stoi(argv[1]) % stringLength;
     long i = 0;
     vector<long> capitalIndexes;
-    getline(cin, inputString);
-    const long stringLength = long(inputString.length());
     long vectorSize = 0;
 
     for (i = 0; i < stringLength; i++) {
@@ -28,7 +28,19 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    if (shiftNum >= 0) {
+    for (i = 0; i < vectorSize; i++) {
+        if (capitalIndexes.at(i) + shiftNum < 0) {
+            inputString[stringLength - (capitalIndexes.at(i) + shiftNum)] = toupper(inputString[stringLength - (capitalIndexes.at(i) + shiftNum)]);
+        }
+        else if (capitalIndexes.at(i) + shiftNum >= stringLength) {
+            inputString[stringLength - (capitalIndexes.at(i) + shiftNum)] = toupper(inputString[stringLength - (capitalIndexes.at(i) + shiftNum)]);
+        }
+        else {
+            inputString[(capitalIndexes.at(i) + shiftNum) % stringLength] = toupper(inputString[(capitalIndexes.at(i) + shiftNum) % stringLength]);
+        }
+    }
+
+    /*if (shiftNum >= 0) {
         for (i = 0; i < vectorSize; i++) {
             if (capitalIndexes.at(i) + shiftNum >= stringLength) {
                 inputString[(capitalIndexes.at(i) + shiftNum) % stringLength] 
@@ -62,7 +74,7 @@ int main(int argc, char *argv[]) {
                 }
             }
         }
-    }
+    }*/
 
     cout << inputString << endl;
     return 0;
