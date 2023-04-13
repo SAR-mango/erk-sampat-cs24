@@ -1,7 +1,6 @@
 #include "FibVec.h"
 #include <stdexcept>
 
-
 FibVec* create_fibvec() {
   return new FibVec();
 }
@@ -55,7 +54,7 @@ int FibVec::pop() {
 void FibVec::push(int value) {
     insert(value, curr_num_items);
 }
-int remove(size_t index) {
+int FibVec::remove(size_t index) {
     if (index > curr_num_items) {
         throw std::out_of_range("");
     }
@@ -78,7 +77,7 @@ int remove(size_t index) {
     vector = new_vector;
     return i;
 }
-size_t fib(size_t n) const {
+size_t FibVec::fib(size_t n) const {
     if (n <= 0) {
         return 0;
     }
