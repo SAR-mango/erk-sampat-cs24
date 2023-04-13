@@ -26,7 +26,7 @@ void FibVec::insert(int value, size_t index) {
         n++;
         curr_size = fib(n);
         int* new_vector = new int[curr_size];
-        for (int i = 0; i < curr_size; i++) {
+        for (size_t i = 0; i < curr_size; i++) {
             new_vector[i] = vector[i];
         }
         delete[] vector;
@@ -66,7 +66,7 @@ int remove(size_t index) {
         curr_size = fib(n);
     }
     int* new_vector = new int[curr_size];
-    for (int i = 0; i < curr_num_items; i++) {
+    for (size_t i = 0; i < curr_num_items; i++) {
         if (i < index) {
             new_vector[i] = vector[i];
         }
