@@ -37,7 +37,7 @@ void FibVec::insert(int value, size_t index) {
     vector[index] = value;
 }
 int FibVec::lookup(size_t index) const {
-    if (index > curr_num_items) {
+    if (index > curr_num_items - 1) {
         throw std::out_of_range("");
     }
     return vector[index];
