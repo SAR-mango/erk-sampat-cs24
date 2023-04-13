@@ -46,10 +46,7 @@ int FibVec::pop() {
     if (curr_num_items == 0) {
         throw std::underflow_error("");
     }
-    int i = vector[curr_num_items - 1];
-    remove(curr_num_items - 1);
-    curr_num_items--;
-    return i;
+    return remove(curr_num_items - 1);
 }
 void FibVec::push(int value) {
     insert(value, curr_num_items);
