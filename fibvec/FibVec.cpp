@@ -25,7 +25,7 @@ void FibVec::insert(int value, size_t index) {
         n++;
         curr_size = fib(n);
         int* new_vector = new int[curr_size];
-        for (size_t i = 0; i < curr_size; i++) {
+        for (size_t i = 0; i < curr_num_items; i++) {
             new_vector[i] = vector[i];
         }
         delete[] vector;
@@ -52,7 +52,7 @@ void FibVec::push(int value) {
     insert(value, curr_num_items);
 }
 int FibVec::remove(size_t index) {
-    if (index > curr_num_items) {
+    if (index > curr_num_items - 1) {
         throw std::out_of_range("");
     }
     int i = vector[index];
