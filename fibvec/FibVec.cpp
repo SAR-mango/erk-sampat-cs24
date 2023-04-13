@@ -20,7 +20,7 @@ size_t FibVec::count() const {
 }
 void FibVec::insert(int value, size_t index) {
     if (index > curr_num_items) {
-        throw std::out_of_range;
+        throw std::out_of_range("");
     }
     if (index > curr_size - 1) {
         n++;
@@ -39,13 +39,13 @@ void FibVec::insert(int value, size_t index) {
 }
 int FibVec::lookup(size_t index) const {
     if (index > curr_num_items) {
-        throw std::out_of_range;
+        throw std::out_of_range("");
     }
     return vector[index];
 }
 int FibVec::pop() {
     if (curr_num_items == 0) {
-        throw std::underflow_error;
+        throw std::underflow_error("");
     }
     int i = vector[curr_num_items - 1];
     remove(curr_num_items - 1);
@@ -57,7 +57,7 @@ void FibVec::push(int value) {
 }
 int remove(size_t index) {
     if (index > curr_num_items) {
-        throw std::out_of_range;
+        throw std::out_of_range("");
     }
     int i = vector[index];
     curr_num_items--;
