@@ -21,7 +21,7 @@ void FibVec::insert(int value, size_t index) {
     if (index > curr_num_items) {
         throw std::out_of_range("");
     }
-    if (index > curr_size - 1) {
+    /*if (index > curr_size - 1) {
         n++;
         curr_size = fib(n);
         int* new_vector = new int[curr_size];
@@ -34,7 +34,22 @@ void FibVec::insert(int value, size_t index) {
     if (index == curr_num_items) {
         curr_num_items++;
     }
-    vector[index] = value;
+    vector[index] = value;*/
+    curr_num_items++;
+    if (curr_num_items > curr_size) {
+        n++;
+        curr_size = fib(n);
+    }
+    int* new_vector = new int[curr_size];
+    for (size_t i = 0; i < index; i++) {
+        new_vector[i] = vector[i];
+    }
+    new_vector[index] = value;
+    for (size_t i = index + 1; i < curr_num_items + 1; i++) { // next try curr_num_items without + 1
+        new_vector[i] = vector[i - 1];
+    }
+    delete[] vector;
+    vector = new_vector;
 }
 int FibVec::lookup(size_t index) const {
     if (index > curr_num_items - 1) {
