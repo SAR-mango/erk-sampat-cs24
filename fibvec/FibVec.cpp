@@ -18,7 +18,7 @@ size_t FibVec::count() const {
     return curr_num_items;
 }
 void FibVec::insert(int value, size_t index) {
-    if (index > curr_num_items) {
+    if (index > curr_num_items - 1) {
         throw std::out_of_range("");
     }
     if (index > curr_size - 1) {
