@@ -21,18 +21,24 @@ void FibVec::insert(int value, size_t index) {
     if (index > curr_num_items) {
         throw std::out_of_range("");
     }
-    if (index > curr_size - 1) {
+    curr_num_items++;
+    if (curr_num_items > curr_size - 1) {
         n++;
         curr_size = fib(n);
         int* new_vector = new int[curr_size];
         for (size_t i = 0; i < curr_num_items; i++) {
-            new_vector[i] = vector[i];
+            if (i < index) {
+                new_vector[i] = vector[i];
+            }
+            else if (i == index) {
+                new_vector[index] = value;
+            }
+            else {
+                new_vector[i] = vector[i - 1];
+            }
         }
         delete[] vector;
-        vector = &new_vector;
-    }
-    if (index == curr_num_items) {
-        curr_num_items++;
+        vector = new_vector;
     }
     vector[index] = value;
 }
