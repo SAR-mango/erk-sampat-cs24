@@ -21,20 +21,6 @@ void FibVec::insert(int value, size_t index) {
     if (index > curr_num_items) {
         throw std::out_of_range("");
     }
-    /*if (index > curr_size - 1) {
-        n++;
-        curr_size = fib(n);
-        int* new_vector = new int[curr_size];
-        for (size_t i = 0; i < curr_num_items; i++) {
-            new_vector[i] = vector[i];
-        }
-        delete[] vector;
-        vector = new_vector;
-    }
-    if (index == curr_num_items) {
-        curr_num_items++;
-    }
-    vector[index] = value;*/
     curr_num_items++;
     if (curr_num_items > curr_size) {
         n++;
@@ -52,6 +38,9 @@ void FibVec::insert(int value, size_t index) {
     vector = new_vector;
 }
 int FibVec::lookup(size_t index) const {
+    if (curr_num_items == 0) {
+        throw std::underflow_error("");
+    }
     if (index > curr_num_items - 1) {
         throw std::out_of_range("");
     }
