@@ -53,7 +53,7 @@ void FibVec::push(int value) {
     insert(value, curr_num_items);
 }
 int FibVec::remove(size_t index) {
-    if (index > curr_num_items - 1) {
+    if (index > curr_num_items - 1 || curr_num_items == 0) {
         throw std::out_of_range("");
     }
     int i = vector[index];
