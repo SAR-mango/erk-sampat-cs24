@@ -45,7 +45,7 @@ void FibVec::insert(int value, size_t index) {
         new_vector[i] = vector[i];
     }
     new_vector[index] = value;
-    for (size_t i = index + 1; i < curr_num_items + 1; i++) { // next try curr_num_items without + 1
+    for (size_t i = index + 1; i < curr_num_items; i++) {
         new_vector[i] = vector[i - 1];
     }
     delete[] vector;
