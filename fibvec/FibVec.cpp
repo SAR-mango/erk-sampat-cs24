@@ -22,7 +22,7 @@ void FibVec::insert(int value, size_t index) {
         throw std::out_of_range("");
     }
     curr_num_items++;
-    if (curr_num_items > curr_size - 1) {
+    if (curr_num_items > curr_size) {
         n++;
         curr_size = fib(n);
         int* new_vector = new int[curr_size];
