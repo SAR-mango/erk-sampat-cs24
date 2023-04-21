@@ -1,20 +1,21 @@
+#include <iostream>
 #include "Errors.h"
 #include "Move.h"
 
 // Space for implementing Move functions.
 
 void error();
-void print();
+void print(const int &number, const char &player, const int &row, const int &column);
 
 Move::Move(const std::string& input) {
     if (input.length() < 6) {
         error();
     }
-    int index = 0;
+    size_t index = 0;
     if (isdigit(input[index])) {
-        int move_num = stoi(input[index]);
+        int move_num = std::stoi(input[index]);
         if (1 <= move_num && move_num <= 9) {
-            number = move_number;
+            number = move_num;
         }
         else {
             error();
@@ -24,7 +25,7 @@ Move::Move(const std::string& input) {
         error();
     }
     index++;
-    while (isspace(input[index]) {
+    while (isspace(input[index])) {
         index++;
     }
     if (index == 1) {
@@ -52,7 +53,7 @@ Move::Move(const std::string& input) {
     }
     index++;
     if (isdigit(input[index])) {
-        int col = stoi(input[index]);
+        int col = std::stoi(input[index]);
         if (col == 1 || col == 2 || col == 3) {
             column = col;
         }
@@ -64,7 +65,7 @@ Move::Move(const std::string& input) {
         error();
     }
     if (index == input.length() - 1) {
-        print();
+        print(number, player, row, column);
     }
     index++;
     if (!isspace(input[index])) {
@@ -78,7 +79,7 @@ Move::Move(const std::string& input) {
             break;
         }
     }
-    print();
+    print(number, player, row, column);
 }
 
 void error() {
@@ -88,6 +89,7 @@ void error() {
 
 void print() {
     std::cout << number << ' ' << player << ' ' << row << column << std::endl;
+}
 
 std::ostream& operator << (std::ostream& stream, const Move& move) {
 
