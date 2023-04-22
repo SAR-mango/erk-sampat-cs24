@@ -7,8 +7,8 @@
 
 Move::Move(const std::string& input) {
     if (input.length() < 6) { // minimum length of a valid entry is 6
-        throw ParseError("length less than 6");
-        exit(1);
+        //throw ParseError("length less than 6");
+        //exit(1);
     }
     size_t index = 0;
     if (isdigit(input[index])) {
