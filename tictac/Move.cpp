@@ -8,7 +8,7 @@
 
 Move::Move(const std::string& input) {
     if (input.length() < 6) {
-        throw ParseError;
+        throw;
     }
     size_t index = 0;
     if (isdigit(input[index])) {
@@ -17,24 +17,24 @@ Move::Move(const std::string& input) {
             number = move_num;
         }
         else {
-            throw std::invalid_argument("");
+            throw;
         }
     }
     else {
-        throw std::invalid_argument("");
+        throw;
     }
     index++;
     while (isspace(input[index])) {
         index++;
     }
     if (index == 1) {
-        throw std::invalid_argument("");
+        throw;
     }
     if (tolower(input[index]) == 'x' || tolower(input[index]) == 'o') {
         player = toupper(input[index]);
     }
     else {
-        throw std::invalid_argument("");
+        throw;
     }
     index++;
     size_t temp_index = index;
@@ -42,13 +42,13 @@ Move::Move(const std::string& input) {
         index++;
     }
     if (index == temp_index) {
-        throw std::invalid_argument("");
+        throw;
     }
     if (tolower(input[index]) == 'a' || tolower(input[index]) == 'b' || tolower(input[index]) == 'c') {
         row = toupper(input[index]);
     }
     else {
-        throw std::invalid_argument("");
+        throw;
     }
     index++;
     if (isdigit(input[index])) {
@@ -57,22 +57,22 @@ Move::Move(const std::string& input) {
             column = col;
         }
         else {
-            throw std::invalid_argument("");
+            throw;
         }
     }
     else {
-        throw std::invalid_argument("");
+        throw;
     }
     if (index == input.length() - 1) {
         //print();
     }
     index++;
     if (!isspace(input[index])) {
-        throw std::invalid_argument("");
+        throw;
     }
     for (index++; index < input.length(); index++) {
         if (!(isspace(input[index]) || input[index] == '#')) {
-            throw std::invalid_argument("");
+            throw;
         }
         if (input[index] == '#') {
             break;
@@ -82,5 +82,5 @@ Move::Move(const std::string& input) {
 }
 
 std::ostream& operator << (std::ostream& stream, const Move& move) {
-
+    return;
 }
