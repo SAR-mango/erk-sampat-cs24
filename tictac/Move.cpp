@@ -8,7 +8,7 @@
 
 Move::Move(const std::string& input) {
     if (input.length() < 6) {
-        throw std::invalid_argument("");
+        throw ParseError;
     }
     size_t index = 0;
     if (isdigit(input[index])) {
@@ -80,14 +80,7 @@ Move::Move(const std::string& input) {
     }
     //print();
 }
-/*void Move::error() {
-    std::cout << "Parse error." << std::endl;
-    exit(1);
-}*/
-/*void Move::print() {
-    std::cout << number << ' ' << player << ' ' << row << column << std::endl;
-}*/
 
 std::ostream& operator << (std::ostream& stream, const Move& move) {
-    return string(move.number) + ' ' + string(move.player) + ' ' + string(move.row) + string(move.column);
+
 }
