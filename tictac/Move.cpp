@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cctype>
 #include "Errors.h"
 #include "Move.h"
 
