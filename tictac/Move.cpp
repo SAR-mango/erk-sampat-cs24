@@ -8,7 +8,7 @@
 
 Move::Move(const std::string& input) {
     if (input.length() < 6) {
-        error();
+        throw std::invalid_argument("");
     }
     size_t index = 0;
     if (isdigit(input[index])) {
@@ -17,24 +17,24 @@ Move::Move(const std::string& input) {
             number = move_num;
         }
         else {
-            error();
+            throw std::invalid_argument("");
         }
     }
     else {
-        error();
+        throw std::invalid_argument("");
     }
     index++;
     while (isspace(input[index])) {
         index++;
     }
     if (index == 1) {
-        error();
+        throw std::invalid_argument("");
     }
     if (tolower(input[index]) == 'x' || tolower(input[index]) == 'o') {
         player = toupper(input[index]);
     }
     else {
-        error();
+        throw std::invalid_argument("");
     }
     index++;
     size_t temp_index = index;
@@ -42,13 +42,13 @@ Move::Move(const std::string& input) {
         index++;
     }
     if (index == temp_index) {
-        error();
+        throw std::invalid_argument("");
     }
     if (tolower(input[index]) == 'a' || tolower(input[index]) == 'b' || tolower(input[index]) == 'c') {
         row = toupper(input[index]);
     }
     else {
-        error();
+        throw std::invalid_argument("");
     }
     index++;
     if (isdigit(input[index])) {
@@ -57,22 +57,22 @@ Move::Move(const std::string& input) {
             column = col;
         }
         else {
-            error();
+            throw std::invalid_argument("");
         }
     }
     else {
-        error();
+        throw std::invalid_argument("");
     }
     if (index == input.length() - 1) {
         //print();
     }
     index++;
     if (!isspace(input[index])) {
-        error();
+        throw std::invalid_argument("");
     }
     for (index++; index < input.length(); index++) {
         if (!(isspace(input[index]) || input[index] == '#')) {
-            error();
+            throw std::invalid_argument("");
         }
         if (input[index] == '#') {
             break;
@@ -80,14 +80,14 @@ Move::Move(const std::string& input) {
     }
     //print();
 }
-void Move::error() {
+/*void Move::error() {
     std::cout << "Parse error." << std::endl;
     exit(1);
-}
+}*/
 /*void Move::print() {
     std::cout << number << ' ' << player << ' ' << row << column << std::endl;
 }*/
 
 std::ostream& operator << (std::ostream& stream, const Move& move) {
-    return (move.number << ' ' << move.player << ' ' << move.row << move.column);
+    return std::string(move.number) + ' ' + std::string(move.player) + ' ' + std::string(move.row) + std::string(move.column);
 }
