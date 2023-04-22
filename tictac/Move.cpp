@@ -18,10 +18,12 @@ Move::Move(const std::string& input) {
         }
         else {
             throw ParseError("invalid move number");
+            exit(1);
         }
     }
     else {
         throw ParseError("first character is not a move number");
+        exit(1);
     }
     index++;
     while (isspace(input[index])) {
@@ -29,12 +31,14 @@ Move::Move(const std::string& input) {
     }
     if (index == 1) {
         throw ParseError("no whitespace following move number");
+        exit(1);
     }
     if (tolower(input[index]) == 'x' || tolower(input[index]) == 'o') {
         player = toupper(input[index]);
     }
     else {
         throw ParseError("invalid player code");
+        exit(1);
     }
     index++;
     size_t temp_index = index;
@@ -43,12 +47,14 @@ Move::Move(const std::string& input) {
     }
     if (index == temp_index) {
         throw ParseError("no whitespace following player code");
+        exit(1);
     }
     if (tolower(input[index]) == 'a' || tolower(input[index]) == 'b' || tolower(input[index]) == 'c') {
         row = toupper(input[index]);
     }
     else {
         throw ParseError("invalid row");
+        exit(1);
     }
     index++;
     if (isdigit(input[index])) {
@@ -58,19 +64,23 @@ Move::Move(const std::string& input) {
         }
         else {
             throw ParseError("invalid column");
+            exit(1);
         }
     }
     else {
         throw ParseError("column is not a number");
+        exit(1);
     }
     index++;
     if (index < input.length() - 1) {
         if (!isspace(input[index])) {
             throw ParseError("no whitespace following column");
+            exit(1);
         }
         for (index++; index < input.length(); index++) {
             if (!(isspace(input[index]) || input[index] == '#')) {
                 throw ParseError("invalid character following whitespace after column");
+                exit(1);
             }
             if (input[index] == '#') {
                 break;
