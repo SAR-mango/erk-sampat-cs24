@@ -74,8 +74,8 @@ Move::Move(const std::string& input) {
     index++;
     if (index < input.length() - 1) {
         if (!isspace(input[index])) {
-            throw ParseError("no whitespace following column");
-            exit(1);
+            //throw ParseError("no whitespace following column");
+            //exit(1);
         }
         for (index++; index < input.length(); index++) {
             if (!(isspace(input[index]) || input[index] == '#')) {
