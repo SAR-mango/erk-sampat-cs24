@@ -7,8 +7,6 @@
 // Space for implementing Move functions.
 
 Move::Move(const std::string& input) {
-    void error();
-    void print();
     if (input.length() < 6) {
         error();
     }
@@ -81,13 +79,13 @@ Move::Move(const std::string& input) {
         }
     }
     print();
-    void error() {
-        std::cout << "Parse error." << std::endl;
-        exit(1);
-    }
-    void print() {
-        std::cout << number << ' ' << player << ' ' << row << column << std::endl;
-    }
+}
+void Move::error() {
+    std::cout << "Parse error." << std::endl;
+    exit(1);
+}
+void Move::print() {
+    std::cout << number << ' ' << player << ' ' << row << column << std::endl;
 }
 
 //std::ostream& operator << (std::ostream& stream, const Move& move) {}
