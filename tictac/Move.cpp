@@ -15,7 +15,7 @@ Move::Move(const std::string& input) {
     }
     size_t index = 0;
     if (isdigit(input[index])) {
-        int move_num = std::atoi(input[index]);
+        int move_num = std::atoi(&input[index]);
         if (1 <= move_num && move_num <= 9) {
             number = move_num;
         }
