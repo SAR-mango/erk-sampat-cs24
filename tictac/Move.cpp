@@ -89,6 +89,5 @@ void Move::error() {
 }*/
 
 std::ostream& operator << (std::ostream& stream, const Move& move) {
-    //std::cout << number << ' ' << player << ' ' << row << column << std::endl;
-    std::cout << number << ' ' << player << ' ' << row << column <<;
+    std::cout << move.number << ' ' << move.player << ' ' << move.row << move.column << std::endl;
 }
