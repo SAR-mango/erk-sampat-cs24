@@ -20,7 +20,6 @@ struct Move {
   Move(const std::string& input);
 
   private:
-    void print();
     void error();
 };
 
