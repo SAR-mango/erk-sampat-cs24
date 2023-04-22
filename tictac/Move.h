@@ -18,6 +18,10 @@ struct Move {
 
   // The constructor parses a string.
   Move(const std::string& input);
+
+  private:
+    void print();
+    void error();
 };
 
 // Adding a << operator allows easy printing to std::cout.
