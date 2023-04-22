@@ -65,14 +65,14 @@ Move::Move(const std::string& input) {
             column = col;
         }
         else {
-            throw ParseError("invalid column");
+            throw ParseError("invalid column number");
         }
     }
     else {
         throw ParseError("column is not a number");
     }
     index++;
-    if (index < input.length() - 1) {
+    if (index < input.length()) {
         if (!isspace(input[index])) {
             throw ParseError("no whitespace following column");
         }
