@@ -89,5 +89,5 @@ Move::Move(const std::string& input) {
 }*/
 
 std::ostream& operator << (std::ostream& stream, const Move& move) {
-    return std::string(move.number) + ' ' + std::string(move.player) + ' ' + std::string(move.row) + std::string(move.column);
+    return string(move.number) + ' ' + string(move.player) + ' ' + string(move.row) + string(move.column);
 }
