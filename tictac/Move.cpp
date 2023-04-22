@@ -15,7 +15,7 @@ Move::Move(const std::string& input) {
     }
     size_t index = 0;
     if (isdigit(input[index])) {
-        int move_num = std::stoi(input[index]);
+        int move_num = std::atoi(input[index]);
         if (1 <= move_num && move_num <= 9) {
             number = move_num;
         }
@@ -40,7 +40,7 @@ Move::Move(const std::string& input) {
         error();
     }
     index++;
-    int temp_index = index;
+    size_t temp_index = index;
     while (isspace(input[index]) {
         index++;
     }
@@ -55,7 +55,7 @@ Move::Move(const std::string& input) {
     }
     index++;
     if (isdigit(input[index])) {
-        int col = std::stoi(input[index]);
+        int col = std::atoi(input[index]);
         if (col == 1 || col == 2 || col == 3) {
             column = col;
         }
