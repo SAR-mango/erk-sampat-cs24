@@ -13,7 +13,7 @@ struct Move {
   // Member Variables
   int  number;
   char player;
-  int  row;
+  char  row;
   int  column;
 
   // The constructor parses a string.
