@@ -82,5 +82,5 @@ Move::Move(const std::string& input) {
 }
 
 std::ostream& operator << (std::ostream& stream, const Move& move) {
-    return '';
+    return std::cout;
 }
