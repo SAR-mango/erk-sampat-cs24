@@ -64,7 +64,7 @@ Move::Move(const std::string& input) {
         error();
     }
     if (index == input.length() - 1) {
-        print();
+        //print();
     }
     index++;
     if (!isspace(input[index])) {
@@ -78,16 +78,17 @@ Move::Move(const std::string& input) {
             break;
         }
     }
-    print();
+    //print();
 }
 void Move::error() {
     std::cout << "Parse error." << std::endl;
     exit(1);
 }
-void Move::print() {
+/*void Move::print() {
     std::cout << number << ' ' << player << ' ' << row << column << std::endl;
-}
+}*/
 
 std::ostream& operator << (std::ostream& stream, const Move& move) {
-
+    //std::cout << number << ' ' << player << ' ' << row << column << std::endl;
+    std::cout << number << ' ' << player << ' ' << row << column <<;
 }
