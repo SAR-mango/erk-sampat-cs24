@@ -88,4 +88,6 @@ void Move::print() {
     std::cout << number << ' ' << player << ' ' << row << column << std::endl;
 }
 
-std::ostream& operator << (std::ostream& stream, const Move& move) {}
+std::ostream& operator << (std::ostream& stream, const Move& move) {
+
+}
