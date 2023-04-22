@@ -6,10 +6,9 @@
 
 // Space for implementing Move functions.
 
-void error();
-void print(const int &number, const char &player, const int &row, const int &column);
-
 Move::Move(const std::string& input) {
+    void error();
+    void print(const int &number, const char &player, const int &row, const int &column);
     if (input.length() < 6) {
         error();
     }
@@ -41,7 +40,7 @@ Move::Move(const std::string& input) {
     }
     index++;
     size_t temp_index = index;
-    while (isspace(input[index]) {
+    while (isspace(input[index])) {
         index++;
     }
     if (index == temp_index) {
@@ -55,7 +54,7 @@ Move::Move(const std::string& input) {
     }
     index++;
     if (isdigit(input[index])) {
-        int col = std::atoi(input[index]);
+        int col = std::atoi(&input[index]);
         if (col == 1 || col == 2 || col == 3) {
             column = col;
         }
@@ -82,17 +81,13 @@ Move::Move(const std::string& input) {
         }
     }
     print(number, player, row, column);
+    void error() {
+        std::cout << "Parse error." << std::endl;
+        exit(1);
+    }
+    void print() {
+        std::cout << number << ' ' << player << ' ' << row << column << std::endl;
+    }
 }
 
-void error() {
-    std::cout << "Parse error." << std::endl;
-    exit(1);
-}
-
-void print() {
-    std::cout << number << ' ' << player << ' ' << row << column << std::endl;
-}
-
-std::ostream& operator << (std::ostream& stream, const Move& move) {
-
-}
+std::ostream& operator << (std::ostream& stream, const Move& move) {}
