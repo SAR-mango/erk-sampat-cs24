@@ -3,15 +3,17 @@
 
 #include "Move.h"
 
-enum game_state {GS_PROG_NEW, GS_PROG_X_TURN, GS_PROG_O_TURN, GS_OVER_X_W, GS_OVER_O_W, GS_OVER_DRAW};
+enum Game_State {GS_PROG_NEW, GS_PROG_X_TURN, GS_PROG_O_TURN, GS_OVER_X_W, GS_OVER_O_W, GS_OVER_DRAW};
 
 class Board {
     public:
-        game_state getStatus();
+        Game_State getStatus();
         void addMove(Move move);
-        Board();
     private:
         int move_num = 0;
+        int last_move_num = 0;
+        enum Player {P_X, P_O};
+        Player player;
         struct Square {
             bool occupied = false;
             char occupier = '';
