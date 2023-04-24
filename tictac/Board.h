@@ -10,7 +10,6 @@ class Board {
         Game_State getStatus();
         void addMove(Move move);
     private:
-        int move_num = 0;
         int last_move_num = 0;
         enum Player {P_X, P_O};
         Player player;
