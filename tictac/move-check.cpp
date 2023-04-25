@@ -25,7 +25,6 @@ int main (int argc, char** argv) {
     else {
       std::cout << "Parse error.\n";
     }
-
     return 1;
   }
 }
