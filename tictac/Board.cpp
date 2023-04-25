@@ -19,12 +19,15 @@ void Board::addMove(Move move) {
         if (last_move_num >= 2) {
             if (getWinner() == 'X') {
                 status = GS_OVER_X_W;
+                return;
             }
             else if (getWinner() == 'O') {
                 status = GS_OVER_O_W;
+                return;
             }
             else if (last_move_num == 8) {
                 status = GS_OVER_DRAW;
+                return;
             }
             else {
             }
@@ -38,22 +41,20 @@ void Board::addMove(Move move) {
         if (status == GS_OVER_X_W || status == GS_OVER_O_W) {
             throw InvalidMove("a player has already won");
         }
-        if (move.number > 9 && status == GS_OVER_DRAW) {
+        if (status == GS_OVER_DRAW) {
             throw InvalidMove("the game is a draw");
         }
         if (getSquare(move.row, move.column)->occupier != '\0') {
             throw InvalidMove("square is already occupied");
         }
         last_move_num++;
-        if (status != GS_OVER_X_W && status != GS_OVER_O_W && status != GS_OVER_DRAW) {
-            if (move.player == 'X') {
-                status = GS_PROG_O_TURN;
-            }
-            else {
-                status = GS_PROG_X_TURN;
-            }
-            getSquare(move.row, move.column)->occupier = move.player;
+        if (move.player == 'X') {
+            status = GS_PROG_O_TURN;
         }
+        else {
+            status = GS_PROG_X_TURN;
+        }
+        getSquare(move.row, move.column)->occupier = move.player;
     }
 }
 
