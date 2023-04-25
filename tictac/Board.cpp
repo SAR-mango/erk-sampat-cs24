@@ -7,7 +7,6 @@ void Board::addMove(Move move) {
             throw InvalidMove("first move number is not 1");
         }
         last_move_num = 1;
-        last_player = move.player;
         getSquare(move.row, move.column).occupier = move.player;
         if (move.player == 'X') {
             status = GS_PROG_O_TURN;
@@ -19,7 +18,7 @@ void Board::addMove(Move move) {
     if (move.number != last_move_num + 1) {
         throw InvalidMove("move number and last move number are not consecutive");
     }
-    if (last_move_number >= 2) {
+    if (last_move_num >= 2) {
         if (getWinner() == 'X') {
             status = GS_OVER_X_W;
         }
@@ -41,7 +40,7 @@ void Board::addMove(Move move) {
     if (status == GS_OVER_DRAW) {
         throw InvalidMove("the game is a draw");
     }
-    if (getSquare(move.row, move.column).occupier != '') {
+    if (getSquare(move.row, move.column).occupier != '\0') {
         throw InvalidMove("square was already occupied");
     }
     last_move_num++;
@@ -58,7 +57,7 @@ Game_State Board::getStatus() {
     return status;
 }
 
-bool Board::checkWin() {
+char Board::getWinner() {
     Square wins[8][3] = {
         {A1, A2, A3}, 
         {B1, B2, B3}, 
@@ -74,7 +73,7 @@ bool Board::checkWin() {
             return wins[i][0].occupier;
         }
         else {
-            return '';
+            return '\0';
         }
     }
 }
