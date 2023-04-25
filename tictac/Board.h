@@ -11,8 +11,7 @@ class Board {
         void addMove(Move move);
     private:
         int last_move_num = 0;
-        enum Player {P_X, P_O};
-        Player player;
+        char player = '';
         struct Square {
             bool occupied = false;
             char occupier = '';
