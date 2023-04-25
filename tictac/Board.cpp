@@ -16,22 +16,6 @@ void Board::addMove(Move move) {
         }
     }
     else {
-        if (last_move_num >= 2) {
-            if (getWinner() == 'X') {
-                status = GS_OVER_X_W;
-                return;
-            }
-            else if (getWinner() == 'O') {
-                status = GS_OVER_O_W;
-                return;
-            }
-            else if (last_move_num == 8) {
-                status = GS_OVER_DRAW;
-                return;
-            }
-            else {
-            }
-        }
         if (move.number != last_move_num + 1) {
             throw InvalidMove("move number and last move number are not consecutive");
         }
@@ -55,6 +39,19 @@ void Board::addMove(Move move) {
             status = GS_PROG_X_TURN;
         }
         getSquare(move.row, move.column)->occupier = move.player;
+        if (last_move_num >= 3) {
+            if (getWinner() == 'X') {
+                status = GS_OVER_X_W;
+            }
+            else if (getWinner() == 'O') {
+                status = GS_OVER_O_W;
+            }
+            else if (last_move_num == 8) {
+                status = GS_OVER_DRAW;
+            }
+            else {
+            }
+        }
     }
 }
 
