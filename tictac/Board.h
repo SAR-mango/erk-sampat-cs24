@@ -29,7 +29,7 @@ class Board {
         Game_State status = GS_PROG_NEW;
 
         char getWinner();
-        Square& getSquare(char row, int col);
+        Square* getSquare(char row, int col);
 };
 
 #endif
