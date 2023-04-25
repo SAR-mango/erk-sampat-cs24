@@ -4,6 +4,9 @@
 #include "Move.h"
 
 enum Game_State {GS_PROG_NEW, GS_PROG_X_TURN, GS_PROG_O_TURN, GS_OVER_X_W, GS_OVER_O_W, GS_OVER_DRAW};
+struct Square {
+    char occupier = '\0';
+};
 
 class Board {
     public:
@@ -11,9 +14,6 @@ class Board {
         Game_State getStatus();
 
     private:
-        struct Square {
-            char occupier = '\0';
-        };
         int last_move_num = 0;
         Square A1, A2, A3, B1, B2, B3, C1, C2, C3;
         Square* wins[8][3] = {
