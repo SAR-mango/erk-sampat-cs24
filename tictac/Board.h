@@ -19,6 +19,7 @@ class Board {
         int occ_squares = 0;
         Square A1, A2, A3, B1, B2, B3, C1, C2, C3;
         bool checkWin();
+        Square& getSquare(char row, int col);
 }
 
 #endif
