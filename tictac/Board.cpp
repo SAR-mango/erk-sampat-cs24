@@ -46,7 +46,7 @@ void Board::addMove(Move move) {
             else if (getWinner() == 'O') {
                 status = GS_OVER_O_W;
             }
-            else if (last_move_num == 8) {
+            else if (last_move_num == 9) {
                 status = GS_OVER_DRAW;
             }
             else {
