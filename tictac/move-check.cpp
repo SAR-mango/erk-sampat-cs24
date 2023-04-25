@@ -3,15 +3,10 @@
 
 #include <iostream>
 
-
-int main(int argc, char** argv) {
+int main (int argc, char** argv) {
   bool verbose = false;
-
-  if(argc == 2 && std::string(argv[1]) == "-v") {
+  if (argc == 2 && std::string(argv[1]) == "-v") {
     verbose = true;
-  }
-
-  if(verbose) {
     std::cout << "> ";
   }
 
@@ -24,7 +19,7 @@ int main(int argc, char** argv) {
     return 0;
   }
   catch(const ParseError& e) {
-    if(verbose) {
+    if (verbose) {
       std::cout << "Parse error: " << e.what() << '\n';
     }
     else {
