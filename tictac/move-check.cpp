@@ -1,7 +1,7 @@
+#include <iostream>
+
 #include "Errors.h"
 #include "Move.h"
-
-#include <iostream>
 
 int main (int argc, char** argv) {
   bool verbose = false;
