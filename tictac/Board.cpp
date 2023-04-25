@@ -7,7 +7,7 @@ void Board::addMove(Move move) {
             throw InvalidMove("first move number is not 1");
         }
         last_move_num = 1;
-        getSquare(move.row, move.column).occupier = move.player;
+        getSquare(move.row, move.column)->occupier = move.player;
         if (move.player == 'X') {
             status = GS_PROG_O_TURN;
         }
@@ -40,7 +40,7 @@ void Board::addMove(Move move) {
     if (status == GS_OVER_DRAW) {
         throw InvalidMove("the game is a draw");
     }
-    if (getSquare(move.row, move.column).occupier != '\0') {
+    if (getSquare(move.row, move.column)->occupier != '\0') {
         throw InvalidMove("square was already occupied");
     }
     last_move_num++;
@@ -50,7 +50,7 @@ void Board::addMove(Move move) {
     else {
         status = GS_PROG_X_TURN;
     }
-    getSquare(move.row, move.column).occupier = move.player;
+    getSquare(move.row, move.column)->occupier = move.player;
 }
 
 Game_State Board::getStatus() {
