@@ -59,8 +59,8 @@ Game_State Board::getStatus() {
 
 char Board::getWinner() {
     for (int i = 0; i < 8; i++) {
-        if (wins[i][0].occupier == wins[i][1].occupier && wins[i][0].occupier == wins[i][2].occupier) {
-            return wins[i][0].occupier;
+        if (wins[i][0]->occupier == wins[i][1]->occupier && wins[i][0]->occupier == wins[i][2]->occupier) {
+            return wins[i][0]->occupier;
         }
         else {
             return '\0';
@@ -68,7 +68,7 @@ char Board::getWinner() {
     }
 }
 
-Square& Board::getSquare(char row, int col) {
+Square* Board::getSquare(char row, int col) {
     if (row == 'A') {
         if (col == 1) {
             return &A1;
