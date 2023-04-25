@@ -62,10 +62,8 @@ char Board::getWinner() {
         if (wins[i][0]->occupier == wins[i][1]->occupier && wins[i][0]->occupier == wins[i][2]->occupier) {
             return wins[i][0]->occupier;
         }
-        else {
-            return '\0';
-        }
     }
+    return '\0';
 }
 
 Square* Board::getSquare(char row, int col) {
