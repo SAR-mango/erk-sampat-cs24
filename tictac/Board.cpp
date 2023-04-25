@@ -25,7 +25,7 @@ void Board::addMove(Move move) {
         else if (getWinner() == 'O') {
             status = GS_OVER_O_W;
         }
-        else if (last_move_number == 9) {
+        else if (last_move_num == 9) {
             status = GS_OVER_DRAW;
         }
         else {
@@ -58,16 +58,6 @@ Game_State Board::getStatus() {
 }
 
 char Board::getWinner() {
-    Square wins[8][3] = {
-        {A1, A2, A3}, 
-        {B1, B2, B3}, 
-        {C1, C2, C3}, 
-        {A1, B1, C1}, 
-        {A2, B2, C2}, 
-        {A3, B3, C3}, 
-        {A1, B2, C3}, 
-        {A3, B2, C1}
-    }
     for (int i = 0; i < 8; i++) {
         if (wins[i][0].occupier == wins[i][1].occupier && wins[i][0].occupier == wins[i][2].occupier) {
             return wins[i][0].occupier;
