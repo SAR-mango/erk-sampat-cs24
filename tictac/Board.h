@@ -20,7 +20,7 @@ class Board {
         Square A1, A2, A3, B1, B2, B3, C1, C2, C3;
         Game_State status = GS_PROG_NEW;
 
-        bool checkWin();
+        char getWinner();
         Square& getSquare(char row, int col);
 }
 
