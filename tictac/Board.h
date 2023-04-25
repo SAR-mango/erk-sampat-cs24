@@ -12,7 +12,6 @@ class Board {
 
     private:
         struct Square {
-            bool occupied = false;
             char occupier = '';
         }
         int last_move_num = 0;
