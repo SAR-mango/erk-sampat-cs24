@@ -7,17 +7,18 @@ enum Game_State {GS_PROG_NEW, GS_PROG_X_TURN, GS_PROG_O_TURN, GS_OVER_X_W, GS_OV
 
 class Board {
     public:
-        Game_State getStatus();
         void addMove(Move move);
+        Game_State getStatus();
+
     private:
-        int last_move_num = 0;
-        char last_player = '';
         struct Square {
             bool occupied = false;
             char occupier = '';
         }
-        int occ_squares = 0;
+        int last_move_num = 0;
+        char last_player = '';
         Square A1, A2, A3, B1, B2, B3, C1, C2, C3;
+
         bool checkWin();
         Square& getSquare(char row, int col);
 }
