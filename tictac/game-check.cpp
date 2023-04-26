@@ -40,6 +40,8 @@ int main (int argc, char** argv) {
             else {
                 std::cout << "Invalid move.\n";
             }
+            delete move;
+            move = NULL;
             return 2;
         }
         std::getline(std::cin, line);
