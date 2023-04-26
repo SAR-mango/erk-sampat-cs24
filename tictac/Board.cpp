@@ -1,6 +1,5 @@
 #include "Errors.h"
 #include "Board.h"
-//#include <iostream> // TODO remove
 
 void Board::addMove(Move move) {
     if (last_move_num == 0) {
@@ -62,9 +61,7 @@ Game_State Board::getStatus() {
 
 char Board::getWinner() {
     for (int i = 0; i < 8; i++) {
-        //std::cout << i << ' ' << wins[i][0]->occupier << wins[i][1]->occupier << wins[i][2]->occupier << std::endl;
         if (wins[i][0]->occupier == wins[i][1]->occupier && wins[i][0]->occupier == wins[i][2]->occupier && (wins[i][0]->occupier == 'X' || wins[i][0]->occupier == 'O')) {
-            //std::cout << "done" << std::endl;
             return wins[i][0]->occupier;
         }
     }
