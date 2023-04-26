@@ -15,13 +15,8 @@ int main (int argc, char** argv) {
     std::getline(std::cin, line);
     while (/*line != "\0"*/ !std::cin.eof()) {
         try {
-            if (line != "\0") {
-                Move move(line);
-                board.addMove(move);
-            }
-            else {
-                //std::cout << line << std::endl;
-            }
+            Move move(line);
+            board.addMove(move);
         }
         catch(const ParseError& e) {
             if (verbose) {
