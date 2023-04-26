@@ -13,7 +13,7 @@ int main (int argc, char** argv) {
     std::string line;
     Board board;
     std::getline(std::cin, line);
-    while (line != "\0") {
+    while (/*line != "\0"*/ !std::cin.eof()) {
         try {
             Move move(line);
             board.addMove(move);
