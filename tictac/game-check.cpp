@@ -12,11 +12,12 @@ int main (int argc, char** argv) {
     }
 
     std::string line;
+    Move* move = NULL;
     Board board;
     std::getline(std::cin, line);
     while (!std::cin.eof() && line != "\0") {
         try {
-            Move move(line);
+            move = new Move(line);
         }
         catch(const ParseError& e) {
             if (verbose) {
@@ -28,7 +29,7 @@ int main (int argc, char** argv) {
             return 1;
         }
         try {
-            board.addMove(move);
+            board.addMove(*move);
         }
         catch(const InvalidMove& e) {
             if (verbose) {
