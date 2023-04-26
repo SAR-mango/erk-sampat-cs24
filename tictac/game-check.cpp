@@ -10,7 +10,6 @@ int main (int argc, char** argv) {
         verbose = true;
         std::cout << "> ";
     }
-
     std::string line;
     Board board;
     std::getline(std::cin, line);
