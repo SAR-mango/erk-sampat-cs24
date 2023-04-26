@@ -30,6 +30,8 @@ int main (int argc, char** argv) {
         }
         try {
             board.addMove(*move);
+            delete move;
+            move = NULL;
         }
         catch(const InvalidMove& e) {
             if (verbose) {
