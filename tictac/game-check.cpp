@@ -14,7 +14,9 @@ int main (int argc, char** argv) {
     std::string line;
     Board board;
     std::getline(std::cin, line);
-    while (!std::cin.eof() && line != "\0") {
+    bool first_move = true;
+    while ((!std::cin.eof() && line != "\0") || first_move) {
+        first_move = false;
         try {
             Move move(line);
             board.addMove(move);
