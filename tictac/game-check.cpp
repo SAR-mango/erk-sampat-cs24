@@ -17,7 +17,6 @@ int main (int argc, char** argv) {
     while (!std::cin.eof() && line != "\0") {
         try {
             Move move(line);
-            board.addMove(move);
         }
         catch(const ParseError& e) {
             if (verbose) {
@@ -27,6 +26,9 @@ int main (int argc, char** argv) {
                 std::cout << "Parse error.\n";
             }
             return 1;
+        }
+        try {
+            board.addMove(move);
         }
         catch(const InvalidMove& e) {
             if (verbose) {
