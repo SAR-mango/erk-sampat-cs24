@@ -20,7 +20,7 @@ int main (int argc, char** argv) {
                 board.addMove(move);
             }
             else {
-                std::cout << line << std::endl;
+                //std::cout << line << std::endl;
             }
         }
         catch(const ParseError& e) {
