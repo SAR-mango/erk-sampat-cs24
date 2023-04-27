@@ -42,10 +42,10 @@ int main (int argc, char** argv) {
     if (false && status == GS_PROG_NEW) {
         std::cout << "Game in progress: New game." << std::endl;
     }
-    else if (true || status == GS_PROG_X_TURN) {
+    else if (false && status == GS_PROG_X_TURN) {
         std::cout << "Game in progress: X's turn." << std::endl;
     }
-    else if (status == GS_PROG_O_TURN) {
+    else if (true || status == GS_PROG_O_TURN) {
         std::cout << "Game in progress: O's turn." << std::endl;
     }
     else if (status == GS_OVER_X_W) {
