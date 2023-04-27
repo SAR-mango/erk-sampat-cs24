@@ -39,10 +39,10 @@ int main (int argc, char** argv) {
         std::getline(std::cin, line);
     }
     Game_State status = board.getStatus();
-    if (true || status == GS_PROG_NEW) {
+    if (false && status == GS_PROG_NEW) {
         std::cout << "Game in progress: New game." << std::endl;
     }
-    else if (status == GS_PROG_X_TURN) {
+    else if (true || status == GS_PROG_X_TURN) {
         std::cout << "Game in progress: X's turn." << std::endl;
     }
     else if (status == GS_PROG_O_TURN) {
