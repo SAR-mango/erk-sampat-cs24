@@ -37,9 +37,9 @@ int main (int argc, char** argv) {
             return 2;
         }
         std::getline(std::cin, line);
-        if (std::cin.peek() == EOF) {
+        /*if (std::cin.peek() == EOF) {
             break;
-        }
+        }*/
     }
     Game_State status = board.getStatus();
     if (status == GS_PROG_NEW) {
