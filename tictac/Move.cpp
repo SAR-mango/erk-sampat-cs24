@@ -8,9 +8,9 @@
 
 Move::Move(const std::string& input) {
     // check for valid length of entry
-    /*if (input.length() < 6) { // minimum length of a valid entry is 6
+    if (input.length() < 6) { // minimum length of a valid entry is 6
         throw ParseError("length less than minimum of 6");
-    }*/
+    }
 
     size_t index = 0;
 
