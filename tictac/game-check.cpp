@@ -13,9 +13,7 @@ int main (int argc, char** argv) {
     std::string line;
     Board board;
     std::getline(std::cin, line);
-    bool first_line = true;
-    while (!std::cin.eof() && (line != "\0" || first_line)) {
-        first_line = false;
+    while (!std::cin.eof()) {
         try {
             Move move(line);
             board.addMove(move);
@@ -39,6 +37,9 @@ int main (int argc, char** argv) {
             return 2;
         }
         std::getline(std::cin, line);
+        if (std::cin.peek() == EOF) {
+            break;
+        }
     }
     Game_State status = board.getStatus();
     if (status == GS_PROG_NEW) {
