@@ -14,9 +14,6 @@ int main (int argc, char** argv) {
     Board board;
     std::getline(std::cin, line);
     while (!std::cin.eof()) {
-        if (std::cin.peek() == EOF && line == "\0") {
-            break;
-        }
         try {
             Move move(line);
             board.addMove(move);
