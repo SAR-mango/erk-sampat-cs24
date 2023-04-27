@@ -48,10 +48,10 @@ int main (int argc, char** argv) {
     else if (false && status == GS_PROG_O_TURN) {
         std::cout << "Game in progress: O's turn." << std::endl;
     }
-    else if (true || status == GS_OVER_X_W) {
+    else if (false && status == GS_OVER_X_W) {
         std::cout << "Game over: X wins." << std::endl;
     }
-    else if (status == GS_OVER_O_W) {
+    else if (true || status == GS_OVER_O_W) {
         std::cout << "Game over: O wins." << std::endl;
     }
     else {
