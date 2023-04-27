@@ -55,7 +55,7 @@ int main (int argc, char** argv) {
         std::cout << "Game over: O wins." << std::endl;
     }
     else {
-        std::cout << "Game over: Draw." << std::endl;
+        //std::cout << "Game over: Draw." << std::endl;
     }
     return 0;
 }
