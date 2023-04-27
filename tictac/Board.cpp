@@ -25,9 +25,6 @@ void Board::addMove(Move move) {
         if (status == GS_OVER_X_W || status == GS_OVER_O_W) {
             throw InvalidMove("a player has already won");
         }
-        if (status == GS_OVER_DRAW) {
-            throw InvalidMove("the game is a draw");
-        }
         if (getSquare(move.row, move.column)->occupier != '\0') {
             throw InvalidMove("square is already occupied");
         }
