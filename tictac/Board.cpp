@@ -39,7 +39,7 @@ void Board::addMove(Move move) {
             status = GS_PROG_X_TURN;
         }
         getSquare(move.row, move.column)->occupier = move.player;
-        if (last_move_num >= 5) {
+        //if (last_move_num >= 4) {
             if (getWinner() == 'X') {
                 status = GS_OVER_X_W;
             }
@@ -51,7 +51,7 @@ void Board::addMove(Move move) {
             }
             else {
             }
-        }
+        //}
     }
 }
 
