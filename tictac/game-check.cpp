@@ -39,23 +39,23 @@ int main (int argc, char** argv) {
         std::getline(std::cin, line);
     }
     Game_State status = board.getStatus();
-    if (false && status == GS_PROG_NEW) {
+    if (status == GS_PROG_NEW) {
         std::cout << "Game in progress: New game." << std::endl;
     }
-    else if (false && status == GS_PROG_X_TURN) {
+    else if (status == GS_PROG_X_TURN) {
         std::cout << "Game in progress: X's turn." << std::endl;
     }
-    else if (false && status == GS_PROG_O_TURN) {
+    else if (status == GS_PROG_O_TURN) {
         std::cout << "Game in progress: O's turn." << std::endl;
     }
-    else if (false && status == GS_OVER_X_W) {
+    else if (status == GS_OVER_X_W) {
         std::cout << "Game over: X wins." << std::endl;
     }
-    else if (false && status == GS_OVER_O_W) {
+    else if (status == GS_OVER_O_W) {
         std::cout << "Game over: O wins." << std::endl;
     }
     else {
-        //std::cout << "Game over: Draw." << std::endl;
+        std::cout << "Game over: Draw." << std::endl;
     }
     return 0;
 }
