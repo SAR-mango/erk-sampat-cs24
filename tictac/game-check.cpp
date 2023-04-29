@@ -40,7 +40,7 @@ int main (int argc, char** argv) {
     }
     Game_State status = board.getStatus();
     if (status == GS_PROG_NEW) {
-        std::cout << "game in progress: New game." << std::endl;
+        std::cout << "Game in progress: New game." << std::endl;
     }
     else if (status == GS_PROG_X_TURN) {
         std::cout << "Game in progress: X's turn." << std::endl;
