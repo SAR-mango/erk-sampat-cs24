@@ -58,7 +58,7 @@ Game_State Board::getStatus() {
 
 char Board::getWinner() {
     for (int i = 0; i < 8; i++) {
-        if (wins[i][0]->occupier == wins[i][1]->occupier && wins[i][0]->occupier == wins[i][2]->occupier && (wins[i][0]->occupier == 'X' || wins[i][0]->occupier == 'O')) {
+        if (wins[i][0]->occupier == wins[i][1]->occupier && wins[i][0]->occupier == wins[i][2]->occupier && wins[i][0]->occupier != '\0') {
             return wins[i][0]->occupier;
         }
     }
