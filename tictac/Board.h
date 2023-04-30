@@ -10,7 +10,7 @@ struct Square {
 
 class Board {
     public:
-        void addMove(Move move);
+        void addMove(Move& move);
         Game_State getStatus();
 
     private:
