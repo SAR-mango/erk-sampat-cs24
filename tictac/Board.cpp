@@ -28,9 +28,6 @@ void Board::addMove(Move move) {
         if (getSquare(move.row, move.column)->occupier != '\0') {
             throw InvalidMove("square is already occupied");
         }
-        if (move.number > 9) {
-            throw InvalidMove("cannot exceed nine moves");
-        }
         last_move_num++;
         if (move.player == 'X') {
             status = GS_PROG_O_TURN;
