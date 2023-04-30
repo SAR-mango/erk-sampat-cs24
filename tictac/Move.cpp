@@ -17,7 +17,10 @@ Move::Move(const std::string& input) {
     // parse move number
     if (isdigit(input[index])) {
         int move_num = std::atoi(&input[index]);
-        if (1 <= move_num && move_num <= 9) {
+        if (1 <= move_num && move_num <= 10) {
+            if (move_num == 10) {
+                throw InvalidMove("cannot exceed nine moves");
+            }
             number = move_num;
         }
         else {
