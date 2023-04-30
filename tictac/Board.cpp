@@ -1,7 +1,7 @@
 #include "Errors.h"
 #include "Board.h"
 
-void Board::addMove(Move& move) {
+void Board::addMove(Move move) {
     if (last_move_num == 0) {
         if (move.number != 1) {
             throw InvalidMove("first move number is not 1");
