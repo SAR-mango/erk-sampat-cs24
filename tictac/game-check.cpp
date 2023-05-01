@@ -12,13 +12,11 @@ int main (int argc, char** argv) {
     }
     std::string line;
     Board board;
-    Game_State status = GS_PROG_NEW;
     std::getline(std::cin, line);
     while (!std::cin.eof()) {
         try {
             Move move(line);
             board.addMove(move);
-            status = board.getStatus();
         }
         catch(const ParseError& e) {
             if (verbose) {
@@ -40,6 +38,7 @@ int main (int argc, char** argv) {
         }
         std::getline(std::cin, line);
     }
+    Game_State status = board.getStatus();
     if (status == GS_PROG_NEW) {
         std::cout << "Game in progress: New game." << std::endl;
     }
