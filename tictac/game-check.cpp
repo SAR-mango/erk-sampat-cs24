@@ -4,7 +4,7 @@
 #include "Errors.h"
 #include "Move.h"
 
-int main (int argc, char** argv) {
+int main(int argc, char** argv) {
     bool verbose = false;
     if (argc == 2 && std::string(argv[1]) == "-v") {
         verbose = true;
@@ -12,8 +12,6 @@ int main (int argc, char** argv) {
     }
     std::string line;
     Board board;
-//    std::getline(std::cin, line);
-//    while (!std::cin.eof()) {
     while(std::getline(std::cin, line)) {
         try {
             Move move(line);
@@ -37,7 +35,6 @@ int main (int argc, char** argv) {
             }
             return 2;
         }
-        //std::getline(std::cin, line);
     }
     Game_State status = board.getStatus();
     if (status == GS_PROG_NEW) {
