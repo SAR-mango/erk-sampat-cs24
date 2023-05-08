@@ -1,8 +1,14 @@
 #ifndef NODE_H
 #define NODE_H
 
-// Use this file to declare your Node type.
-// Implement Node member functions and helper functions in Node.cpp.
+#include <string>
 
-Struct Node{};
+struct Node {
+    std::string data = "";
+    size_t count = 0;
+    Node* left = nullptr;
+    Node* right = nullptr;
+    static Node* head;
+};
+
 #endif
