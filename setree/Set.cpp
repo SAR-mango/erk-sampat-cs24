@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "Set.h"
 
 Set::Set() {
@@ -68,7 +69,8 @@ size_t Set::insert(const std::string& value) {
 
 const std::string& Set::lookup(size_t n) const {
     if (mRoot == nullptr) {
-        mRoot.setHead(mRoot);
+        Node* node;
+        node.setHead(mRoot);
         throw std::out_of_range("no such value exists.");
     }
     if (n == mRoot->left->count + 1) {
