@@ -14,12 +14,15 @@ Set::~Set() {
 }
 
 size_t Set::clear() {
+    return 0;
 }
 
 bool Set::contains(const std::string& value) const {
+    return false;
 }
 
 size_t Set::count() const {
+    return 0;
 }
 
 void Set::debug() {
@@ -59,6 +62,7 @@ size_t Set::insert(const std::string& value) {
 }
 
 const std::string& Set::lookup(size_t n) const {
+    return mRoot->data;
 }
 
 void Set::print() const {
