@@ -69,12 +69,18 @@ size_t Set::insert(const std::string& value) {
 
 const std::string& Set::lookup(size_t n) const {
     Node* node = mRoot;
-    while (node != nullptr) {
-        if (n == node->left->count + 1) {
-            return node->data;
+    while (true) {
+        if (node->left != nullptr) {
+            if (n == node->left->count + 1) {
+                return node->data;
+            }
+            if (n < node->left->count + 1) {
+                node = node->left;
+                continue;
+            }
         }
-        if (n < node->left->count + 1) {
-            node = node->left;
+        if (node->right == nullptr) {
+            break;
         }
         node = node->right;
     }
