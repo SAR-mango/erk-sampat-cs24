@@ -66,7 +66,7 @@ size_t Set::insert(const std::string& value) {
         }
         Node* temp = mRoot;
         size_t temp_count = temp->count;
-        mRoot = mRoot->left;
+        mRoot = mRoot->right;
         temp->count += insert(value);
         return temp->count - temp_count;
     }
