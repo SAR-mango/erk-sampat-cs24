@@ -50,9 +50,9 @@ size_t Set::insert(const std::string& value) {
             mRoot = mRoot->head;
             return 1;
         }
-        Node* temp = mRoot;
+        mRoot->count++;
         mRoot = mRoot->left;
-        temp->count += insert(value);
+        return insert(value);
     }
     if (value.compare(mRoot->data) > 0) {
         if (mRoot->right == nullptr) {
@@ -62,9 +62,9 @@ size_t Set::insert(const std::string& value) {
             mRoot = mRoot->head;
             return 1;
         }
-        Node* temp = mRoot;
+        mRoot->count++;
         mRoot = mRoot->right;
-        temp->count += insert(value);
+        return insert(value);
     }
     mRoot = mRoot->head;
     return 0;
