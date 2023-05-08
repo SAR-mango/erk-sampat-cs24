@@ -25,13 +25,7 @@ size_t Set::count() const {
     if (mRoot == nullptr) {
         return 0;
     }
-    Node* right = mRoot->right;
-    mRoot = mRoot->left;
-    size_t left_count = count();
-    mRoot = right;
-    size_t right_count = count();
-    mRoot = mRoot->head;
-    return 1 + left_count + right_count;
+    return 1 + mRoot->count;
 }
 
 void Set::debug() {
@@ -52,6 +46,7 @@ size_t Set::insert(const std::string& value) {
             mRoot = mRoot->head;
             return 1;
         }
+        mRoot->count++;
         mRoot = mRoot->left;
         return insert(value);
     }
@@ -63,6 +58,7 @@ size_t Set::insert(const std::string& value) {
             mRoot = mRoot->head;
             return 1;
         }
+        mRoot->count++;
         mRoot = mRoot->right;
         return insert(value);
     }
@@ -78,7 +74,7 @@ void Set::print() const {
 }
 
 size_t Set::remove(const std::string& value) {
-    if (mRoot->head == nullptr || mRoot->count == 0) {
+    if (mRoot->head == nullptr) {
         return 0;
     }
     if (mRoot->head->data == value) {
@@ -88,13 +84,13 @@ size_t Set::remove(const std::string& value) {
             mRoot = nullptr;
             return 1;
         }
-        if (mRoot->count == 1) {
-            if (mRoot->left == nullptr) {
-                mRoot->head = mRoot->right;
-                delete mRoot;
-                mRoot = mRoot->head;
-                return 1;
-            }
+        if (mRoot->left == nullptr && mRoot->right != nullptr) {
+            mRoot->head = mRoot->right;
+            delete mRoot;
+            mRoot = mRoot->head;
+            return 1;
+        }
+        if (mRoot->left != nullptr && mRoot->right == nullptr) {
             mRoot->head = mRoot->left;
             delete mRoot;
             mRoot = mRoot->head;
@@ -103,6 +99,7 @@ size_t Set::remove(const std::string& value) {
         std::string data = mRoot->left->data;
         remove(data);
         mRoot->data = data;
+        mRoot->count--;
         return 1;
     }
     if (mRoot->left->data == value) {
@@ -112,23 +109,26 @@ size_t Set::remove(const std::string& value) {
             mRoot = mRoot->head;
             return 1;
         }
-        if (mRoot->left->count == 1) {
-            if (mRoot->left->left == nullptr) {
-                Node* temp = mRoot->left->left;
-                delete mRoot->left;
-                mRoot->left = temp;
-                mRoot = mRoot->head;
-                return 1;
-            }
+        if (mRoot->left->left == nullptr && mRoot->left->right != nullptr) {
             Node* temp = mRoot->left->right;
             delete mRoot->left;
             mRoot->left = temp;
             mRoot = mRoot->head;
+            mRoot->left->count--;
+            return 1;
+        }
+        if (mRoot->left->left != nullptr && mRoot->left->right == nullptr) {
+            Node* temp = mRoot->left->left;
+            delete mRoot->left;
+            mRoot->left = temp;
+            mRoot = mRoot->head;
+            mRoot->left->count--;
             return 1;
         }
         std::string data = mRoot->left->left->data;
         remove(data);
         mRoot->left->data = data;
+        mRoot->count--;
         mRoot = mRoot->head;
         return 1;
     }
@@ -139,29 +139,38 @@ size_t Set::remove(const std::string& value) {
             mRoot = mRoot->head;
             return 1;
         }
-        if (mRoot->right->count == 1) {
-            if (mRoot->right->left == nullptr) {
-                Node* temp = mRoot->right->left;
-                delete mRoot->right;
-                mRoot->right = temp;
-                mRoot = mRoot->head;
-                return 1;
-            }
+        if (mRoot->right->left == nullptr && mRoot->right->right != nullptr) {
             Node* temp = mRoot->right->right;
             delete mRoot->right;
             mRoot->right = temp;
             mRoot = mRoot->head;
+            mRoot->right->count--;
+            return 1;
+        }
+        if (mRoot->right->left != nullptr && mRoot->right->right == nullptr) {
+            Node* temp = mRoot->right->left;
+            delete mRoot->right;
+            mRoot->right = temp;
+            mRoot = mRoot->head;
+            mRoot->right->count--;
             return 1;
         }
         std::string data = mRoot->right->left->data;
         remove(data);
         mRoot->right->data = data;
+        mRoot->count--;
         mRoot = mRoot->head;
         return 1;
     }
     if (value.compare(mRoot->data) < 0) {
+        if (mRoot->left == nullptr) {
+            return 0;
+        }
         mRoot = mRoot->left;
         return remove(value);
+    }
+    if (mRoot->right == nullptr) {
+        return 0;
     }
     mRoot = mRoot->right;
     return remove(value);
