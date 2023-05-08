@@ -85,6 +85,18 @@ const std::string& Set::lookup(size_t n) const {
 }
 
 void Set::print() const {
+    void printNode(Node* node) {
+        if (node == nullptr) {
+            std:cout << '-';
+        }
+        else if (node->left == nullptr && node->right == nullptr) {
+            std::cout << node->data;
+        }
+        else {
+            std::cout << '(' << printNode(node->left) << ' ' << node->data << ' ' << printNode(node->right) << ')'
+        }
+    }
+    std::cout << std::endl;
 }
 
 size_t Set::remove(const std::string& value) {
