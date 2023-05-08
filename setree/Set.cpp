@@ -68,20 +68,17 @@ size_t Set::insert(const std::string& value) {
 }
 
 const std::string& Set::lookup(size_t n) const {
-    if (mRoot == nullptr) {
-        mRoot->setHead(mRoot);
-        throw std::out_of_range("no such value exists.");
+    Node* node = mRoot;
+    while (node != nullptr) {
+        if (n == node->left->count + 1) {
+            return node->data;
+        }
+        if (n < node->left->count + 1) {
+            node = node->left;
+        }
+        node = node->right;
     }
-    if (n == mRoot->left->count + 1) {
-        mRoot->setHead(mRoot);
-        return mRoot->data;
-    }
-    if (n < mRoot->left->count + 1) {
-        mRoot->setLeft(mRoot);
-        lookup(n);
-    }
-    mRoot->setRight(mRoot);
-    lookup(n);
+    throw std::out_of_range("no such value exists.");
 }
 
 void Set::print() const {
