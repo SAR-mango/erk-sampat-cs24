@@ -22,7 +22,16 @@ bool Set::contains(const std::string& value) const {
 }
 
 size_t Set::count() const {
-    return 0;
+    if (mRoot == nullptr) {
+        return 0;
+    }
+    Node* right = mRoot->right;
+    mRoot = mRoot->left;
+    size_t left_count = count();
+    mRoot = right;
+    size_t right_count = count();
+    mRoot = mRoot->head;
+    return 1 + left_count + right_count;
 }
 
 void Set::debug() {
