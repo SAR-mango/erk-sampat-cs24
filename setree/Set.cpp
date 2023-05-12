@@ -3,6 +3,7 @@
 #include "Set.h"
 
 void printNode(Node* node);
+size_t numSmaller(Node* node);
 
 Set::Set() {
     mRoot = nullptr;
@@ -75,18 +76,36 @@ size_t Set::insert(const std::string& value) {
 }
 
 const std::string& Set::lookup(size_t n) const {
+    if (mRoot == nullptr) {
+        throw std::out_of_range("no such value exists.");
+    }
     Node* node = mRoot;
+    size_t smallerCount = 0;
+    if (node->left != nullptr) {
+        smallerCount = node->left->count + 1;
+    }
     while (node != nullptr) {
-        if (node->left != nullptr) {
-            if (n == node->left->count + 1) {
-                return node->data;
+        if (n == smallerCount) {
+            return node->data;
+        }
+        else if (n < smallerCount) {
+            node = node->left;
+            if (node != nullptr) {
+                smallerCount--;
             }
-            if (n < node->left->count + 1) {
-                node = node->left;
-                continue;
+            if (node->right != nullptr) {
+                smallerCount -= node->right->count + 1;
             }
         }
-        node = node->right;
+        else {
+            node = node->right;
+            if (node != nullptr) {
+                smallerCount++;
+            }
+            if (node->left != nullptr) {
+                smallerCount += node->left->count + 1;
+            }
+        }
     }
     throw std::out_of_range("no such value exists.");
 }
@@ -213,4 +232,11 @@ void printNode(Node* node) {
         printNode(node->right);
         std::cout << ')';
     }
+}
+
+size_t numSmaller(Node* node) {
+    if (node->right != nullptr) {
+        return node->count - node->right->count - 1;
+    }
+    return node->count;
 }
