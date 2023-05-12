@@ -92,18 +92,18 @@ const std::string& Set::lookup(size_t n) const {
             node = node->left;
             if (node != nullptr) {
                 smallerCount--;
-            }
-            if (node->right != nullptr) {
-                smallerCount -= node->right->count + 1;
+                if (node->right != nullptr) {
+                    smallerCount -= node->right->count + 1;
+                }
             }
         }
         else {
             node = node->right;
             if (node != nullptr) {
                 smallerCount++;
-            }
-            if (node->left != nullptr) {
-                smallerCount += node->left->count + 1;
+                if (node->left != nullptr) {
+                    smallerCount += node->left->count + 1;
+                }
             }
         }
     }
