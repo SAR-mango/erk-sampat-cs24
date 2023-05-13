@@ -3,7 +3,6 @@
 #include "Set.h"
 
 void printNode(Node* node);
-size_t numSmaller(Node* node);
 
 Set::Set() {
     mRoot = nullptr;
@@ -19,7 +18,41 @@ Set::~Set() {
 }
 
 size_t Set::clear() {
-    return 0;
+    if (mRoot == nullptr) {
+        return 0;
+    }
+    if (mRoot->count == 0) {
+        delete mRoot;
+        mRoot = nullptr;
+        return 1;
+    }
+    Node* original = mRoot;
+    if (mRoot->left != nullptr) {
+        if (mRoot->left->count == 0) {
+            delete mRoot->left;
+            mRoot->left = nullptr;
+        }
+        else {
+            mRoot = mRoot->left;
+            clear();
+        }
+    }
+    mRoot = original;
+    if (mRoot->right != nullptr) {
+        if (mRoot->right->count == 0) {
+            delete mRoot->right;
+            mRoot->right = nullptr;
+        }
+        else {
+            mRoot = mRoot->right;
+            clear();
+        }
+    }
+    mRoot = original;
+    size_t count = mRoot->count;
+    delete mRoot;
+    mRoot = nullptr;
+    return count + 1;
 }
 
 bool Set::contains(const std::string& value) const {
@@ -232,11 +265,4 @@ void printNode(Node* node) {
         printNode(node->right);
         std::cout << ')';
     }
-}
-
-size_t numSmaller(Node* node) {
-    if (node->right != nullptr) {
-        return node->count - node->right->count - 1;
-    }
-    return node->count;
 }
