@@ -3,7 +3,6 @@
 #include "Set.h"
 
 void printNode(Node* node);
-bool doesContain(Node* root, const std::string& value);
 
 Set::Set() {
     mRoot = nullptr;
@@ -57,16 +56,17 @@ size_t Set::clear() {
 }
 
 bool Set::contains(const std::string& value) const {
-    if (mRoot == nullptr) {
-        std::cout << "top returning" << std::endl;
-        return false;
+    size_t n = count() - 1;
+    while (n > 0) {
+        if (lookup(n) == value) {
+            return true;
+        }
+        n--;
     }
-    if (mRoot->count == 0) {
-        std::cout << "top Deleting " << mRoot->data << std::endl;
+    if (lookup(n) == value) {
         return true;
     }
-    Node* root = mRoot;
-    return doesContain(root, value);
+    return false;
 }
 
 size_t Set::count() const {
@@ -275,36 +275,4 @@ void printNode(Node* node) {
         printNode(node->right);
         std::cout << ')';
     }
-}
-
-bool doesContain(Node* root, const std::string& value) {
-    Node* original = root;
-    if (root->left != nullptr) {
-        if (root->left->count == 0) {
-            if (root->left->data == value) {
-                return true;
-            }
-        }
-        else {
-            root = root->left;
-            doesContain(root, value);
-        }
-    }
-    root = original;
-    if (root->right != nullptr) {
-        if (root->right->count == 0) {
-            if (root->right->data == value) {
-                return true;
-            }
-        }
-        else {
-            root = root->right;
-            doesContain(root, value);
-        }
-    }
-    root = original;
-    if (root->data == value) {
-        return true;
-    }
-    return false;
 }
