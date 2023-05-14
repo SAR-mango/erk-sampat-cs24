@@ -163,106 +163,30 @@ void Set::print() const {
 }
 
 size_t Set::remove(const std::string& value) {
-    if (mRoot->head == nullptr) {
+    if (mRoot == nullptr || !contains(value)) {
         return 0;
     }
-    if (mRoot->head->data == value) {
+    if (mRoot->data == value) {
         if (mRoot->count == 0) {
-            mRoot->head = nullptr;
-            delete mRoot;
-            mRoot = nullptr;
-            return 1;
-        }
-        if (mRoot->left == nullptr && mRoot->right != nullptr) {
-            mRoot->head = mRoot->right;
             delete mRoot;
             mRoot = mRoot->head;
             return 1;
         }
-        if (mRoot->left != nullptr && mRoot->right == nullptr) {
-            mRoot->head = mRoot->left;
-            delete mRoot;
-            mRoot = mRoot->head;
+        if (mRoot->count == 1) {
+            if (mRoot->left != nullptr) {
+                mRoot->data = mRoot->left->data;
+                delete mRoot->left;
+                mRoot->left = nullptr;
+                return 1;
+            }
+            mRoot->data = mRoot->right->data;
+            delete mRoot->right;
+            mRoot->right = nullptr;
             return 1;
         }
         std::string data = mRoot->left->data;
         remove(data);
         mRoot->data = data;
-        mRoot->count--;
-        return 1;
-    }
-    if (mRoot->left->data == value) {
-        if (mRoot->left->count == 0) {
-            delete mRoot->left;
-            mRoot->left = nullptr;
-            mRoot = mRoot->head;
-            return 1;
-        }
-        if (mRoot->left->left == nullptr && mRoot->left->right != nullptr) {
-            Node* temp = mRoot->left->right;
-            delete mRoot->left;
-            mRoot->left = temp;
-            mRoot = mRoot->head;
-            mRoot->left->count--;
-            return 1;
-        }
-        if (mRoot->left->left != nullptr && mRoot->left->right == nullptr) {
-            Node* temp = mRoot->left->left;
-            delete mRoot->left;
-            mRoot->left = temp;
-            mRoot = mRoot->head;
-            mRoot->left->count--;
-            return 1;
-        }
-        std::string data = mRoot->left->left->data;
-        remove(data);
-        mRoot->left->data = data;
-        mRoot->count--;
-        mRoot = mRoot->head;
-        return 1;
-    }
-    if (mRoot->right->data == value) {
-        if (mRoot->right->count == 0) {
-            delete mRoot->right;
-            mRoot->right = nullptr;
-            mRoot = mRoot->head;
-            return 1;
-        }
-        if (mRoot->right->left == nullptr && mRoot->right->right != nullptr) {
-            Node* temp = mRoot->right->right;
-            delete mRoot->right;
-            mRoot->right = temp;
-            mRoot = mRoot->head;
-            mRoot->right->count--;
-            return 1;
-        }
-        if (mRoot->right->left != nullptr && mRoot->right->right == nullptr) {
-            Node* temp = mRoot->right->left;
-            delete mRoot->right;
-            mRoot->right = temp;
-            mRoot = mRoot->head;
-            mRoot->right->count--;
-            return 1;
-        }
-        std::string data = mRoot->right->left->data;
-        remove(data);
-        mRoot->right->data = data;
-        mRoot->count--;
-        mRoot = mRoot->head;
-        return 1;
-    }
-    if (value.compare(mRoot->data) < 0) {
-        if (mRoot->left == nullptr) {
-            return 0;
-        }
-        mRoot = mRoot->left;
-        return remove(value);
-    }
-    if (mRoot->right == nullptr) {
-        return 0;
-    }
-    mRoot = mRoot->right;
-    return remove(value);
 }
 
 void printNode(Node* node) {
