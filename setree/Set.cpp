@@ -3,6 +3,7 @@
 #include "Set.h"
 
 void printNode(Node* node);
+bool doesContain(Node* root, const std::string& value);
 
 Set::Set() {
     mRoot = nullptr;
@@ -56,7 +57,16 @@ size_t Set::clear() {
 }
 
 bool Set::contains(const std::string& value) const {
-    return false;
+    if (mRoot == nullptr) {
+        std::cout << "top returning" << std::endl;
+        return false;
+    }
+    if (mRoot->count == 0) {
+        std::cout << "top Deleting " << mRoot->data << std::endl;
+        return true;
+    }
+    Node* root = mRoot;
+    return doesContain(root, value);
 }
 
 size_t Set::count() const {
@@ -265,4 +275,36 @@ void printNode(Node* node) {
         printNode(node->right);
         std::cout << ')';
     }
+}
+
+bool doesContain(Node* root, const std::string& value) {
+    Node* original = root;
+    if (root->left != nullptr) {
+        if (root->left->count == 0) {
+            if (root->left->data == value) {
+                return true;
+            }
+        }
+        else {
+            root = root->left;
+            doesContain(root, value);
+        }
+    }
+    root = original;
+    if (root->right != nullptr) {
+        if (root->right->count == 0) {
+            if (root->right->data == value) {
+                return true;
+            }
+        }
+        else {
+            root = root->right;
+            doesContain(root, value);
+        }
+    }
+    root = original;
+    if (root->data == value) {
+        return true;
+    }
+    return false;
 }
