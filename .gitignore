@@ -1,4 +1,5 @@
 *.o
+*.out
 .DS_store
 *.h.gch
 setree/test.cpp
