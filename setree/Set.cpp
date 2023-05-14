@@ -15,6 +15,7 @@ Set::Set(Set&& other) {
 }
 
 Set::~Set() {
+    clear();
 }
 
 size_t Set::clear() {
@@ -56,6 +57,9 @@ size_t Set::clear() {
 }
 
 bool Set::contains(const std::string& value) const {
+    if (mRoot == nullptr) {
+        return false;
+    }
     size_t n = count() - 1;
     while (n > 0) {
         if (lookup(n) == value) {
