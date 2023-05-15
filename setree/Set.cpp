@@ -184,7 +184,12 @@ size_t Set::remove(const std::string& value) {
         return 1;
     }
     else if (remove_node->left == nullptr && remove_node->right != nullptr) {
-        lookupNodeSubCount(n, mRoot, false);
+        if (remove_node->right->count == 0) {
+            lookupNodeSubCount(n, mRoot, true);
+        }
+        else {
+            lookupNodeSubCount(n, mRoot, false);
+        }
         Node* temp = remove_node->right;
         delete remove_node;
         remove_node = temp;
@@ -195,7 +200,12 @@ size_t Set::remove(const std::string& value) {
         return 1;
     }
     else if (remove_node->left != nullptr && remove_node->right == nullptr) {
-        lookupNodeSubCount(n, mRoot, false);
+        if (remove_node->left->count == 0) {
+            lookupNodeSubCount(n, mRoot, true);
+        }
+        else {
+            lookupNodeSubCount(n, mRoot, false);
+        }
         Node* temp = remove_node->left;
         delete remove_node;
         remove_node = temp;
