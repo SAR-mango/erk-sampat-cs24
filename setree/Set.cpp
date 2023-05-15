@@ -165,94 +165,13 @@ void Set::print() const {
     std::cout << std::endl;
 }
 
-/*size_t Set::remove(const std::string& value) {
+size_t Set::remove(const std::string& value) {
     if (!contains(value)) {
         return 0;
     }
     deleteNode(mRoot, value);
     return 1;
-}*/
-
-size_t Set::remove(const std::string& value) {
-    if (mRoot == nullptr) {
-        return 0;
-    }
-    Node* current = mRoot;
-    Node* parent = nullptr;
-    bool isLeftChild = false;
-    while (current != nullptr && current->data != value) {
-        parent = current;
-        if (value < current->data) {
-            current = current->left;
-            isLeftChild = true;
-        }
-        else {
-            current = current->right;
-            isLeftChild = false;
-        }
-    }
-    if (current == nullptr) {
-        return 0;
-    }
-    size_t removedCount = current->count;
-    if (current->left == nullptr && current->right == nullptr) {
-        if (current == mRoot) {
-            mRoot = nullptr;
-        }
-        else if (isLeftChild) {
-            parent->left = nullptr;
-        }
-        else {
-            parent->right = nullptr;
-        }
-        delete current;
-    }
-    else if (current->left == nullptr) {
-        if (current == mRoot) {
-            mRoot = current->right;
-        }
-        else if (isLeftChild) {
-            parent->left = current->right;
-        }
-        else {
-            parent->right = current->right;
-        }
-        delete current;
-    }
-    else if (current->right == nullptr) {
-        if (current == mRoot) {
-            mRoot = current->left;
-        }
-        else if (isLeftChild) {
-            parent->left = current->left;
-        }
-        else {
-            parent->right = current->left;
-        }
-        delete current;
-    }
-    else {
-        Node* successor = current->left;
-        Node* successorParent = current;
-        while (successor->right != nullptr) {
-            successorParent = successor;
-            successor = successor->right;
-        }
-        current->data = successor->data;
-        current->count = successor->count;
-
-        if (successorParent == current) {
-            current->left = successor->left;
-        }
-        else {
-            successorParent->right = successor->left;
-        }
-        delete successor;
-    }
-    //return removedCount;
-    return 1;
 }
-
 
 void printNode(Node* node) {
     if (node == nullptr) {
