@@ -194,7 +194,7 @@ size_t Set::remove(const std::string& value) {
     if (current == nullptr) {
         return 0;
     }
-    //size_t removedCount = current->count;
+    size_t removedCount = current->count;
     if (current->left == nullptr && current->right == nullptr) {
         if (current == mRoot) {
             mRoot = nullptr;
