@@ -180,6 +180,7 @@ size_t Set::remove(const std::string& value) {
     if (remove_node->count == 0) {
         lookupNodeSubCount(n, mRoot);
         delete remove_node;
+        remove_node = nullptr;
         return 1;
     }
     else if (remove_node->left == nullptr && remove_node->right != nullptr) {
