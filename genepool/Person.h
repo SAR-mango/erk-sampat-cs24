@@ -18,6 +18,10 @@ class Person {
   Person* personMother;
   Person* personFather;
   std::set<Person *> personChildren;
+  std::set<Person *> personGrandparents;
+  std::set<Person *> personParents;
+  std::set<Person *> personGrandmothers;
+  std::set<Person *> personGrandfathers;
 
   // Helper Functions
 
