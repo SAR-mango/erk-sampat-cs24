@@ -166,7 +166,7 @@ void Set::print() const {
 }
 
 size_t Set::remove(const std::string& value) {
-    if (mRoot == nullptr || !contains(value)) {
+    if (!contains(value)) {
         return 0;
     }
     size_t n = count() - 1;
@@ -219,17 +219,17 @@ void printNode(Node* node) {
         std::cout << ')';
     }
 }
-/*void printNode(Node* node) { // also prints counts for debugging
+/*void printNode(Node* node) { // goated for debugging
     if (node == nullptr) {
         std::cout << '-';
     }
     else if (node->left == nullptr && node->right == nullptr) {
-        std::cout << node->data << 'c' << node->count;
+        std::cout << '[' << node->data << ']' << "[c]" << node->count << "[l]" << node->left << "[r]" << node->right;
     }
     else {
         std::cout << '(';
         printNode(node->left);
-        std::cout << ' ' << node->data << 'c' << node->count << ' ';
+        std::cout << ' ' << '[' << node->data << ']' << "[c]" << node->count << "[l]" << node->left << "[r]" << node->right << ' ';
         printNode(node->right);
         std::cout << ')';
     }
