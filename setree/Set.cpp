@@ -4,7 +4,7 @@
 
 void printNode(Node* node);
 std::string maxValueBelow(Node* node);
-Node* lookupNodeSubCount(size_t n, Node* root);
+Node* lookupNodeSubCount(size_t n, Node* root, bool child);
 Node* lookupNode(size_t n, Node* root);
 
 Set::Set() {
@@ -178,31 +178,31 @@ size_t Set::remove(const std::string& value) {
     }
     Node* remove_node = lookupNode(n, mRoot);
     if (remove_node->count == 0) {
-        lookupNodeSubCount(n, mRoot);
+        lookupNodeSubCount(n, mRoot, true);
         delete remove_node;
         remove_node = nullptr;
         return 1;
     }
     else if (remove_node->left == nullptr && remove_node->right != nullptr) {
-        /*lookupNodeSubCount(n, mRoot);
+        lookupNodeSubCount(n, mRoot, false);
         Node* temp = remove_node->right;
         delete remove_node;
-        remove_node = temp;*/
-        remove_node->data = remove_node->right->data;
+        remove_node = temp;
+        /*remove_node->data = remove_node->right->data;
         remove_node->count--;
         delete remove_node->right;
-        remove_node->right = nullptr;
+        remove_node->right = nullptr;*/
         return 1;
     }
     else if (remove_node->left != nullptr && remove_node->right == nullptr) {
-        /*lookupNodeSubCount(n, mRoot);
+        lookupNodeSubCount(n, mRoot, false);
         Node* temp = remove_node->left;
         delete remove_node;
-        remove_node = temp;*/
-        remove_node->data = remove_node->left->data;
+        remove_node = temp;
+        /*remove_node->data = remove_node->left->data;
         remove_node->count--;
         delete remove_node->left;
-        remove_node->left = nullptr;
+        remove_node->left = nullptr;*/
         return 1;
     }
     else {
@@ -252,7 +252,7 @@ std::string maxValueBelow(Node* node) {
     return node->data;
 }
 
-Node* lookupNodeSubCount(size_t n, Node* root) {
+Node* lookupNodeSubCount(size_t n, Node* root, bool child) {
     size_t smallerCount = 0;
     if (root->left != nullptr) {
         smallerCount = root->left->count + 1;
@@ -271,7 +271,7 @@ Node* lookupNodeSubCount(size_t n, Node* root) {
                     smallerCount -= root->right->count + 1;
                 }
             }
-            if (n == smallerCount) {
+            if (n == smallerCount && child) {
                 temp_root->left = nullptr;
             }
         }
@@ -285,7 +285,7 @@ Node* lookupNodeSubCount(size_t n, Node* root) {
                     smallerCount += root->left->count + 1;
                 }
             }
-            if (n == smallerCount) {
+            if (n == smallerCount && child) {
                 temp_root->right = nullptr;
             }
         }
