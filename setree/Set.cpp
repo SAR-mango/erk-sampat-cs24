@@ -198,12 +198,10 @@ size_t Set::remove(const std::string& value) {
     }
     else {
         std::string temp = maxValueBelow(remove_node);
-        remove(temp);
-        //lookupNodeSubCount(n, mRoot);
+        size_t i = remove(temp);
         remove_node->data = temp;
-        return 0;
+        return i;
     }
-    return 0;
 }
 
 void printNode(Node* node) {
