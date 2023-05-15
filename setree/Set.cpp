@@ -184,17 +184,25 @@ size_t Set::remove(const std::string& value) {
         return 1;
     }
     else if (remove_node->left == nullptr && remove_node->right != nullptr) {
-        //lookupNodeSubCount(n, mRoot);
+        /*lookupNodeSubCount(n, mRoot);
         Node* temp = remove_node->right;
         delete remove_node;
-        remove_node = temp;
+        remove_node = temp;*/
+        remove_node->data = remove_node->right->data;
+        remove_node->count--;
+        delete remove_node->right;
+        remove_node->right = nullptr;
         return 1;
     }
     else if (remove_node->left != nullptr && remove_node->right == nullptr) {
-        //lookupNodeSubCount(n, mRoot);
+        /*lookupNodeSubCount(n, mRoot);
         Node* temp = remove_node->left;
         delete remove_node;
-        remove_node = temp;
+        remove_node = temp;*/
+        remove_node->data = remove_node->left->data;
+        remove_node->count--;
+        delete remove_node->left;
+        remove_node->left = nullptr;
         return 1;
     }
     else {
