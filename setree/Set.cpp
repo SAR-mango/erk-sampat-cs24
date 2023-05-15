@@ -3,9 +3,9 @@
 #include "Set.h"
 
 void printNode(Node* node);
-std::string maxValueBelow(Node* node);
-Node* lookupNodeSubCount(size_t n, Node* root);
-Node* lookupNode(size_t n, Node* root);
+//std::string maxValueBelow(Node* node);
+Node* maxValueBelow(Node* node);
+Node* deleteNode(Node* root, const std::string data);
 
 Set::Set() {
     mRoot = nullptr;
@@ -169,48 +169,8 @@ size_t Set::remove(const std::string& value) {
     if (!contains(value)) {
         return 0;
     }
-    size_t n = count() - 1;
-    while (n > 0) {
-        if (lookup(n) == value) {
-            break;
-        }
-        n--;
-    }
-    Node* remove_node = lookupNode(n, mRoot);
-    if (remove_node->count == 0) {
-        lookupNodeSubCount(n, mRoot);
-        delete remove_node;
-        remove_node = nullptr;
-        return 1;
-    }
-    else if (remove_node->left == nullptr && remove_node->right != nullptr) {
-        /*lookupNodeSubCount(n, mRoot);
-        Node* temp = remove_node->right;
-        delete remove_node;
-        remove_node = temp;*/
-        remove_node->data = remove_node->right->data;
-        remove_node->count--;
-        delete remove_node->right;
-        remove_node->right = nullptr;
-        return 1;
-    }
-    else if (remove_node->left != nullptr && remove_node->right == nullptr) {
-        /*lookupNodeSubCount(n, mRoot);
-        Node* temp = remove_node->left;
-        delete remove_node;
-        remove_node = temp;*/
-        remove_node->data = remove_node->left->data;
-        remove_node->count--;
-        delete remove_node->left;
-        remove_node->left = nullptr;
-        return 1;
-    }
-    else {
-        std::string temp = maxValueBelow(remove_node);
-        size_t i = remove(temp);
-        remove_node->data = temp;
-        return i;
-    }
+    deleteNode(mRoot, value);
+    return 1;
 }
 
 void printNode(Node* node) {
@@ -244,82 +204,43 @@ void printNode(Node* node) {
     }
 }*/
 
-std::string maxValueBelow(Node* node) {
+//std::string maxValueBelow(Node* node) {
+Node* maxValueBelow(Node* node) {
     node = node->left;
     while (node->right != nullptr) {
         node = node->right;
     }
-    return node->data;
+    //return node->data;
+    return node;
 }
 
-Node* lookupNodeSubCount(size_t n, Node* root) {
-    size_t smallerCount = 0;
-    if (root->left != nullptr) {
-        smallerCount = root->left->count + 1;
+Node* deleteNode(Node* root, const std::string data) {
+    if (root == nullptr) {
+        return root;
     }
-    while (root != nullptr) {
-        if (n == smallerCount) {
-            return root;
-        }
-        else if (n < smallerCount) {
-            root->count--;
-            Node* temp_root = root;
-            root = root->left;
-            if (root != nullptr) {
-                smallerCount--;
-                if (root->right != nullptr) {
-                    smallerCount -= root->right->count + 1;
-                }
-            }
-            if (n == smallerCount) {
-                temp_root->left = nullptr;
-            }
-        }
-        else {
-            root->count--;
-            Node* temp_root = root;
-            root = root->right;
-            if (root != nullptr) {
-                smallerCount++;
-                if (root->left != nullptr) {
-                    smallerCount += root->left->count + 1;
-                }
-            }
-            if (n == smallerCount) {
-                temp_root->right = nullptr;
-            }
-        }
+    if (data < root->data) {
+        root->left = deleteNode(root->left, data);
     }
-    return nullptr;
-}
-
-Node* lookupNode(size_t n, Node* root) {
-    size_t smallerCount = 0;
-    if (root->left != nullptr) {
-        smallerCount = root->left->count + 1;
+    else if (data > root->data) {
+        root->right = deleteNode(root->right, data);
     }
-    while (root != nullptr) {
-        if (n == smallerCount) {
-            return root;
+    else {
+        if (root->left == nullptr && root->right == nullptr) {
+            return nullptr;
         }
-        else if (n < smallerCount) {
-            root = root->left;
-            if (root != nullptr) {
-                smallerCount--;
-                if (root->right != nullptr) {
-                    smallerCount -= root->right->count + 1;
-                }
-            }
+        else if (root->left == nullptr) {
+            Node* temp = root->right;
+            delete root;
+            return temp;
         }
-        else {
-            root = root->right;
-            if (root != nullptr) {
-                smallerCount++;
-                if (root->left != nullptr) {
-                    smallerCount += root->left->count + 1;
-                }
-            }
+        else if (root->right == nullptr) {
+            Node* temp = root->left;
+            delete root;
+            return temp;
         }
+        Node* temp = maxValueBelow(root->right);
+        root->data = temp->data;
+        root->right = deleteNode(root->right, temp->data);
     }
-    return nullptr;
+    return root;
 }

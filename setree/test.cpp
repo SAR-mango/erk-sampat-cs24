@@ -29,7 +29,7 @@ int main() {
     std::cout << "Lookup n = 7: " << set.lookup(7) << std::endl;
     std::cout << "Lookup n = 8: " << set.lookup(8) << std::endl;*/
 
-    std::cout << "Contains 'd': " << set.contains("d") << std::endl;
+    /*std::cout << "Contains 'd': " << set.contains("d") << std::endl;
     std::cout << "Contains 'b': " << set.contains("b") << std::endl;
     std::cout << "Contains 'e': " << set.contains("e") << std::endl;
     std::cout << "Contains 'a': " << set.contains("a") << std::endl;
@@ -38,10 +38,23 @@ int main() {
     std::cout << "Contains 'q': " << set.contains("q") << std::endl;
     std::cout << "Contains 'r': " << set.contains("r") << std::endl;
     std::cout << "Contains 'p': " << set.contains("p") << std::endl;
-    std::cout << "Contains \"random\": " << set.contains("random") << std::endl;
+    std::cout << "Contains 'x': " << set.contains("x") << std::endl;
+    std::cout << "Contains \"random\": " << set.contains("random") << std::endl;*/
+
     //std::cout << "Count: " << set.count() << "cleared " << set.clear() << std::endl;
     //set.clear();
-    //set.print();
+
+    //std::cout << "removing nothing; removed " << set.remove("") << " element(s)" << std::endl;
+    //std::cout << "removing a; removed " << set.remove("a") << " element(s)" << std::endl;
+    //std::cout << "removing x; removed " << set.remove("x") << " element(s)" << std::endl;
+    //std::cout << "removing c; removed " << set.remove("c") << " element(s)" << std::endl;
+    //std::cout << "removing a; removed " << set.remove("a") << " element(s)" << std::endl;
+    //std::cout << "removing d; removed " << set.remove("d") << " element(s)" << std::endl;
+    std::cout << "removing q; removed " << set.remove("q") << " element(s)" << std::endl;
+    //set.remove("q");
+    //set.remove("d");
+    //set.remove("a");
+    set.print();
 
     return 0;
 }
