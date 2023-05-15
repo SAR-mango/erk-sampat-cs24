@@ -3,6 +3,9 @@
 #include "Set.h"
 
 void printNode(Node* node);
+std::string maxValueBelow(Node* node);
+Node* lookupNodeSubCount(size_t n, Node* root);
+Node* lookupNode(size_t n, Node* root);
 
 Set::Set() {
     mRoot = nullptr;
@@ -166,27 +169,41 @@ size_t Set::remove(const std::string& value) {
     if (mRoot == nullptr || !contains(value)) {
         return 0;
     }
-    if (mRoot->data == value) {
-        if (mRoot->count == 0) {
-            delete mRoot;
-            mRoot = mRoot->head;
-            return 1;
+    size_t n = count() - 1;
+    while (n > 0) {
+        if (lookup(n) == value) {
+            break;
         }
-        if (mRoot->count == 1) {
-            if (mRoot->left != nullptr) {
-                mRoot->data = mRoot->left->data;
-                delete mRoot->left;
-                mRoot->left = nullptr;
-                return 1;
-            }
-            mRoot->data = mRoot->right->data;
-            delete mRoot->right;
-            mRoot->right = nullptr;
-            return 1;
-        }
-        std::string data = mRoot->left->data;
-        remove(data);
-        mRoot->data = data;
+        n--;
+    }
+    Node* remove_node = lookupNode(n, mRoot);
+    if (remove_node->count == 0) {
+        lookupNodeSubCount(n, mRoot);
+        delete remove_node;
+        return 1;
+    }
+    else if (remove_node->left == nullptr && remove_node->right != nullptr) {
+        lookupNodeSubCount(n, mRoot);
+        Node* temp = remove_node->right;
+        delete remove_node;
+        remove_node = temp;
+        return 1;
+    }
+    else if (remove_node->left != nullptr && remove_node->right == nullptr) {
+        lookupNodeSubCount(n, mRoot);
+        Node* temp = remove_node->left;
+        delete remove_node;
+        remove_node = temp;
+        return 1;
+    }
+    else {
+        std::string temp = maxValueBelow(remove_node);
+        remove(temp);
+        //lookupNodeSubCount(n, mRoot);
+        remove_node->data = temp;
+        return 0;
+    }
+    return 0;
 }
 
 void printNode(Node* node) {
@@ -203,4 +220,99 @@ void printNode(Node* node) {
         printNode(node->right);
         std::cout << ')';
     }
+}
+/*void printNode(Node* node) { // also prints counts for debugging
+    if (node == nullptr) {
+        std::cout << '-';
+    }
+    else if (node->left == nullptr && node->right == nullptr) {
+        std::cout << node->data << 'c' << node->count;
+    }
+    else {
+        std::cout << '(';
+        printNode(node->left);
+        std::cout << ' ' << node->data << 'c' << node->count << ' ';
+        printNode(node->right);
+        std::cout << ')';
+    }
+}*/
+
+std::string maxValueBelow(Node* node) {
+    node = node->left;
+    while (node->right != nullptr) {
+        node = node->right;
+    }
+    return node->data;
+}
+
+Node* lookupNodeSubCount(size_t n, Node* root) {
+    size_t smallerCount = 0;
+    if (root->left != nullptr) {
+        smallerCount = root->left->count + 1;
+    }
+    while (root != nullptr) {
+        if (n == smallerCount) {
+            return root;
+        }
+        else if (n < smallerCount) {
+            root->count--;
+            Node* temp_root = root;
+            root = root->left;
+            if (root != nullptr) {
+                smallerCount--;
+                if (root->right != nullptr) {
+                    smallerCount -= root->right->count + 1;
+                }
+            }
+            if (n == smallerCount) {
+                temp_root->left = nullptr;
+            }
+        }
+        else {
+            root->count--;
+            Node* temp_root = root;
+            root = root->right;
+            if (root != nullptr) {
+                smallerCount++;
+                if (root->left != nullptr) {
+                    smallerCount += root->left->count + 1;
+                }
+            }
+            if (n == smallerCount) {
+                temp_root->right = nullptr;
+            }
+        }
+    }
+    return nullptr;
+}
+
+Node* lookupNode(size_t n, Node* root) {
+    size_t smallerCount = 0;
+    if (root->left != nullptr) {
+        smallerCount = root->left->count + 1;
+    }
+    while (root != nullptr) {
+        if (n == smallerCount) {
+            return root;
+        }
+        else if (n < smallerCount) {
+            root = root->left;
+            if (root != nullptr) {
+                smallerCount--;
+                if (root->right != nullptr) {
+                    smallerCount -= root->right->count + 1;
+                }
+            }
+        }
+        else {
+            root = root->right;
+            if (root != nullptr) {
+                smallerCount++;
+                if (root->left != nullptr) {
+                    smallerCount += root->left->count + 1;
+                }
+            }
+        }
+    }
+    return nullptr;
 }
