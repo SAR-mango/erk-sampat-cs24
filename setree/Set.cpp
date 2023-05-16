@@ -205,12 +205,6 @@ size_t Set::remove(const std::string& value) {
     }
     size_t n = count() - 1;
     size_t m = n;
-    if (mRoot->right == nullptr) {
-        o = mRoot->count;
-    }
-    else {
-        o = mRoot->count - mRoot->right->count - 1;
-    }
     while (n > 0) {
         if (lookup(n) == value) {
             break;
