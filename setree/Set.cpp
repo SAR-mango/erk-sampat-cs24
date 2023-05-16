@@ -5,7 +5,6 @@
 void printNode(Node* node);
 std::string maxValueBelow(Node* node);
 Node* lookupNode(size_t n, Node* root);
-void printDebug(std::string garbage);
 void subtractCounts(Node* root, Node* parent);
 void addCounts(Node* root, Node* parent);
 void fillList(std::string* list, size_t i, Node* root);
@@ -108,45 +107,6 @@ void Set::debug() {
 }
 
 size_t Set::insert(const std::string& value) {
-    /*if (mRoot == mRoot->head && contains(value)) {
-        return 0;
-    }
-    if (mRoot == nullptr) {
-        mRoot = new Node;
-        mRoot->data = value;
-        mRoot->head = mRoot;
-        return 1;
-    }
-    if (value.compare(mRoot->data) < 0) {
-        if (mRoot->left == nullptr) {
-            mRoot->left = new Node;
-            mRoot->left->data = value;
-            mRoot->count++;
-            mRoot = mRoot->head;
-            return 1;
-        }
-        Node* temp = mRoot;
-        size_t temp_count = temp->count;
-        mRoot = mRoot->left;
-        temp->count += insert(value);
-        return temp->count - temp_count;
-    }
-    if (value.compare(mRoot->data) > 0) {
-        if (mRoot->right == nullptr) {
-            mRoot->right = new Node;
-            mRoot->right->data = value;
-            mRoot->count++;
-            mRoot = mRoot->head;
-            return 1;
-        }
-        Node* temp = mRoot;
-        size_t temp_count = temp->count;
-        mRoot = mRoot->right;
-        temp->count += insert(value);
-        return temp->count - temp_count;
-    }
-    mRoot = mRoot->head;
-    return 0;*/
     if (contains(value)) {
         return 0;
     }
@@ -325,19 +285,19 @@ void printNode(Node* node) {
         std::cout << ')';
     }
 }
-/*void printNode(Node* node) { // goated for debugging
+/*void printNode(Node* node) { // good for debugging
     if (node == nullptr) {
         std::cout << '-';
     }
     else if (node->left == nullptr && node->right == nullptr) {
-        //std::cout << '[' << node->data << ']' << "[c]" << node->count << "[l]" << node->left << "[r]" << node->right;
-        std::cout << '[' << node->data << ']' << "[c]" << node->count;
+        //std::cout << '[' << node->data << ']' << "[c]" << node->count << "[l]" << node->left << "[r]" << node->right; // prints addresses of left and right nodes, as well as counts
+        std::cout << '[' << node->data << ']' << "[c]" << node->count; // just prints counts in addition to data
     }
     else {
         std::cout << '(';
         printNode(node->left);
-        //std::cout << ' ' << '[' << node->data << ']' << "[c]" << node->count << "[l]" << node->left << "[r]" << node->right << ' ';
-        std::cout << ' ' << '[' << node->data << ']' << "[c]" << node->count << ' ';
+        //std::cout << ' ' << '[' << node->data << ']' << "[c]" << node->count << "[l]" << node->left << "[r]" << node->right << ' '; // prints addresses of left and right nodes, as well as counts
+        std::cout << ' ' << '[' << node->data << ']' << "[c]" << node->count << ' '; // just prints counts in addition to data
         printNode(node->right);
         std::cout << ')';
     }
@@ -380,10 +340,6 @@ Node* lookupNode(size_t n, Node* root) {
         }
     }
     return nullptr;
-}
-
-void printDebug(std::string garbage) {
-    //std::cout << garbage << std::endl;
 }
 
 void subtractCounts(Node* root, Node* parent) {
