@@ -4,8 +4,9 @@
 
 void printNode(Node* node);
 std::string maxValueBelow(Node* node);
-Node* lookupNodeSubCount(size_t n, Node* root, bool child);
 Node* lookupNode(size_t n, Node* root);
+void printDebug(std::string garbage);
+void updateCounts(Node* root, Node* parent);
 
 Set::Set() {
     mRoot = nullptr;
@@ -26,6 +27,7 @@ size_t Set::clear() {
         return 0;
     }
     if (mRoot->count == 0) {
+        mRoot->head = nullptr;
         delete mRoot;
         mRoot = nullptr;
         return 1;
@@ -54,6 +56,7 @@ size_t Set::clear() {
     }
     mRoot = original;
     size_t count = mRoot->count;
+    mRoot->head = nullptr;
     delete mRoot;
     mRoot = nullptr;
     return count + 1;
@@ -167,59 +170,135 @@ void Set::print() const {
 
 size_t Set::remove(const std::string& value) {
     if (!contains(value)) {
+        printDebug("doesn't contain");
         return 0;
     }
+    if (mRoot->data == value) {
+        if (mRoot->count == 0) {
+            printDebug("removing root; root is the only element");
+            clear();
+            return 1;
+        }
+        else if (mRoot->left == nullptr && mRoot->right != nullptr) {
+            printDebug("removing root; root has a right child");
+            Node* temp = mRoot->right;
+            delete mRoot;
+            mRoot = temp;
+            mRoot->head = temp;
+            return 1;
+        }
+        else if (mRoot->left != nullptr && mRoot->right == nullptr) {
+            printDebug("removing root; root has a left child");
+            Node* temp = mRoot->left;
+            delete mRoot;
+            mRoot = temp;
+            mRoot->head = temp;
+            return 1;
+        }
+        else {
+            printDebug("removing root; root has two children");
+            std::string str = maxValueBelow(mRoot);
+            remove(str);
+            mRoot->data = str;
+            return 1;
+        }
+    }
     size_t n = count() - 1;
+    size_t m = n;
+    size_t o = 0;
+    if (mRoot->right == nullptr) {
+        o = mRoot->count;
+    }
+    else {
+        o = mRoot->count - mRoot->right->count - 1;
+    }
     while (n > 0) {
         if (lookup(n) == value) {
             break;
         }
         n--;
     }
-    Node* remove_node = lookupNode(n, mRoot);
-    if (remove_node->count == 0) {
-        lookupNodeSubCount(n, mRoot, true);
-        delete remove_node;
-        remove_node = nullptr;
-        return 1;
+    printDebug("found n of node to remove");
+    Node* rm_node = lookupNode(n, mRoot);
+    Node* parent = lookupNode(m, mRoot);
+    while (parent->left != rm_node && parent->right != rm_node) {
+        m--;
+        parent = lookupNode(m, mRoot);
     }
-    else if (remove_node->left == nullptr && remove_node->right != nullptr) {
-        if (remove_node->right->count == 0) {
-            lookupNodeSubCount(n, mRoot, true);
+    printDebug("found parent");
+    if (rm_node->left == nullptr && rm_node->right == nullptr) {
+        /*size_t q = n + 1;
+        while (q <= o) {
+            Node* node = lookupNode(o, mRoot);
+            if (node->count > 0) {
+                node->count--;
+            }
+            o--;
+        }*/
+        updateCounts(mRoot, parent);
+        printDebug("updated counts");
+        if (parent->left == rm_node) {
+            printDebug("node to remove is a child, and is to the left of its parent");
+            parent->left = nullptr;
         }
         else {
-            lookupNodeSubCount(n, mRoot, false);
+            printDebug("node to remove is a child, and is to the right of its parent");
+            parent->right = nullptr;
         }
-        Node* temp = remove_node->right;
-        delete remove_node;
-        remove_node = temp;
-        /*remove_node->data = remove_node->right->data;
-        remove_node->count--;
-        delete remove_node->right;
-        remove_node->right = nullptr;*/
+        printDebug("deleting node with no children");
+        delete rm_node;
         return 1;
     }
-    else if (remove_node->left != nullptr && remove_node->right == nullptr) {
-        if (remove_node->left->count == 0) {
-            lookupNodeSubCount(n, mRoot, true);
+    else if (rm_node->left != nullptr && rm_node->right == nullptr) {
+        /*size_t q = n + 1;
+        while (q <= o) {
+            Node* node = lookupNode(o, mRoot);
+            if (node->count == 2) {
+                node->count--;
+            }
+            o--;
+        }*/
+        updateCounts(mRoot, parent);
+        printDebug("updated counts");
+        if (parent->left == rm_node) {
+            printDebug("node to remove has something to its left, and this is being assigned to the left of its parent");
+            parent->left = rm_node->left;
         }
         else {
-            lookupNodeSubCount(n, mRoot, false);
+            printDebug("node to remove has something to its left, and this is being assigned to the right of its parent");
+            parent->right = rm_node->left;
         }
-        Node* temp = remove_node->left;
-        delete remove_node;
-        remove_node = temp;
-        /*remove_node->data = remove_node->left->data;
-        remove_node->count--;
-        delete remove_node->left;
-        remove_node->left = nullptr;*/
+        delete rm_node;
+        return 1;
+    }
+    else if (rm_node->left == nullptr && rm_node->right != nullptr) {
+        /*size_t q = n + 1;
+        while (q <= o) {
+            Node* node = lookupNode(o, mRoot);
+            if (node->count > 0) {
+                node->count--;
+            }
+            o--;
+        }*/
+        updateCounts(mRoot, parent);
+        printDebug("updated counts");
+        if (parent->left == rm_node) {
+            parent->left = rm_node->right;
+            printDebug("node to remove has something to its right, and this is being assigned to the left of its parent");
+        }
+        else {
+            printDebug("node to remove has something to its right, and this is being assigned to the right of its parent");
+            parent->right = rm_node->right;
+        }
+        delete rm_node;
         return 1;
     }
     else {
-        std::string temp = maxValueBelow(remove_node);
-        size_t i = remove(temp);
-        remove_node->data = temp;
-        return i;
+        printDebug("node to remove has two children unfortunately; recursing");
+        std::string str = maxValueBelow(rm_node);
+        remove(str);
+        rm_node->data = str;
+        return 1;
     }
 }
 
@@ -243,12 +322,14 @@ void printNode(Node* node) {
         std::cout << '-';
     }
     else if (node->left == nullptr && node->right == nullptr) {
-        std::cout << '[' << node->data << ']' << "[c]" << node->count << "[l]" << node->left << "[r]" << node->right;
+        //std::cout << '[' << node->data << ']' << "[c]" << node->count << "[l]" << node->left << "[r]" << node->right;
+        std::cout << '[' << node->data << ']' << "[c]" << node->count;
     }
     else {
         std::cout << '(';
         printNode(node->left);
-        std::cout << ' ' << '[' << node->data << ']' << "[c]" << node->count << "[l]" << node->left << "[r]" << node->right << ' ';
+        //std::cout << ' ' << '[' << node->data << ']' << "[c]" << node->count << "[l]" << node->left << "[r]" << node->right << ' ';
+        std::cout << ' ' << '[' << node->data << ']' << "[c]" << node->count << ' ';
         printNode(node->right);
         std::cout << ')';
     }
@@ -260,47 +341,6 @@ std::string maxValueBelow(Node* node) {
         node = node->right;
     }
     return node->data;
-}
-
-Node* lookupNodeSubCount(size_t n, Node* root, bool child) {
-    size_t smallerCount = 0;
-    if (root->left != nullptr) {
-        smallerCount = root->left->count + 1;
-    }
-    while (root != nullptr) {
-        if (n == smallerCount) {
-            return root;
-        }
-        else if (n < smallerCount) {
-            root->count--;
-            Node* temp_root = root;
-            root = root->left;
-            if (root != nullptr) {
-                smallerCount--;
-                if (root->right != nullptr) {
-                    smallerCount -= root->right->count + 1;
-                }
-            }
-            if (n == smallerCount && child) {
-                temp_root->left = nullptr;
-            }
-        }
-        else {
-            root->count--;
-            Node* temp_root = root;
-            root = root->right;
-            if (root != nullptr) {
-                smallerCount++;
-                if (root->left != nullptr) {
-                    smallerCount += root->left->count + 1;
-                }
-            }
-            if (n == smallerCount && child) {
-                temp_root->right = nullptr;
-            }
-        }
-    }
-    return nullptr;
 }
 
 Node* lookupNode(size_t n, Node* root) {
@@ -332,4 +372,21 @@ Node* lookupNode(size_t n, Node* root) {
         }
     }
     return nullptr;
+}
+
+void printDebug(std::string garbage) {
+    //std::cout << garbage << std::endl;
+}
+
+void updateCounts(Node* root, Node* parent) {
+    while (root != parent) {
+        root->count--;
+        if (root->data.compare(parent->data) < 0) {
+            root = root->right;
+        }
+        else {
+            root = root->left;
+        }
+    }
+    parent->count--;
 }
