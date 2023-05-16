@@ -27,7 +27,6 @@ Set::Set(const Set& other) {
         for (size_t i = 0; i < count; i++) {
             insert(list[i]);
         }
-        std::cout << std::endl;
     }
 }
 
@@ -289,14 +288,14 @@ void printNode(Node* node) {
         std::cout << '-';
     }
     else if (node->left == nullptr && node->right == nullptr) {
-        //std::cout << '[' << node->data << ']' << "[c]" << node->count << "[l]" << node->left << "[r]" << node->right;
-        std::cout << '[' << node->data << ']' << "[c]" << node->count;
+        std::cout << '[' << node->data << ']' << "[c]" << node->count << "[l]" << node->left << "[r]" << node->right;
+        //std::cout << '[' << node->data << ']' << "[c]" << node->count;
     }
     else {
         std::cout << '(';
         printNode(node->left);
-        //std::cout << ' ' << '[' << node->data << ']' << "[c]" << node->count << "[l]" << node->left << "[r]" << node->right << ' ';
-        std::cout << ' ' << '[' << node->data << ']' << "[c]" << node->count << ' ';
+        std::cout << ' ' << '[' << node->data << ']' << "[c]" << node->count << "[l]" << node->left << "[r]" << node->right << ' ';
+        //std::cout << ' ' << '[' << node->data << ']' << "[c]" << node->count << ' ';
         printNode(node->right);
         std::cout << ')';
     }
