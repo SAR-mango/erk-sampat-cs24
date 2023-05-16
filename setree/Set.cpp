@@ -31,6 +31,20 @@ Set::Set(const Set& other) {
 }
 
 Set::Set(Set&& other) {
+    if (other.mRoot == nullptr) {
+        mRoot = nullptr;
+    }
+    else if (other.mRoot->count == 0) {
+        insert(other.mRoot->data);
+    }
+    else {
+        size_t count = other.count();
+        std::string list[count];
+        fillList(list, 0, other.mRoot);
+        for (size_t i = 0; i < count; i++) {
+            insert(list[i]);
+        }
+    }
 }
 
 Set::~Set() {
