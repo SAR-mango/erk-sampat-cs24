@@ -31,7 +31,7 @@ Set::Set(const Set& other) {
 }
 
 Set::Set(Set&& other) {
-    mRoot = other.mRoot;
+    other.mRoot = mRoot;
 }
 
 Set::~Set() {
