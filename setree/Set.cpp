@@ -107,6 +107,9 @@ void Set::debug() {
 }
 
 size_t Set::insert(const std::string& value) {
+    if (mRoot == mRoot->head && !contains(value)) {
+        return 0;
+    }
     if (mRoot == nullptr) {
         mRoot = new Node;
         mRoot->data = value;
