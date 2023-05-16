@@ -6,7 +6,8 @@ void printNode(Node* node);
 std::string maxValueBelow(Node* node);
 Node* lookupNode(size_t n, Node* root);
 void printDebug(std::string garbage);
-void updateCounts(Node* root, Node* parent);
+void subtractCounts(Node* root, Node* parent);
+void addCounts(Node* root, Node* parent);
 void fillList(std::string* list, size_t i, Node* root);
 
 Set::Set() {
@@ -107,7 +108,7 @@ void Set::debug() {
 }
 
 size_t Set::insert(const std::string& value) {
-    if (mRoot == mRoot->head && contains(value)) {
+    /*if (mRoot == mRoot->head && contains(value)) {
         return 0;
     }
     if (mRoot == nullptr) {
@@ -145,6 +146,42 @@ size_t Set::insert(const std::string& value) {
         return temp->count - temp_count;
     }
     mRoot = mRoot->head;
+    return 0;*/
+    if (contains(value)) {
+        return 0;
+    }
+    if (mRoot == nullptr) {
+        mRoot = new Node;
+        mRoot->data = value;
+        mRoot->head = mRoot;
+        return 1;
+    }
+    Node* node = mRoot;
+    while (true) {
+        if (value.compare(node->data) < 0) {
+            if (node->left == nullptr) {
+                node->left = new Node;
+                node->left->data = value;
+                addCounts(mRoot, node);
+                return 1;
+            }
+            else {
+                node = node->left;
+                continue;
+            }
+        }
+        else {
+            if (node->right == nullptr) {
+                node->right = new Node;
+                node->right->data = value;
+                addCounts(mRoot, node);
+                return 1;
+            }
+            else {
+                node = node->right;
+            }
+        }
+    }
     return 0;
 }
 
@@ -233,7 +270,7 @@ size_t Set::remove(const std::string& value) {
         parent = lookupNode(m, mRoot);
     }
     if (rm_node->left == nullptr && rm_node->right == nullptr) {
-        updateCounts(mRoot, parent);
+        subtractCounts(mRoot, parent);
         if (parent->left == rm_node) {
             parent->left = nullptr;
         }
@@ -244,7 +281,7 @@ size_t Set::remove(const std::string& value) {
         return 1;
     }
     else if (rm_node->left != nullptr && rm_node->right == nullptr) {
-        updateCounts(mRoot, parent);
+        subtractCounts(mRoot, parent);
         if (parent->left == rm_node) {
             parent->left = rm_node->left;
         }
@@ -255,7 +292,7 @@ size_t Set::remove(const std::string& value) {
         return 1;
     }
     else if (rm_node->left == nullptr && rm_node->right != nullptr) {
-        updateCounts(mRoot, parent);
+        subtractCounts(mRoot, parent);
         if (parent->left == rm_node) {
             parent->left = rm_node->right;
         }
@@ -349,7 +386,7 @@ void printDebug(std::string garbage) {
     //std::cout << garbage << std::endl;
 }
 
-void updateCounts(Node* root, Node* parent) {
+void subtractCounts(Node* root, Node* parent) {
     while (root != parent) {
         root->count--;
         if (root->data.compare(parent->data) < 0) {
@@ -360,6 +397,19 @@ void updateCounts(Node* root, Node* parent) {
         }
     }
     parent->count--;
+}
+
+void addCounts(Node* root, Node* parent) {
+    while (root != parent) {
+        root->count++;
+        if (root->data.compare(parent->data) < 0) {
+            root = root->right;
+        }
+        else {
+            root = root->left;
+        }
+    }
+    parent->count++;
 }
 
 void fillList(std::string* list, size_t i, Node* root) {
