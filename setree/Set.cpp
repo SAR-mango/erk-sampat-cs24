@@ -14,8 +14,8 @@ Set::Set() {
 }
 
 Set::Set(const Set& other) {
+    mRoot = nullptr;
     if (other.mRoot == nullptr) {
-        mRoot = nullptr;
     }
     else if (other.mRoot->count == 0) {
         insert(other.mRoot->data);
@@ -270,7 +270,7 @@ size_t Set::remove(const std::string& value) {
     }
 }
 
-void printNode(Node* node) {
+/*void printNode(Node* node) {
     if (node == nullptr) {
         std::cout << '-';
     }
@@ -284,24 +284,24 @@ void printNode(Node* node) {
         printNode(node->right);
         std::cout << ')';
     }
-}
-/*void printNode(Node* node) { // goated for debugging
+}*/
+void printNode(Node* node) { // goated for debugging
     if (node == nullptr) {
         std::cout << '-';
     }
     else if (node->left == nullptr && node->right == nullptr) {
-        std::cout << '[' << node->data << ']' << "[c]" << node->count << "[l]" << node->left << "[r]" << node->right;
-        //std::cout << '[' << node->data << ']' << "[c]" << node->count;
+        //std::cout << '[' << node->data << ']' << "[c]" << node->count << "[l]" << node->left << "[r]" << node->right;
+        std::cout << '[' << node->data << ']' << "[c]" << node->count;
     }
     else {
         std::cout << '(';
         printNode(node->left);
-        std::cout << ' ' << '[' << node->data << ']' << "[c]" << node->count << "[l]" << node->left << "[r]" << node->right << ' ';
-        //std::cout << ' ' << '[' << node->data << ']' << "[c]" << node->count << ' ';
+        //std::cout << ' ' << '[' << node->data << ']' << "[c]" << node->count << "[l]" << node->left << "[r]" << node->right << ' ';
+        std::cout << ' ' << '[' << node->data << ']' << "[c]" << node->count << ' ';
         printNode(node->right);
         std::cout << ')';
     }
-}*/
+}
 
 std::string maxValueBelow(Node* node) {
     node = node->left;
