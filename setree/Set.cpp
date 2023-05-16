@@ -270,7 +270,7 @@ size_t Set::remove(const std::string& value) {
     }
 }
 
-/*void printNode(Node* node) {
+void printNode(Node* node) {
     if (node == nullptr) {
         std::cout << '-';
     }
@@ -284,8 +284,8 @@ size_t Set::remove(const std::string& value) {
         printNode(node->right);
         std::cout << ')';
     }
-}*/
-void printNode(Node* node) { // goated for debugging
+}
+/*void printNode(Node* node) { // goated for debugging
     if (node == nullptr) {
         std::cout << '-';
     }
@@ -301,7 +301,7 @@ void printNode(Node* node) { // goated for debugging
         printNode(node->right);
         std::cout << ')';
     }
-}
+}*/
 
 std::string maxValueBelow(Node* node) {
     node = node->left;
