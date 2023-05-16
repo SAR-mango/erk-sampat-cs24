@@ -205,7 +205,6 @@ size_t Set::remove(const std::string& value) {
     }
     size_t n = count() - 1;
     size_t m = n;
-    size_t o = 0;
     if (mRoot->right == nullptr) {
         o = mRoot->count;
     }
