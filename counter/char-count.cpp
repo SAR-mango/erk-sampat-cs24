@@ -26,10 +26,12 @@ void print_results(const char* filename, const Counter& counter) {
 
   for(int i = 0; i < 26; ++i) {
     str[0]  = ALPHA[i];
-    int cap = counter.get(str);
+    //int cap = counter.get(str);
+    int cap = 0;
 
     str[0]  = ALPHA[i + 26];
-    int low = counter.get(str);
+    //int low = counter.get(str);
+    int low = 0;
 
     std::cout << std::setw(6) << (cap + low);
   }
