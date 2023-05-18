@@ -33,7 +33,7 @@ void Counter::set(const std::string& key, int count) {
     sum_counts -= get(key);
     sum_counts += count;
     if (list.update(key, count)) {
-        num_keys++
+        num_keys++;
     }
 }
 
@@ -45,12 +45,12 @@ int Counter::total() const {
     return total_count;
 }
 
-Iterator Counter::begin() const {
+Counter::Iterator Counter::begin() const {
     Iterator itr();
     return itr;
 }
 
-Iterator Counter::end() const {
+Counter::Iterator Counter::end() const {
     Iterator itr(false);
     return itr;
 }

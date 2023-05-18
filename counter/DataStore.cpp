@@ -7,10 +7,10 @@ DataStore::~DataStore() {
 }
 
 bool DataStore::increment(const std::string& key, int by) {
-    size_t index;
-    Node* node = index.keyToNode(key, index);
+    size_t idx;
+    Node* node = index.keyToNode(key, idx);
     if (node == nullptr) { // key isn't already present
-        index.updateIndex(index, append(key, by));
+        index.updateIndex(idx, append(key, by));
         return true;
     }
     else if (node->key != key) { // index conflict; key may or may not be present
@@ -42,10 +42,10 @@ bool DataStore::increment(const std::string& key, int by) {
 }
 
 bool DataStore::decrement(const std::string& key, int by) {
-    size_t index;
-    Node* node = index.keyToNode(key, index);
+    size_t idx;
+    Node* node = index.keyToNode(key, idx);
     if (node == nullptr) { // key isn't already present
-        index.updateIndex(index, append(key, -1 * by));
+        index.updateIndex(idx, append(key, -1 * by));
         return true;
     }
     else if (node->key != key) { // index conflict; key may or may not be present
@@ -78,24 +78,24 @@ bool DataStore::decrement(const std::string& key, int by) {
 
 
 bool DataStore::update(const std::string& key, int count) {
-    size_t index;
-    Node* node = index.keyToNode(key, index);
+    size_t idx;
+    Node* node = index.keyToNode(key, idx);
     if (node == nullptr) { // key isn't already present
-        index.updateIndex(index, append(key, by));
+        index.updateIndex(idx, append(key, count));
         return true;
     }
     else if (node->key != key) { // index conflict; key may or may not be present
         Right_Node* right = node->right;
         if (right == nullptr) {
             node->right = new Right_Node;
-            node->right->dll_pos = append(key, by);
+            node->right->dll_pos = append(key, count);
             return true;
         }
         Right_Node* prev = right;
         while (right != nullptr) {
             if (right->dll_pos != nullptr) {
                 if (right->dll_pos->key == key) {
-                    right->dll_pos->count = by;
+                    right->dll_pos->count = count;
                     return false;
                 }
             }
@@ -103,18 +103,18 @@ bool DataStore::update(const std::string& key, int count) {
             right = right->right;
         }
         prev->right = new Right_Node;
-        prev->right->dll_pos = append(key, by);
+        prev->right->dll_pos = append(key, count);
         return true;
     }
     else { // correct key is present
-        node->count = by;
+        node->count = count;
         return false;
     }
 }
 
 bool DataStore::remove(const std::string& key) {
-    size_t index;
-    Node* node = index.keyToNode(key, index);
+    size_t idx;
+    Node* node = index.keyToNode(key, idx);
     if (node == nullptr) { // key isn't already present
         return false;
     }
@@ -139,15 +139,15 @@ bool DataStore::remove(const std::string& key) {
         return false;
     }
     else { // correct key is present
-        index.updateIndex(index, nullptr);
+        index.updateIndex(idx, nullptr);
         deleteNode(node);
         return true;
     }
 }
 
 int DataStore::lookup(const std::string& key) const {
-    size_t index;
-    Node* node = index.keyToNode(key, index);
+    size_t idx;
+    Node* node = index.keyToNode(key, idx);
     if (node == nullptr) { // key isn't already present
         return 0;
     }
@@ -197,7 +197,7 @@ Node* DataStore::append(const std::string& key, int count) {
     return tail;
 }
 
-void deleteNode(Node* node) {
+void DataStore::deleteNode(Node* node) {
     if (node == head) {
         if (head == tail) {
             delete node;

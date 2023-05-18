@@ -11,9 +11,10 @@ Index::Index() {
 Index::~Index() {
 }
 
-Node* Index::keyToNode(const std::string& key, size_t& index = 0) {
+Node* Index::keyToNode(const std::string& key, size_t& index) const {
     size_t length = key.length();
     if (length == 0) {
+        index = 0;
         return indices[0];
     }
     else if (length == 1) {
@@ -30,6 +31,6 @@ Node* Index::keyToNode(const std::string& key, size_t& index = 0) {
     }
 }
 
-void Index::updateIndex(size_t& index, Node* node) {
+void Index::updateIndex(size_t index, Node* node) {
     indices[index] = node;
 }
