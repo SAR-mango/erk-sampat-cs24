@@ -7,6 +7,13 @@ DataStore::~DataStore() {
     Node* node = head;
     while (node != tail) {
         Node* temp = node;
+        Right_Node* temp_right = node->right;
+        while (temp_right != nullptr) {
+            deleteNode(temp_right->dll_pos);
+            Right_Node* prev_right = temp_right;
+            temp_right = temp_right->right;
+            delete prev_right;
+        }
         node = node->next;
         delete temp;
     }
