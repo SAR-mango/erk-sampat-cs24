@@ -4,8 +4,13 @@ DataStore::DataStore() {
 }
 
 DataStore::~DataStore() {
-    delete head;
-    delete tail;
+    Node* node = head;
+    while (node != tail) {
+        Node* temp = node;
+        node = node->next;
+        delete temp;
+    }
+    delete node;
 }
 
 bool DataStore::increment(const std::string& key, int by) {
