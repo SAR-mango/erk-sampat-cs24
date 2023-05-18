@@ -3,7 +3,7 @@
 Node* Counter::Iterator::fake = new Node;
 
 Counter::Iterator::Iterator(Node* head, bool end) {
-    if (!end) {
+    if (!end || head == nullptr) {
         current_node = head;
     }
     else {
