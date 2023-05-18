@@ -4,6 +4,9 @@
 Counter::Counter() {
 }
 
+Counter::~Counter() {
+}
+
 void Counter::inc(const std::string& key, int by) {
     if (list.increment(key, by)) {
         num_keys++;

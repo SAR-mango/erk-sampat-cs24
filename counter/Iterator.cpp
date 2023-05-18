@@ -1,7 +1,8 @@
 #include "Counter.h"
 
+Node* Counter::Iterator::fake = new Node;
+
 Counter::Iterator::Iterator(Node* head, bool end) {
-    Node* Counter::Iterator::fake = new Node;
     if (!end) {
         current_node = head;
     }
@@ -34,8 +35,8 @@ bool Counter::Iterator::operator == (const Counter::Iterator& other) const {
 }
 
 bool Counter::Iterator::operator != (const Counter::Iterator& other) const {
-    /*if (this == other) {
-        return true;
-    }*/
-    return false;
+    if (current_node == other.current_node) {
+        return false;
+    }
+    return true;
 }
