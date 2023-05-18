@@ -15,12 +15,10 @@ public:
   class Iterator {
     // Member Variables
     Node* current_node = nullptr;
-    //static Node* fake;
-    Node* fake;
+    static Node* fake;
 
   public:
     Iterator(Node* head, bool end = false);
-    ~Iterator();
     const std::string& key() const;
     int value() const;
 

@@ -1,20 +1,14 @@
 #include "Counter.h"
 
-//Node* Counter::Iterator::fake = new Node;
+Node* Counter::Iterator::fake = new Node;
 
 Counter::Iterator::Iterator(Node* head, bool end) {
-    fake = new Node;
-    if (!end && head != nullptr) {
+    if (!end || head == nullptr) {
         current_node = head;
     }
     else {
         current_node = fake;
     }
-}
-
-Counter::Iterator::~Iterator() {
-    delete fake;
-    fake = nullptr;
 }
 
 const std::string& Counter::Iterator::key() const {
@@ -26,8 +20,7 @@ int Counter::Iterator::value() const {
 }
 
 Counter::Iterator& Counter::Iterator::operator ++ () {
-    current_node = current_node->next;
-    //this->current_node = current_node->next;
+    this->current_node = current_node->next;
     if (current_node == nullptr) {
         current_node = fake;
     }

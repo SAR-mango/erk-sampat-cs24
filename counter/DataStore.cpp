@@ -1,5 +1,4 @@
 #include "DataStore.h"
-#include <iostream>
 
 DataStore::DataStore() {
 }
@@ -17,6 +16,7 @@ DataStore::~DataStore() {
         node = node->next;
         delete temp;
     }
+    delete node;
 }
 
 bool DataStore::increment(const std::string& key, int by) {
@@ -138,7 +138,6 @@ bool DataStore::remove(const std::string& key) {
         }
         Right_Node* prev = right;
         while (right != nullptr) {
-            std::cout << right << std::endl;
             if (right->dll_pos != nullptr) {
                 if (right->dll_pos->key == key) {
                     deleteNode(right->dll_pos);
@@ -191,12 +190,6 @@ Node* DataStore::append(const std::string& key, int count) {
         head->key = key;
         head->count = count;
         tail = head;
-        Node* trav = head;
-        while (trav != nullptr) {
-            std::cout << trav->key;
-            trav = trav->next;
-        }
-        std::cout << std::endl;
         return tail;
     }
     if (head == tail) {
@@ -206,12 +199,6 @@ Node* DataStore::append(const std::string& key, int count) {
         head->next = tail;
         tail->key = key;
         tail->count = count;
-        Node* trav = head;
-        while (trav != nullptr) {
-            std::cout << trav->key;
-            trav = trav->next;
-        }
-        std::cout << std::endl;
         return tail;
     }
     tail->next = new Node;
@@ -220,12 +207,6 @@ Node* DataStore::append(const std::string& key, int count) {
     tail->prev = prev;
     tail->key = key;
     tail->count = count;
-    Node* trav = head;
-    while (trav != nullptr) {
-        std::cout << trav->key;
-        trav = trav->next;
-    }
-    std::cout << std::endl;
     return tail;
 }
 

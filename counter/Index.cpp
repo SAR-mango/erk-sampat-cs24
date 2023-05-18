@@ -1,5 +1,4 @@
 #include "Index.h"
-#include <iostream>
 
 // Index Member Functions
 
@@ -19,22 +18,19 @@ Node* Index::keyToNode(const std::string& key, size_t& index) const {
         return indices[0];
     }
     else if (length == 1) {
-        index = key[0] % (size - 1);
+        index = key[0] % size;
         return indices[index];
     }
     else if (length == 2) {
-        index = (key[0] + key[1]) % (size - 1);
+        index = (key[0] + key[1]) % size;
         return indices[index];
     }
     else {
-        index = (key[0] + key[1] + key[2]) % (size - 1);
+        index = (key[0] + key[1] + key[2]) % size;
         return indices[index];
     }
 }
 
 void Index::updateIndex(size_t index, Node* node) {
-    if (index >= size) {
-        std::cout << "WRITING PAST ARRAY" << std::endl;
-    }
     indices[index] = node;
 }
