@@ -9,6 +9,18 @@ Index::Index() {
 }
 
 Index::~Index() {
+    for (size_t i = 0; i < size; i++) {
+        if (indices[i] != nullptr) {
+            Right_Node* right = indices[i]->right;
+            while (right != nullptr) {
+                Right_Node* curr = right;
+                right = right->right;
+                delete curr;
+            }
+        }
+        delete indices[i];
+        indices[i] = nullptr;
+    }
 }
 
 Node* Index::keyToNode(const std::string& key, size_t& index) const {

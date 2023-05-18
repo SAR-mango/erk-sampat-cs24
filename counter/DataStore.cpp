@@ -4,6 +4,8 @@ DataStore::DataStore() {
 }
 
 DataStore::~DataStore() {
+    delete head;
+    delete tail;
 }
 
 bool DataStore::increment(const std::string& key, int by) {
