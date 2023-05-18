@@ -25,7 +25,7 @@ bool DataStore::increment(const std::string& key, int by) {
         Right_Node* prev = right;
         while (right != nullptr) {
             if (right->dll_pos != nullptr) {
-                if (right-dll_pos->key == key) {
+                if (right->dll_pos->key == key) {
                     right->dll_pos->count += by;
                     return false;
                 }
@@ -60,7 +60,7 @@ bool DataStore::decrement(const std::string& key, int by) {
         Right_Node* prev = right;
         while (right != nullptr) {
             if (right->dll_pos != nullptr) {
-                if (right-dll_pos->key == key) {
+                if (right->dll_pos->key == key) {
                     right->dll_pos->count -= by;
                     return false;
                 }
@@ -96,7 +96,7 @@ bool DataStore::update(const std::string& key, int count) {
         Right_Node* prev = right;
         while (right != nullptr) {
             if (right->dll_pos != nullptr) {
-                if (right-dll_pos->key == key) {
+                if (right->dll_pos->key == key) {
                     right->dll_pos->count = by;
                     return false;
                 }
@@ -118,10 +118,31 @@ bool DataStore::remove(const std::string& key) {
     size_t index;
     Node* node = index.keyToNode(key, index);
     if (node == nullptr) { // key isn't already present
+        return false;
     }
     else if (node->key != key) { // index conflict; key may or may not be present
+        Right_Node* right = node->right;
+        if (right == nullptr) {
+            return false;
+        }
+        Right_Node* prev = right;
+        while (right != nullptr) {
+            if (right->dll_pos != nullptr) {
+                if (right->dll_pos->key == key) {
+                    deleteNode(right->dll_pos);
+                    prev->right = right->right;
+                    delete right;
+                    return true;
+                }
+            }
+            prev = right;
+            right = right->right;
+        }
+        return false;
     }
     else { // correct key is present
+        deleteNode(node);
+        return true;
     }
 }
 
@@ -137,6 +158,7 @@ int DataStore::lookup(const std::string& key) const {
 }
 
 Node* DataStore::append(const std::string& key, int count);
+void deleteNode(Node* node);
 
 class DataStore {
     public:
@@ -150,6 +172,7 @@ class DataStore {
 
     private:
     Node* append(const std::string& key, int count);
+    void deleteNode(Node* node);
 
     Index index;
     Node* head = new Node;

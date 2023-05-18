@@ -17,6 +17,7 @@ class DataStore {
 
     private:
     Node* append(const std::string& key, int count);
+    void deleteNode(Node* node);
 
     Index index;
     Node* head = new Node;
