@@ -7,17 +7,31 @@ DataStore::~DataStore() {
     Node* node = head;
     while (node != tail) {
         Node* temp = node;
+        bool temp_del = false;
+        bool tail_del = false;
         Right_Node* temp_right = node->right;
         while (temp_right != nullptr) {
+            if (temp_right->dll_pos == temp) {
+                temp_del = true;
+            }
+            if (temp_right->dll_pos == tail) {
+                tail_del = true;
+            }
             deleteNode(temp_right->dll_pos);
             Right_Node* prev_right = temp_right;
             temp_right = temp_right->right;
             delete prev_right;
         }
         node = node->next;
-        delete temp;
+        if (!temp_del) {
+            delete temp;
+        }
     }
-    delete node;
+    if (!tail_del) {
+        delete node;
+    }
+    head = nullptr;
+    tail = nullptr;
 }
 
 bool DataStore::increment(const std::string& key, int by) {
