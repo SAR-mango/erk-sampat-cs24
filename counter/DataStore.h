@@ -5,6 +5,8 @@
 // This can make things simpler by clearly separating functionality.
 // The DataStore is in charge of storing pairs in insertion order.
 
+#include "Index.h"
+
 class DataStore {
     public:
     DataStore();
@@ -20,8 +22,8 @@ class DataStore {
     void deleteNode(Node* node);
 
     Index index;
-    Node* head = new Node;
-    Node* tail = new Node;
+    Node* head = nullptr;
+    Node* tail = nullptr;
     struct Node {
         Node* prev = nullptr;
         Node* next = nullptr;
@@ -33,6 +35,6 @@ class DataStore {
         Right_Node* right = nullptr;
         Node* dll_pos = nullptr;
     };
-}
+};
 
 #endif

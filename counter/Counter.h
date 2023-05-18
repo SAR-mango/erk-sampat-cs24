@@ -4,6 +4,8 @@
 #include <cstddef>
 #include <string>
 
+#include "DataStore.h"
+
 // This is the Counter class you need to implement.
 // It includes the Counter::Iterator as a nested class.
 // If you want more space to implement helper classes,
@@ -18,22 +20,22 @@ class Counter {
     void del(const std::string& key);
     int  get(const std::string& key) const;
     void set(const std::string& key, int count);
-
     size_t count() const;
     int    total() const;
     Iterator begin() const;
     Iterator end() const;
+
     class Iterator {
         public:
+        Iterator(bool head = true);
         const std::string& key() const;
         int value() const;
-
         Iterator& operator ++ ();
         bool      operator == (const Iterator& other) const;
         bool      operator != (const Iterator& other) const;
 
         private:
-        // Member Variables
+        Node* current_node = nullptr;
     };
 
     private:

@@ -1,8 +1,6 @@
 #include "DataStore.h"
 
-// DataStore Member Functions
 DataStore::DataStore() {
-    // set head and tail
 }
 
 DataStore::~DataStore() {
@@ -141,6 +139,7 @@ bool DataStore::remove(const std::string& key) {
         return false;
     }
     else { // correct key is present
+        index.updateIndex(index, nullptr);
         deleteNode(node);
         return true;
     }
@@ -150,53 +149,75 @@ int DataStore::lookup(const std::string& key) const {
     size_t index;
     Node* node = index.keyToNode(key, index);
     if (node == nullptr) { // key isn't already present
+        return 0;
     }
     else if (node->key != key) { // index conflict; key may or may not be present
+        Right_Node* right = node->right;
+        if (right == nullptr) {
+            return 0;
+        }
+        while (right != nullptr) {
+            if (right->dll_pos != nullptr) {
+                if (right->dll_pos->key == key) {
+                    return right->dll_pos->count;
+                }
+            }
+            right = right->right;
+        }
+        return 0;
     }
     else { // correct key is present
+        return node->count;
     }
 }
 
-Node* DataStore::append(const std::string& key, int count);
-void deleteNode(Node* node);
-
-class DataStore {
-    public:
-    DataStore();
-    ~DataStore();
-    bool increment(const std::string& key, int by);
-    bool decrement(const std::string& key, int by);
-    bool update(const std::string& key, int count);
-    bool remove(const std::string& key);
-    int lookup(const std::string& key) const;
-
-    private:
-    Node* append(const std::string& key, int count);
-    void deleteNode(Node* node);
-
-    Index index;
-    Node* head = new Node;
-    Node* tail = new Node;
-    struct Node {
-        Node* prev = nullptr;
-        Node* next = nullptr;
-        Right_Node* right = nullptr;
-        std::string key = "";
-        int count = 0;
-    };
-    struct Right_Node {
-        Right_Node* right = nullptr;
-        Node* dll_pos = nullptr;
-    };
+Node* DataStore::append(const std::string& key, int count) {
+    if (head == nullptr) {
+        head = new Node;
+        head->key = key;
+        head->count = count;
+        tail = head;
+        return tail;
+    }
+    if (head == tail) {
+        tail->next = new Node;
+        tail = tail->next;
+        tail->prev = head;
+        head->next = tail;
+        tail->key = key;
+        tail->count = count;
+        return tail;
+    }
+    tail->next = new Node;
+    Node* prev = tail;
+    tail = tail->next;
+    tail->prev = prev;
+    tail->key = key;
+    tail->count = count;
+    return tail;
 }
-class Index {
-    public:
-    Index();
-    ~Index();
-    Node* keyToNode(const std::string& key, size_t& index = 0);
-    void updateIndex(size_t& index, Node* node);
 
-    private:
-    size_t size = 10000;
-    Node* indices[10000];
-};
+void deleteNode(Node* node) {
+    if (node == head) {
+        if (head == tail) {
+            delete node;
+            head = nullptr;
+            tail = nullptr;
+            return;
+        }
+        head = head->next;
+        head->prev = nullptr;
+        delete node;
+        return;
+    }
+    if (node == tail) {
+        tail = tail->prev;
+        tail->next = nullptr;
+        delete node;
+        return;
+    }
+    node->prev = node->next;
+    node->next->prev = node->prev;
+    delete node;
+    return;
+}

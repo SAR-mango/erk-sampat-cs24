@@ -36,3 +36,21 @@ void Counter::set(const std::string& key, int count) {
         num_keys++
     }
 }
+
+size_t Counter::count() const {
+    return num_keys;
+}
+
+int Counter::total() const {
+    return total_count;
+}
+
+Iterator Counter::begin() const {
+    Iterator itr();
+    return itr;
+}
+
+Iterator Counter::end() const {
+    Iterator itr(false);
+    return itr;
+}
