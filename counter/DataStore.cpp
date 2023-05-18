@@ -4,19 +4,29 @@ DataStore::DataStore() {
 }
 
 DataStore::~DataStore() {
-    Node* node = head;
-    while (node != tail) {
-        Node* temp = node;
-        Right_Node* temp_right = node->right;
-        while (temp_right != nullptr) {
-            Right_Node* prev_right = temp_right;
-            temp_right = temp_right->right;
-            delete prev_right;
-        }
-        node = node->next;
-        delete temp;
+    if (head == nullptr) {
     }
-    delete node;
+    else if (head == tail) {
+        delete head;
+        head = nullptr;
+        tail = nullptr;
+    }
+    else {
+        Node* node = head;
+        while (node != nullptr) {
+            Node* temp = node;
+            Right_Node* temp_right = node->right;
+            while (temp_right != nullptr) {
+                Right_Node* prev_right = temp_right;
+                temp_right = temp_right->right;
+                delete prev_right;
+            }
+            node = node->next;
+            delete temp;
+        }
+        head = nullptr;
+        tail = nullptr;
+    }
 }
 
 bool DataStore::increment(const std::string& key, int by) {
@@ -229,7 +239,7 @@ void DataStore::deleteNode(Node* node) {
         delete node;
         return;
     }
-    node->prev = node->next;
+    node->prev->next = node->next;
     node->next->prev = node->prev;
     delete node;
     return;
