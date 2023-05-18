@@ -5,10 +5,10 @@ DataStore::DataStore() {
 
 DataStore::~DataStore() {
     Node* node = head;
-    bool tail_del = false;
     while (node != tail) {
         Node* temp = node;
         bool temp_del = false;
+        bool tail_del = false;
         Right_Node* temp_right = node->right;
         while (temp_right != nullptr) {
             if (temp_right->dll_pos == temp) {
