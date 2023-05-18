@@ -16,6 +16,7 @@ class DataStore {
     bool update(const std::string& key, int count);
     bool remove(const std::string& key);
     int lookup(const std::string& key) const;
+    Node* getHead() const;
 
     private:
     Node* append(const std::string& key, int count);

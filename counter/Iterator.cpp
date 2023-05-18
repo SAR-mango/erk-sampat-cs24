@@ -1,37 +1,41 @@
 #include "Counter.h"
 
-Iterator::Iterator(bool head = true) {
-    if (head) {
+Counter::Iterator::Iterator(Node* head, bool end) {
+    Node* Counter::Iterator::fake = new Node;
+    if (!end) {
         current_node = head;
     }
     else {
-        current_node = tail;
+        current_node = fake;
     }
 }
 
-const std::string& Iterator::key() const {
+const std::string& Counter::Iterator::key() const {
     return current_node->key;
 }
 
-int Iterator::value() const {
+int Counter::Iterator::value() const {
     return current_node->count;
 }
 
-Iterator& operator Iterator::++ () {
-    current_node = current_node->next;
-    return current_node;
+Counter::Iterator& Counter::Iterator::operator ++ () {
+    this->current_node = current_node->next;
+    if (current_node == nullptr) {
+        current_node = fake;
+    }
+    return *this;
 }
 
-bool operator Iterator::== (const Iterator& other) const {
-    if (current_node->key == other.key()) {
+bool Counter::Iterator::operator == (const Counter::Iterator& other) const {
+    if (current_node == other.current_node) {
         return true;
     }
     return false;
 }
 
-bool operator Iterator::!= (const Iterator& other) const {
-    if (current_node->key == other.key()) {
-        return false;
-    }
-    return true;
+bool Counter::Iterator::operator != (const Counter::Iterator& other) const {
+    /*if (this == other) {
+        return true;
+    }*/
+    return false;
 }

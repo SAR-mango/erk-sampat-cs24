@@ -4,14 +4,14 @@
 Counter::Counter() {
 }
 
-void Counter::inc(const std::string& key, int by = 1) {
+void Counter::inc(const std::string& key, int by) {
     if (list.increment(key, by)) {
         num_keys++;
     }
     sum_counts += by;
 }
 
-void Counter::dec(const std::string& key, int by = 1) {
+void Counter::dec(const std::string& key, int by) {
     if (list.decrement(key, by)) {
         num_keys++;
     }
@@ -42,15 +42,15 @@ size_t Counter::count() const {
 }
 
 int Counter::total() const {
-    return total_count;
+    return sum_counts;
 }
 
 Counter::Iterator Counter::begin() const {
-    Iterator itr();
+    Iterator itr(list.getHead());
     return itr;
 }
 
 Counter::Iterator Counter::end() const {
-    Iterator itr(false);
+    Iterator itr(list.getHead(), true);
     return itr;
 }

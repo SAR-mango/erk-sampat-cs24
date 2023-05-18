@@ -221,3 +221,7 @@ void DataStore::deleteNode(Node* node) {
     delete node;
     return;
 }
+
+Node* DataStore::getHead() const {
+    return head;
+}
