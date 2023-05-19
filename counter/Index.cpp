@@ -12,7 +12,7 @@ Index::~Index() {
 }
 
 Node* Index::keyToNode(const std::string& key, size_t& index) const {
-    size_t length = key.length();
+    /*size_t length = key.length();
     if (length == 0) {
         index = 0;
         return indices[0];
@@ -28,7 +28,19 @@ Node* Index::keyToNode(const std::string& key, size_t& index) const {
     else {
         index = (key[0] + key[1] + key[2]) % (size - 1);
         return indices[index];
-    }
+    }*/
+    const char* str = key.c_str();
+    long hashVal = 0;
+	while (*str != '\0') {
+        hashVal = (hashVal << 4) + *(str++);
+		long g = hashVal & 0xF0000000L;
+		if (g != 0) {
+            hashVal ^= g >> 24;
+        }
+		hashVal &= ~g;
+	}
+	index = size_t(hashVal % (size - 1));
+    return indices[index];
 }
 
 void Index::updateIndex(size_t index, Node* node) {
