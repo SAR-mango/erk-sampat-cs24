@@ -170,16 +170,6 @@ bool DataStore::remove(const std::string& key) {
             node->right->dll_pos->right = node->right->right;
             delete node->right;
         }
-        /*if (node == head) {
-            head = head->next;
-            head->prev = nullptr;
-        }
-        else if (node == tail) {
-            tail = tail->prev;
-            tail->next = nullptr;
-        }
-        else{
-        }*/
         deleteNode(node);
         return true;
     }
