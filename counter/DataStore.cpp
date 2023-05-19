@@ -162,7 +162,24 @@ bool DataStore::remove(const std::string& key) {
         return false;
     }
     else { // correct key is present
-        index.updateIndex(idx, nullptr);
+        if (node->right == nullptr) {
+            index.updateIndex(idx, nullptr);
+        }
+        else {
+            index.updateIndex(idx, node->right->dll_pos);
+            node->right->dll_pos->right = node->right->right;
+            delete node->right;
+        }
+        /*if (node == head) {
+            head = head->next;
+            head->prev = nullptr;
+        }
+        else if (node == tail) {
+            tail = tail->prev;
+            tail->next = nullptr;
+        }
+        else{
+        }*/
         deleteNode(node);
         return true;
     }
