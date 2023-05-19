@@ -1,4 +1,5 @@
 #include "DataStore.h"
+#include <iostream>
 
 DataStore::DataStore() {
 }
@@ -139,17 +140,21 @@ bool DataStore::remove(const std::string& key) {
     size_t idx;
     Node* node = index.keyToNode(key, idx);
     if (node == nullptr) { // key isn't already present
+        std::cout << "node is null" << std::endl;
         return false;
     }
     else if (node->key != key) { // index conflict; key may or may not be present
+        std::cout << "index key doesn't match key" << std::endl;
         Right_Node* right = node->right;
         if (right == nullptr) {
+            std::cout << "no right keys" << std::endl;
             return false;
         }
         Right_Node* prev = right;
         while (right != nullptr) {
             if (right->dll_pos != nullptr) {
                 if (right->dll_pos->key == key) {
+                    std::cout << "found right node with matching key" << std::endl;
                     deleteNode(right->dll_pos);
                     prev->right = right->right;
                     delete right;
@@ -159,10 +164,18 @@ bool DataStore::remove(const std::string& key) {
             prev = right;
             right = right->right;
         }
+        std::cout << "found NO right node with matching key" << std::endl;
         return false;
     }
     else { // correct key is present
-        index.updateIndex(idx, nullptr);
+        std::cout << "indexed node's key matches key" << std::endl;
+        if (node->right == nullptr) {
+            index.updateIndex(idx, nullptr);
+        }
+        else {
+            index.updateIndex(idx, node->right->dll_pos);
+            node->right->dll_pos->right = node->right->right;
+        }
         deleteNode(node);
         return true;
     }
