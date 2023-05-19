@@ -164,12 +164,12 @@ bool DataStore::remove(const std::string& key) {
     else { // correct key is present
         if (node->right == nullptr) {
             index.updateIndex(idx, nullptr);
+            deleteNode(node);
         }
         else {
-            index.updateIndex(idx, node->right->dll_pos);
-            node->right->dll_pos->right = node->right->right;
+            node->key = "";
+            node->count = 0;
         }
-        deleteNode(node);
         return true;
     }
 }
