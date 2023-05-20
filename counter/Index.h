@@ -16,8 +16,8 @@ class Index {
     void updateIndex(size_t index, Node* node);
 
     private:
-    size_t size = 10000;
-    Node* indices[10000];
+    size_t size = 200000;
+    Node* indices[200000];
 };
 
 #endif
