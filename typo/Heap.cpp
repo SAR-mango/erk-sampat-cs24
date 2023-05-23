@@ -45,14 +45,14 @@ size_t Heap::count() const {
     return mCount;
 }
 
-const Entry& lookup(size_t index) const {
+const Heap::Entry& Heap::lookup(size_t index) const {
     if (index >= mCount) {
         throw std::out_of_range("index out of range");
     }
     return mData[index];
 }
 
-Entry Heap::pop() {
+Heap::Entry Heap::pop() {
     if (mCount == 0) {
         throw std::underflow_error("no items in heap");
     }
@@ -92,7 +92,7 @@ Entry Heap::pop() {
     }
 }
 
-Entry Heap::pushpop(const std::string& value, float score) {
+Heap::Entry Heap::pushpop(const std::string& value, float score) {
 }
 
 void Heap::push(const std::string& value, float score) {
@@ -121,7 +121,7 @@ void Heap::push(const std::string& value, float score) {
     mCount++;
 }
 
-const Heap::Entry& top() const {
+const Heap::Entry& Heap::top() const {
 }
 
 /*class Heap {
