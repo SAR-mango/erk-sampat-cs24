@@ -1,4 +1,5 @@
 #include "Heap.h"
+#include <stdexcept>
 
 Heap::Heap(size_t capacity) {
     mCapacity = capacity;
@@ -56,19 +57,18 @@ Heap::Entry Heap::pop() {
     if (mCount == 0) {
         throw std::underflow_error("no items in heap");
     }
-    Entry popped = *mData[0];
-    delete mData[0];
+    Entry popped = mData[0];
     mData[0] = mData[mCount - 1];
-    delete mData[mCount - 1];
+    //delete mData[mCount - 1];
     size_t curr_index = 0;
     size_t lc_index = curr_index * 2 + 1;
     size_t rc_index = curr_index * 2 + 2;
-    Entry* curr = mData[curr_index];
-    Entry* lc = mData[lc_index];
-    Entry* rc = mData[rc_index];
-    while (lc->score < curr->score || rc->score < curr->score) {
-        if (lc->score <= rc->score) {
-            Entry* temp = lc;
+    Entry curr = mData[curr_index];
+    Entry lc = mData[lc_index];
+    Entry rc = mData[rc_index];
+    while (lc.score < curr.score || rc.score < curr.score) {
+        if (lc.score <= rc.score) {
+            Entry temp = lc;
             mData[lc_index] = curr;
             mData[curr_index] = temp;
             curr_index = lc_index;
@@ -79,7 +79,7 @@ Heap::Entry Heap::pop() {
             rc = mData[rc_index];
         }
         else {
-            Entry* temp = rc;
+            Entry temp = rc;
             mData[rc_index] = curr;
             mData[curr_index] = temp;
             curr_index = rc_index;
@@ -90,18 +90,22 @@ Heap::Entry Heap::pop() {
             rc = mData[rc_index];
         }
     }
+    mCount--;
+    return popped;
 }
 
 Heap::Entry Heap::pushpop(const std::string& value, float score) {
+    Entry entry;
+    return entry;
 }
 
 void Heap::push(const std::string& value, float score) {
     if (mCount == mCapacity) {
         throw std::overflow_error("heap is full");
     }
-    Entry* new_entry = new Entry;
-    new_entry->value = value;
-    new_entry->score = score;
+    Entry new_entry;
+    new_entry.value = value;
+    new_entry.score = score;
     mData[mCount] = new_entry;
     if (mCount == 0) {
         mCount++;
@@ -109,19 +113,24 @@ void Heap::push(const std::string& value, float score) {
     }
     size_t parent_index = (mCount - 1) / 2;
     size_t new_index = mCount;
-    Entry* parent = mData[parent_index];
-    while (parent->score > new_entry->score || new_index > 0) {
-        Entry* temp = parent;
+    Entry parent = mData[parent_index];
+    while (parent.score > new_entry.score || new_index > 0) {
+        Entry temp = parent;
         mData[parent_index] = new_entry;
         mData[new_index] = temp;
         parent = temp;
         new_index = parent_index;
         parent_index = (new_index - 1) / 2;
+        parent = mData[parent_index];
     }
     mCount++;
 }
 
 const Heap::Entry& Heap::top() const {
+    if (mCount == 0) {
+        throw std::underflow_error("no items in heap");
+    }
+    return mData[0];
 }
 
 /*class Heap {
