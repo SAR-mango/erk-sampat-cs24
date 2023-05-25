@@ -63,9 +63,11 @@ const Heap::Entry& Heap::lookup(size_t index) const {
 }
 
 Heap::Entry Heap::pop() {
+    return mData[0];
 }
 
 Heap::Entry Heap::pushpop(const std::string& value, float score) {
+    return mData[0];
 }
 
 void Heap::push(const std::string& value, float score) {
@@ -103,6 +105,7 @@ void Heap::push(const std::string& value, float score) {
 }
 
 const Heap::Entry& Heap::top() const {
+    return mData[0];
 }
 
 /*class Heap {
