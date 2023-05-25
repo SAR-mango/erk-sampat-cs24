@@ -75,26 +75,15 @@ Heap::Entry Heap::pop() {
     mData[0] = mData[mCount]; // put last entry in index 0
     size_t i = 0; // i = index of parent
     while (i < mCount) {
-        if ((i * 2 + 1) >= mCount && (i * 2 + 2) >= mCount) { // no children
-            break;
-        }
-        else if ((i * 2 + 1) >= mCount) { // right child
+        if ((i * 2 + 2) >= mCount) {
+            if ((i * 2 + 1) >= mCount) { // no children
+                break;
+            }
             if (mData[i * 2 + 1].score < mData[i].score) {
                 Entry temp_child = mData[i * 2 + 1];
                 mData[i * 2 + 1] = mData[i];
                 mData[i] = temp_child;
                 i = i * 2 + 1;
-            }
-            else {
-                break;
-            }
-        }
-        else if ((i * 2 + 2) >= mCount) { // left child
-            if (mData[i * 2 + 2].score < mData[i].score) {
-                Entry temp_child = mData[i * 2 + 2];
-                mData[i * 2 + 2] = mData[i];
-                mData[i] = temp_child;
-                i = i * 2 + 2;
             }
             else {
                 break;
