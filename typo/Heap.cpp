@@ -63,7 +63,79 @@ const Heap::Entry& Heap::lookup(size_t index) const {
 }
 
 Heap::Entry Heap::pop() {
-    return mData[0];
+    if (mCount == 0) {
+        throw std::underflow_error("heap is empty");
+    }
+    if (mCount == 1) {
+        mCount--;
+        return mData[0];
+    }
+    Entry min_entry = mData[0]; // make a copy of the entry to return
+    mCount--; // decrement count
+    mData[0] = mData[mCount]; // put last entry in index 0
+    size_t i = 0; // i = index of parent
+    while (i < mCount) {
+        if ((i * 2 + 1) >= mCount && (i * 2 + 2) >= mCount) { // no children
+            break;
+        }
+        else if ((i * 2 + 1) >= mCount) { // right child
+            if (mData[i * 2 + 1].score < mData[i].score) {
+                Entry temp_child = mData[i * 2 + 1];
+                mData[i * 2 + 1] = mData[i];
+                mData[i] = temp_child;
+                i = i * 2 + 1;
+            }
+            else {
+                break;
+            }
+        }
+        else if ((i * 2 + 2) >= mCount) { // left child
+            if (mData[i * 2 + 2].score < mData[i].score) {
+                Entry temp_child = mData[i * 2 + 2];
+                mData[i * 2 + 2] = mData[i];
+                mData[i] = temp_child;
+                i = i * 2 + 2;
+            }
+            else {
+                break;
+            }
+        }
+        else { // both children
+            float curr_score = mData[i].score;
+            float left_child_score = mData[i * 2 + 1].score;
+            float right_child_score = mData[i * 2 + 2].score;
+            if (left_child_score >= curr_score && right_child_score >= curr_score) {
+                break;
+            }
+            else if (left_child_score >= curr_score) {
+                Entry temp_child = mData[i * 2 + 2];
+                mData[i * 2 + 2] = mData[i];
+                mData[i] = temp_child;
+                i = i * 2 + 2;
+            }
+            else if (right_child_score >= curr_score) {
+                Entry temp_child = mData[i * 2 + 1];
+                mData[i * 2 + 1] = mData[i];
+                mData[i] = temp_child;
+                i = i * 2 + 1;
+            }
+            else {
+                if (left_child_score <= right_child_score) {
+                    Entry temp_child = mData[i * 2 + 1];
+                    mData[i * 2 + 1] = mData[i];
+                    mData[i] = temp_child;
+                    i = i * 2 + 1;
+                }
+                else {
+                    Entry temp_child = mData[i * 2 + 2];
+                    mData[i * 2 + 2] = mData[i];
+                    mData[i] = temp_child;
+                    i = i * 2 + 2;
+                }
+            }
+        }
+    }
+    return min_entry;
 }
 
 Heap::Entry Heap::pushpop(const std::string& value, float score) {
@@ -75,32 +147,25 @@ void Heap::push(const std::string& value, float score) {
         throw std::overflow_error("heap is full");
     }
     if (mCount == 0) {
-        //std::cout << "nothing in heap, so putting " << value << " in index 0" << std::endl;
         mData[0].value = value;
         mData[0].score = score;
         mCount++;
         return;
     }
     mData[mCount].value = value;
-    mData[mCount].score = score; // put new entry in first available slot
-    //std::cout << "heap not empty, so putting " << value << " in index " << mCount << std::endl;
-    size_t i = mCount; // index of new entry
-    Entry new_entry = mData[i]; // save a copy of new entry
-    Entry parent_entry = mData[(i - 1) / 2]; // save a copy of its parent
-    while (i != 0 && parent_entry.score > new_entry.score) { // if new entry is at the beginning or its score is higher than its parent's score, we are done; otherwise, swap the new entry with its parent
-        //std::cout << "swapping" << std::endl;
-        mData[i] = parent_entry; // replace new entry with its parent
-        i = (i - 1) / 2; // index of new entry is now index of its parent
-        mData[i] = new_entry; // replace parent with new entry
+    mData[mCount].score = score;
+    size_t i = mCount;
+    Entry new_entry = mData[i];
+    Entry parent_entry = mData[(i - 1) / 2];
+    while (i != 0 && parent_entry.score > new_entry.score) {
+        mData[i] = parent_entry;
+        i = (i - 1) / 2;
+        mData[i] = new_entry;
         if (i > 0) {
-            parent_entry = mData[(i - 1) / 2]; // set the new parent, but only if the new entry is not at the beginning
+            parent_entry = mData[(i - 1) / 2];
         }
     }
     mCount++;
-    for (size_t i = 0; i < mCount; i++) {
-        //std::cout << '[' << mData[i].value << ", " << mData[i].score << "] ";
-    }
-    //std::cout << std::endl;
     return;
 }
 
