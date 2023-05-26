@@ -138,8 +138,6 @@ Heap::Entry Heap::pushpop(const std::string& value, float score) {
         return min_entry;
     }
     Entry min_entry = mData[0]; // make a copy of the entry to return
-    //mCount--; // decrement count
-    //mData[0] = mData[mCount]; // put last entry in index 0
     mData[0].value = value;
     mData[0].score = score;
     size_t i = 0; // i = index of parent
@@ -229,30 +227,3 @@ const Heap::Entry& Heap::top() const {
     }
     return mData[0];
 }
-
-/*class Heap {
-public:
-    struct Entry {
-        std::string value;
-        float       score;
-    };
-
-private:
-    Entry* mData;
-    size_t mCapacity;
-    size_t mCount;
-
-public:
-    Heap(size_t capacity);
-    Heap(const Heap& other);
-    Heap(Heap&& other);
-    ~Heap();
-
-    size_t       capacity() const;
-    size_t       count() const;
-    const Entry& lookup(size_t index) const;
-    Entry        pop();
-    Entry        pushpop(const std::string& value, float score);
-    void         push(const std::string& value, float score);
-    const Entry& top() const;
-};*/
