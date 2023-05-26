@@ -6,12 +6,8 @@
 
 int main() {
     Heap heap(8);
-    //std::cout << heap.lookup(0).value << std::endl;
-    heap.push("test1", 0.5);
-    heap.push("test2", 0.6);
-    std::cout << heap.lookup(0).value << std::endl;
-    std::cout << heap.lookup(1).value << std::endl;
-    std::cout << heap.lookup(2).value << std::endl;
+
+    heap.push("Monday", 10);
 
     return 0;
 }
