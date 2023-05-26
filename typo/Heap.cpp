@@ -128,7 +128,72 @@ Heap::Entry Heap::pop() {
 }
 
 Heap::Entry Heap::pushpop(const std::string& value, float score) {
-    return mData[0];
+    if (mCount == 0) {
+        throw std::underflow_error("heap is empty");
+    }
+    if (mCount == 1) {
+        Entry min_entry = mData[0]; // make a copy of the entry to return
+        mData[0].value = value;
+        mData[0].score = score;
+        return min_entry;
+    }
+    Entry min_entry = mData[0]; // make a copy of the entry to return
+    //mCount--; // decrement count
+    //mData[0] = mData[mCount]; // put last entry in index 0
+    mData[0].value = value;
+    mData[0].score = score;
+    size_t i = 0; // i = index of parent
+    while (i < mCount) {
+        if ((i * 2 + 2) >= mCount) {
+            if ((i * 2 + 1) >= mCount) { // no children
+                break;
+            }
+            if (mData[i * 2 + 1].score < mData[i].score) {
+                Entry temp_child = mData[i * 2 + 1];
+                mData[i * 2 + 1] = mData[i];
+                mData[i] = temp_child;
+                i = i * 2 + 1;
+            }
+            else {
+                break;
+            }
+        }
+        else { // both children
+            float curr_score = mData[i].score;
+            float left_child_score = mData[i * 2 + 1].score;
+            float right_child_score = mData[i * 2 + 2].score;
+            if (left_child_score >= curr_score && right_child_score >= curr_score) {
+                break;
+            }
+            else if (left_child_score >= curr_score) {
+                Entry temp_child = mData[i * 2 + 2];
+                mData[i * 2 + 2] = mData[i];
+                mData[i] = temp_child;
+                i = i * 2 + 2;
+            }
+            else if (right_child_score >= curr_score) {
+                Entry temp_child = mData[i * 2 + 1];
+                mData[i * 2 + 1] = mData[i];
+                mData[i] = temp_child;
+                i = i * 2 + 1;
+            }
+            else {
+                if (left_child_score <= right_child_score) {
+                    Entry temp_child = mData[i * 2 + 1];
+                    mData[i * 2 + 1] = mData[i];
+                    mData[i] = temp_child;
+                    i = i * 2 + 1;
+                }
+                else {
+                    Entry temp_child = mData[i * 2 + 2];
+                    mData[i * 2 + 2] = mData[i];
+                    mData[i] = temp_child;
+                    i = i * 2 + 2;
+                }
+            }
+        }
+    }
+    return min_entry;
 }
 
 void Heap::push(const std::string& value, float score) {
