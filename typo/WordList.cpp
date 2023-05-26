@@ -1,7 +1,5 @@
 #include "WordList.h"
 #include <cmath>
-//#include <iostream>
-//#include <cstddef>
 
 WordList::WordList(std::istream& stream) {
     std::string input;
@@ -45,12 +43,3 @@ Heap WordList::correct(const std::vector<Point>& points, size_t maxcount, float 
     }
     return heap;
 }
-
-/*class WordList {
-    std::vector<std::string> mWords;
-
-public:
-    WordList(std::istream& stream);
-
-    Heap correct(const std::vector<Point>& points, size_t maxcount, float cutoff) const;
-};*/
