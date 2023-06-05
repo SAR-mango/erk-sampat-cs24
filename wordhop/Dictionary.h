@@ -18,6 +18,7 @@ class Dictionary {
   };
   std::unordered_map<std::string, Word*> lengths[MAX_LENGTH];
   std::unordered_map<std::string, std::vector<Word*>> templates_map[MAX_LENGTH];
+  size_t real_max_length = 0;
 
   // Helper Functions
   Dictionary(std::istream& stream);
