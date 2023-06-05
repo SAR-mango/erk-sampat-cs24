@@ -4,11 +4,21 @@
 #include <istream>
 #include <string>
 #include <vector>
+#include <unordered_map>
+#include <forward_list>
 
 class Dictionary {
   // Member Variables
+  struct Word {
+    std::string word = "";
+    std::forward_list<Word*> adjs;
+    std::vector<std::string> templates;
+  };
+  std::unordered_map<std::string, Word*> lengths[40];
+  std::unordered_map<std::string, std::vector<Word*>> templates_map[40];
 
   // Helper Functions
+  Dictionary(std::istream& stream);
 
 public:
   // The create function used by the autograder:
