@@ -1,4 +1,5 @@
 #include "Dictionary.h"
+#include "Errors.h"
 
 Dictionary::Dictionary(std::istream& stream) {
     std::string input;
@@ -14,7 +15,7 @@ Dictionary::Dictionary(std::istream& stream) {
             Word* word = new Word {input};
             size_t word_length = input.length();
             if (word_length >= MAX_LENGTH) {
-                exit(5);
+                exit(5); // indicates that max length is not long enough
             }
             if (word_length > real_max_length) {
                 real_max_length = word_length;
@@ -53,4 +54,31 @@ Dictionary::~Dictionary() {
 }
 
 std::vector<std::string> Dictionary::hop(const std::string& from, const std::string& to) {
+    if (from.length() >= MAX_LENGTH || to.length() >= MAX_LENGTH) {
+        exit(5); // indicates that max length is not long enough
+    }
+    try {
+        lengths[from.length()].at(from);
+    }
+    catch (std::out_of_range) {
+        throw InvalidWord(from);
+    }
+    try {
+        lengths[to.length()].at(to);
+    }
+    catch (std::out_of_range) {
+        throw InvalidWord(to);
+    }
+    if (from.length() != to.length()) {
+        throw NoChain();
+    }
+    std::vector<std::string> path;
+    if (from == to) {
+        path.push_back(from);
+        return path;
+    }
+    // bfs goes here!!
+    if (path.size() == 0) {
+        throw NoChain();
+    }
 }
