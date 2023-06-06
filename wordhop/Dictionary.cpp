@@ -1,6 +1,5 @@
 #include <queue>
 #include <unordered_set>
-#include <iostream>
 
 #include "Dictionary.h"
 #include "Errors.h"
@@ -20,7 +19,7 @@ Dictionary::Dictionary(std::istream& stream) {
             word->word = input;
             size_t word_length = input.length();
             if (word_length >= MAX_LENGTH) {
-                exit(5); // indicates that max length is not long enough
+                exit(5);
             }
             if (word_length > real_max_length) {
                 real_max_length = word_length;
@@ -60,7 +59,7 @@ Dictionary::~Dictionary() {
 
 std::vector<std::string> Dictionary::hop(const std::string& from, const std::string& to) {
     if (from.length() >= MAX_LENGTH || to.length() >= MAX_LENGTH) {
-        exit(5); // indicates that max length is not long enough
+        exit(5);
     }
     Word* from_node;
     try {
@@ -108,21 +107,14 @@ std::vector<std::string> Dictionary::hop(const std::string& from, const std::str
             }
         }
     }
-    for (auto i : word_p) {
-        std::cout << i.word->word << " parent ";
-        if (i.parent != nullptr) {
-            std::cout << i.parent->word;
-        }
-        std::cout << std::endl;
-    }
     if (!found) {
         throw NoChain();
     }
     size_t i = word_p.size() - 1;
-    std::string curr_word = word_p.at(i).word->word; // get top word
-    std::string parent_word = word_p.at(i).parent->word; // get parent of top word
-    path.push_back(curr_word); // push top word
-    path.push_back(parent_word); // push parent word
+    std::string curr_word = word_p.at(i).word->word;
+    std::string parent_word = word_p.at(i).parent->word;
+    path.push_back(curr_word);
+    path.push_back(parent_word);
     i--;
     while (true) {
         while (word_p.at(i).word->word != parent_word) {
@@ -134,11 +126,6 @@ std::vector<std::string> Dictionary::hop(const std::string& from, const std::str
             break;
         }
     }
-    // traverse until word is parent
-    for (auto i : path) {
-        std::cout << i << ' ';
-    }
-    std::cout << std::endl;
     std::reverse(path.begin(), path.end());
     return path;
 }
