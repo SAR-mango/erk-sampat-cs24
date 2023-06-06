@@ -118,4 +118,27 @@ std::vector<std::string> Dictionary::hop(const std::string& from, const std::str
     if (!found) {
         throw NoChain();
     }
+    size_t i = word_p.size() - 1;
+    std::string curr_word = word_p.at(i).word->word; // get top word
+    std::string parent_word = word_p.at(i).parent->word; // get parent of top word
+    path.push_back(curr_word); // push top word
+    path.push_back(parent_word); // push parent word
+    i--;
+    while (true) {
+        while (word_p.at(i).word->word != parent_word) {
+            i--;
+        }
+        parent_word = word_p.at(i).parent->word;
+        path.push_back(parent_word);
+        if (parent_word == from) {
+            break;
+        }
+    }
+    // traverse until word is parent
+    for (auto i : path) {
+        std::cout << i << ' ';
+    }
+    std::cout << std::endl;
+    std::reverse(path.begin(), path.end());
+    return path;
 }
