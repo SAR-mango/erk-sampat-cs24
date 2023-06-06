@@ -14,7 +14,8 @@ Dictionary::Dictionary(std::istream& stream) {
             }
         }
         if (valid) {
-            Word* word = new Word {input};
+            Word* word = new Word;
+            word->word = input;
             size_t word_length = input.length();
             if (word_length >= MAX_LENGTH) {
                 exit(5); // indicates that max length is not long enough
@@ -60,7 +61,6 @@ std::vector<std::string> Dictionary::hop(const std::string& from, const std::str
         exit(5); // indicates that max length is not long enough
     }
     Word* from_node;
-    Word* to_node;
     try {
         from_node = lengths[from.length()].at(from);
     }
@@ -68,7 +68,7 @@ std::vector<std::string> Dictionary::hop(const std::string& from, const std::str
         throw InvalidWord(from);
     }
     try {
-        to_node = lengths[to.length()].at(to);
+        lengths[to.length()].at(to);
     }
     catch (std::out_of_range) {
         throw InvalidWord(to);
