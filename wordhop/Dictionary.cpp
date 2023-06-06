@@ -117,6 +117,9 @@ std::vector<std::string> Dictionary::hop(const std::string& from, const std::str
     path.push_back(curr_word);
     path.push_back(parent_word);
     i--;
+    if (parent_word == from) {
+        return path;
+    }
     while (true) {
         while (word_p.at(i).word->word != parent_word) {
             i--;
