@@ -1,4 +1,6 @@
 #include <queue>
+#include <unordered_set>
+#include <iostream>
 
 #include "Dictionary.h"
 #include "Errors.h"
@@ -81,22 +83,39 @@ std::vector<std::string> Dictionary::hop(const std::string& from, const std::str
         path.push_back(from);
         return path;
     }
-    std::queue<Word*> q;
-    from_node->checked = true;
-    q.push(from_node);
+    struct Word_P {
+        Word* word = nullptr;
+        Word* parent = nullptr;
+    };
+    bool found = false;
+    std::unordered_set<std::string> visited;
+    std::queue<Word_P> q;
+    std::vector<Word_P> word_p;
+    visited.emplace(from_node->word);
+    q.push({from_node, nullptr});
     while (!q.empty()) {
-        Word* popped_word = q.front();
-        q.pop();
-        path.push_back(popped_word->word);
-        if (popped_word->word == to) {
-            return path;
+        Word_P curr_word_p = q.front();
+        word_p.push_back(curr_word_p);
+        if (curr_word_p.word->word == to) {
+            found = true;
+            break;
         }
-        for (auto adj_word = popped_word->adjs.begin(); adj_word != popped_word->adjs.end(); adj_word++) {
-            if (!(*adj_word)->checked) {
-                (*adj_word)->checked = true;
-                q.push(*adj_word);
+        q.pop();
+        for (auto adj : curr_word_p.word->adjs) {
+            if (visited.count(adj->word) == 0) {
+                visited.emplace(adj->word);
+                q.push({adj, curr_word_p.word});
             }
         }
     }
-    throw NoChain();
+    for (auto i : word_p) {
+        std::cout << i.word->word << " parent ";
+        if (i.parent != nullptr) {
+            std::cout << i.parent->word;
+        }
+        std::cout << std::endl;
+    }
+    if (!found) {
+        throw NoChain();
+    }
 }
