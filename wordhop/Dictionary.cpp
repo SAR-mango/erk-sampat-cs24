@@ -1,5 +1,6 @@
 #include <queue>
 #include <unordered_set>
+#include <algorithm>
 
 #include "Dictionary.h"
 #include "Errors.h"
