@@ -64,13 +64,13 @@ std::vector<std::string> Dictionary::hop(const std::string& from, const std::str
     try {
         from_node = lengths[from.length()].at(from);
     }
-    catch () {
+    catch (std::out_of_range const&) {
         throw InvalidWord(from);
     }
     try {
         lengths[to.length()].at(to);
     }
-    catch () {
+    catch (std::out_of_range const&) {
         throw InvalidWord(to);
     }
     if (from.length() != to.length()) {
