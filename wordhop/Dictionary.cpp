@@ -1,3 +1,5 @@
+#include <queue>
+
 #include "Dictionary.h"
 #include "Errors.h"
 
@@ -57,14 +59,16 @@ std::vector<std::string> Dictionary::hop(const std::string& from, const std::str
     if (from.length() >= MAX_LENGTH || to.length() >= MAX_LENGTH) {
         exit(5); // indicates that max length is not long enough
     }
+    Word* from_node;
+    Word* to_node;
     try {
-        lengths[from.length()].at(from);
+        from_node = lengths[from.length()].at(from);
     }
     catch (std::out_of_range) {
         throw InvalidWord(from);
     }
     try {
-        lengths[to.length()].at(to);
+        to_node = lengths[to.length()].at(to);
     }
     catch (std::out_of_range) {
         throw InvalidWord(to);
@@ -77,8 +81,22 @@ std::vector<std::string> Dictionary::hop(const std::string& from, const std::str
         path.push_back(from);
         return path;
     }
-    // bfs goes here!!
-    if (path.size() == 0) {
-        throw NoChain();
+    std::queue<Word*> q;
+    from_node->checked = true;
+    q.push(from_node);
+    while (!q.empty()) {
+        Word* popped_word = q.front();
+        q.pop();
+        path.push_back(popped_word->word);
+        if (popped_word->word == to) {
+            return path;
+        }
+        for (auto adj_word = popped_word->adjs.begin(); adj_word != popped_word->adjs.end(); adj_word++) {
+            if (!(*adj_word)->checked) {
+                (*adj_word)->checked = true;
+                q.push(*adj_word);
+            }
+        }
     }
+    throw NoChain();
 }
