@@ -15,7 +15,6 @@ class Dictionary {
     std::string word = "";
     std::forward_list<Word*> adjs;
     std::vector<std::string> templates;
-    bool checked = false;
   };
   std::unordered_map<std::string, Word*> lengths[MAX_LENGTH];
   std::unordered_map<std::string, std::vector<Word*>> templates_map[MAX_LENGTH];
