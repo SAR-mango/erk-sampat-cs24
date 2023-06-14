@@ -14,7 +14,6 @@
 
 class GenePool {
   // Member Variables
-  std::set<Person*> Everyone = {};
 
   // Helper Functions
 
