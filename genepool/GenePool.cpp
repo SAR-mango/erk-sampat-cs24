@@ -34,6 +34,12 @@ GenePool::GenePool(std::istream& stream) {
                 }
             }
             Person* person_ptr = new Person(name, gender, everyone_map[mother], everyone_map[father]);
+            if (mother != "???") {
+                everyone_map[mother]->addKid(person);
+            }
+            if (father != "???") {
+                everyone_map[father]->addKid(person);
+            }
             everyone_map.emplace(name, person_ptr);
             everyone_set.insert(person_ptr);
         }
