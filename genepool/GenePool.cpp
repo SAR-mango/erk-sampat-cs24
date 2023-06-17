@@ -60,10 +60,8 @@ std::set<Person*> GenePool::everyone() const {
 
 Person* GenePool::find(const std::string& name) const {
     Person* person = nullptr;
-    try {
+    if (everyone_map.contains(name)) {
         person = everyone_map.at(name);
-    }
-    catch (std::out_of_range) {
     }
     return person;
 }
