@@ -41,12 +41,13 @@ std::set<Person*> Person::aunts(PMod pmod, SMod smod) {
 }
 
 std::set<Person*> Person::brothers(PMod pmod, SMod smod) {
-    std::set<Person*> brothers_set;
-    return brothers_set;
 }
 
 std::set<Person*> Person::children() {
     std::set<Person*> children_set;
+    for (Person* person : p_children) {
+        children_set.insert(person);
+    }
     return children_set;
 }
 
@@ -72,11 +73,19 @@ std::set<Person*> Person::descendants() {
 
 std::set<Person*> Person::grandchildren() {
     std::set<Person*> grandchildren_set;
+    for (Person* kid : p_children) {
+        std::set<Person*> ch_children = kid.children();
+        grandchildren_set.merge(ch_children);
+    }
     return grandchildren_set;
 }
 
 std::set<Person*> Person::granddaughters() {
     std::set<Person*> granddaughters_set;
+    for (Person* kid : p_children) {
+        std::set<Person*> ch_daughters = kid.daughters();
+        granddaughters_set.merge(ch_daughters);
+    }
     return granddaughters_set;
 }
 
@@ -97,6 +106,10 @@ std::set<Person*> Person::grandparents(PMod pmod) {
 
 std::set<Person*> Person::grandsons() {
     std::set<Person*> grandsons_set;
+    for (Person* kid : p_children) {
+        std::set<Person*> ch_sons = kid.sons();
+        grandsons_set.merge(ch_sons);
+    }
     return grandsons_set;
 }
 
