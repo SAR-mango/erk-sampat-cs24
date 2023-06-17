@@ -36,6 +36,7 @@ std::set<Person*> Person::ancestors(PMod pmod) {
         if (p_mother == nullptr) {
             return ancestors_set;
         }
+        ancestors_set,insert(p_mother);
         std::set<Person*> m_ancestors = p_mother->ancestors();
         ancestors_set.merge(m_ancestors);
         return ancestors_set;
@@ -44,16 +45,19 @@ std::set<Person*> Person::ancestors(PMod pmod) {
         if (p_father == nullptr) {
             return ancestors_set;
         }
+        ancestors_set.insert(p_father);
         std::set<Person*> f_ancestors = p_father->ancestors();
         ancestors_set.merge(f_ancestors);
         return ancestors_set;
     }
     else {
         if (p_mother != nullptr) {
+            ancestors_set.insert(p_mother);
             std::set<Person*> m_ancestors = p_mother->ancestors();
             ancestors_set.merge(m_ancestors);
         }
         if (p_father != nullptr) {
+            ancestors_set.insert(p_father);
             std::set<Person*> f_ancestors = p_father->ancestors();
             ancestors_set.merge(f_ancestors);
         }
