@@ -6,7 +6,7 @@
 #include <istream>
 #include <set>
 #include <string>
-#include <map>
+#include <unordered_map>
 
 // This is the database class you need to implement.
 // It stores a collection of people and supports lookup by name.
@@ -14,7 +14,7 @@
 
 class GenePool {
   // Member Variables
-  std::map<std::string, Person*> everyone_map;
+  std::unordered_map<std::string, Person*> everyone_map;
   std::set<Person*> everyone_set;
 
   // Helper Functions
