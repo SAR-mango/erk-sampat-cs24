@@ -3,17 +3,17 @@
 // GenePool Member Functions
 
 GenePool::GenePool(std::istream& stream) {
-    std::string name = "";
-    std::string gender = "";
-    std::string mother = "";
-    std::string father = "";
-    std::string input = "";
     everyone_map.emplace("???", nullptr);
+    std::string input = "";
     while (std::getline(stream, input)) {
         if (input[0] == '\n' || input[0] == '#') {
             continue;
         }
         else {
+            std::string name = "";
+            std::string gender = "";
+            std::string mother = "";
+            std::string father = "";
             size_t state = 0; // 0 name, 1 gender, 2 mother, 3 father
             for (size_t i = 0; i < input.length(); i++) {
                 if (input[i] == '\t') {
