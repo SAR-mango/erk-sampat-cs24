@@ -63,7 +63,7 @@ Person* GenePool::find(const std::string& name) const {
     try {
         person = everyone_map.at(name);
     }
-    catch () {
+    catch (std::out_of_range const&) {
     }
     return person;
 }
