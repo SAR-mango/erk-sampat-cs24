@@ -184,18 +184,22 @@ std::set<Person*> Person::siblings(PMod pmod, SMod smod) {
         if (p_mother != nullptr) {
             m_children = p_mother->children();
             m_children.erase(this);
-            for (Person* m_child : m_children) {
-                if (m_child->father() == p_father) {
-                    m_children.erase(m_child);
+            if (p_father != nullptr) {
+                for (Person* m_child : m_children) {
+                    if (m_child->father() == p_father) {
+                        m_children.erase(m_child);
+                    }
                 }
             }
         }
         if (p_father != nullptr) {
             f_children = p_father->children();
             f_children.erase(this);
-            for (Person* f_child : f_children) {
-                if (f_child->mother() == p_mother) {
-                    f_children.erase(f_child);
+            if (p_mother != nullptr) {
+                for (Person* f_child : f_children) {
+                    if (f_child->mother() == p_mother) {
+                        f_children.erase(f_child);
+                    }
                 }
             }
         }
@@ -209,18 +213,22 @@ std::set<Person*> Person::siblings(PMod pmod, SMod smod) {
         if (p_mother != nullptr) {
             m_children = p_mother->children();
             m_children.erase(this);
-            for (Person* m_child : m_children) {
-                if (m_child->father() != p_father) {
-                    m_children.erase(m_child);
+            if (p_father != nullptr) {
+                for (Person* m_child : m_children) {
+                    if (m_child->father() != p_father) {
+                        m_children.erase(m_child);
+                    }
                 }
             }
         }
         if (p_father != nullptr) {
             f_children = p_father->children();
             f_children.erase(this);
-            for (Person* f_child : f_children) {
-                if (f_child->mother() != p_mother) {
-                    f_children.erase(f_child);
+            if (p_mother != nullptr) {
+                for (Person* f_child : f_children) {
+                    if (f_child->mother() != p_mother) {
+                        f_children.erase(f_child);
+                    }
                 }
             }
         }
