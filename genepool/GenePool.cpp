@@ -6,7 +6,7 @@ GenePool::GenePool(std::istream& stream) {
     everyone_map.emplace("???", nullptr);
     std::string input = "";
     while (std::getline(stream, input)) {
-        if (input[0] == '\n' || input[0] == '#') {
+        if (input.length() == 0 || input[0] == '#') {
             continue;
         }
         else {
