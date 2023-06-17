@@ -14,7 +14,7 @@
 
 class GenePool {
   // Member Variables
-  std::map<std::string, Person*> everyone;
+  std::map<std::string, Person*> everyone_map;
   std::set<Person*> everyone_set;
 
   // Helper Functions
