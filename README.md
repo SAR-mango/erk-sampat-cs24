@@ -1,9 +1,9 @@
 # ACADEMIC INTEGRITY NOTICE
 This repository contains all my work from CS 24 (Spring 2023) at UCSB. This repository was required to remain private for the duration of the course. Since I have completed the course, I have decided to make this repository public _for the sole purpose of showcasing my work_ with data structures and algorithms.
 
-**COPYING ANY CODE FROM THIS REPOSITORY FOR ACADEMIC PURPOSES IS _AT YOUR OWN RISK;_ you assume _COMPLETE RESPONSIBILITY_ for any resulting consequences. You have been warned!**
+**COPYING ANY CODE FROM THIS REPOSITORY FOR ACADEMIC PURPOSES IS AT YOUR OWN RISK; you assume COMPLETE RESPONSIBILITY for any resulting consequences. You have been warned!**
 
-Furthermore, copying code from this repository for _personal_ purposes is NOT PERMITTED without first asking for permission and without appropriate credit. Here is [an example](https://github.com/elijahelephant/connections) of someone who has copied my work without permission and labeled it as their own work.
+Furthermore, copying code from this repository for _personal_ purposes is NOT ALLOWED without permission and appropriate credit given to me or Professor Burk. Here is [an example](https://github.com/elijahelephant/connections) of someone who has copied my work without permission and labeled it as their own work.
 
 Finally, all assignments and course materials were created by [Professor Burk](https://github.com/xavierholt). Please contact him before using any materials in this repository.
 
