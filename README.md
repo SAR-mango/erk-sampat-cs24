@@ -3,7 +3,7 @@ This repository contains all my work from CS 24 (Spring 2023) at UCSB. This repo
 
 ### **COPYING ANY CODE FROM THIS REPOSITORY FOR ACADEMIC PURPOSES IS AT YOUR OWN RISK; you assume COMPLETE RESPONSIBILITY for any resulting consequences. You have been warned!**
 
-Furthermore, copying code from this repository for _personal_ purposes is NOT ALLOWED without permission and appropriate credit given to me or Professor Burk. Here is [an example](https://github.com/elijahelephant/connections) of someone who has copied my work without permission and labeled it as their own work.
+Furthermore, copying code from this repository for **personal** purposes is NOT ALLOWED without permission and appropriate credit given to me or Professor Burk. Here is [an example](https://github.com/elijahelephant/connections) of someone who has copied my work without permission and labeled it as their own work.
 
 Finally, all assignments and course materials were created by [Professor Burk](https://github.com/xavierholt). Please contact him before using any materials in this repository.
 
